@@ -1,8 +1,8 @@
 /*
  * \file EcalEndcapMonitorTestPulseClient.cpp
  *
- *  $Date: 2006/07/07 18:41:49 $
- *  $Revision: 1.24 $
+ *  $Date: 2007/04/02 16:15:34 $
+ *  $Revision: 1.1 $
  *  \author G. Della Ricca
  *
  */
@@ -12,7 +12,7 @@
 
 #include "DataFormats/EcalRawData/interface/EcalRawDataCollections.h"
 
-#include "DQM/EcalEndcapMonitorClient/interface/EEMUtilsClient.h"
+#include "DQM/EcalCommon/interface/UtilsClient.h"
 
 #include "TROOT.h"
 #include "TApplication.h"
@@ -114,7 +114,7 @@ void *pth1(void *) {
 
 //      me = mui->get("Collector/FU0/EcalEndcap/EETestPulseTask/Gain01/EETPT amplitude SM01 G01");
       me = mui->get("EcalEndcap/Sums/EETestPulseTask/Gain01/EETPT amplitude SM01 G01");
-      h = EEMUtilsClient::getHisto<TProfile2D*>(me);
+      h = UtilsClient::getHisto<TProfile2D*>(me);
       if ( h ) {
         c1->cd();
         h->SetOption("col");
@@ -124,7 +124,7 @@ void *pth1(void *) {
 
 //      me = mui->get("Collector/FU0/EcalEndcap/EETestPulseTask/Gain06/EETPT amplitude SM01 G06");
       me = mui->get("EcalEndcap/Sums/EETestPulseTask/Gain06/EETPT amplitude SM01 G06");
-      h = EEMUtilsClient::getHisto<TProfile2D*>(me);
+      h = UtilsClient::getHisto<TProfile2D*>(me);
       if ( h ) {
         c2->cd();
         h->SetOption("col");
@@ -134,7 +134,7 @@ void *pth1(void *) {
 
 //      me = mui->get("Collector/FU0/EcalEndcap/EETestPulseTask/Gain12/EETPT amplitude SM01 G12");
       me = mui->get("EcalEndcap/Sums/EETestPulseTask/Gain12/EETPT amplitude SM01 G12");
-      h = EEMUtilsClient::getHisto<TProfile2D*>(me);
+      h = UtilsClient::getHisto<TProfile2D*>(me);
       if ( h ) {
         c3->cd();
         h->SetOption("col");
@@ -144,7 +144,7 @@ void *pth1(void *) {
 
 //      me = mui->get("Collector/FU0/EcalEndcap/EETestPulseTask/Gain01/EETPT shape SM01 G01");
       me = mui->get("EcalEndcap/Sums/EETestPulseTask/Gain01/EETPT shape SM01 G01");
-      h = EEMUtilsClient::getHisto<TProfile2D*>(me);
+      h = UtilsClient::getHisto<TProfile2D*>(me);
       if ( h ) {
         c4->cd();
         h->SetOption("lego");
@@ -154,7 +154,7 @@ void *pth1(void *) {
 
 //      me = mui->get("Collector/FU0/EcalEndcap/EETestPulseTask/Gain06/EETPT shape SM01 G06");
       me = mui->get("EcalEndcap/Sums/EETestPulseTask/Gain06/EETPT shape SM01 G06");
-      h = EEMUtilsClient::getHisto<TProfile2D*>(me);
+      h = UtilsClient::getHisto<TProfile2D*>(me);
       if ( h ) {
         c5->cd();
         h->SetOption("lego");
@@ -164,7 +164,7 @@ void *pth1(void *) {
 
 //      me = mui->get("Collector/FU0/EcalEndcap/EETestPulseTask/Gain12/EETPT shape SM01 G12");
       me = mui->get("EcalEndcap/Sums/EETestPulseTask/Gain12/EETPT shape SM01 G12");
-      h = EEMUtilsClient::getHisto<TProfile2D*>(me);
+      h = UtilsClient::getHisto<TProfile2D*>(me);
       if ( h ) {
         c6->cd();
         h->SetOption("lego");

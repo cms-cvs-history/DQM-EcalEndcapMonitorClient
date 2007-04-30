@@ -1,8 +1,8 @@
 /*
  * \file EcalEndcapMonitorLaserClient.cpp
  *
- *  $Date: 2006/07/07 18:41:49 $
- *  $Revision: 1.26 $
+ *  $Date: 2007/04/02 16:15:34 $
+ *  $Revision: 1.1 $
  *  \author G. Della Ricca
  *
  */
@@ -12,7 +12,7 @@
 
 #include "DataFormats/EcalRawData/interface/EcalRawDataCollections.h"
 
-#include "DQM/EcalEndcapMonitorClient/interface/EEMUtilsClient.h"
+#include "DQM/EcalCommon/interface/UtilsClient.h"
 
 #include "TROOT.h"
 #include "TApplication.h"
@@ -110,7 +110,7 @@ void *pth1(void *) {
 
 //      me = mui->get("Collector/FU0/EcalEndcap/EELaserTask/Laser1/EELT amplitude SM01 L1");
       me = mui->get("EcalEndcap/Sums/EELaserTask/Laser1/EELT amplitude SM01 L1");
-      h = EEMUtilsClient::getHisto<TProfile2D*>(me);
+      h = UtilsClient::getHisto<TProfile2D*>(me);
       if ( h ) {
         c1->cd();
         h->SetOption("col");
@@ -120,7 +120,7 @@ void *pth1(void *) {
 
 //      me = mui->get("Collector/FU0/EcalEndcap/EELaserTask/Laser2/EELT amplitude SM01 L2");
       me = mui->get("EcalEndcap/Sums/EELaserTask/Laser2/EELT amplitude SM01 L2");
-      h = EEMUtilsClient::getHisto<TProfile2D*>(me);
+      h = UtilsClient::getHisto<TProfile2D*>(me);
       if ( h ) {
         c2->cd();
         h->SetOption("col");
@@ -130,7 +130,7 @@ void *pth1(void *) {
 
 //      me = mui->get("Collector/FU0/EcalEndcap/EELaserTask/Laser1/EELT shape SM01 L1");
       me = mui->get("EcalEndcap/Sums/EELaserTask/Laser1/EELT shape SM01 L1");
-      h = EEMUtilsClient::getHisto<TProfile2D*>(me);
+      h = UtilsClient::getHisto<TProfile2D*>(me);
       if ( h ) {
         c3->cd();
         h->SetOption("lego");
@@ -140,7 +140,7 @@ void *pth1(void *) {
 
 //      me = mui->get("Collector/FU0/EcalEndcap/EELaserTask/Laser2/EELT shape SM01 L2");
       me = mui->get("EcalEndcap/Sums/EELaserTask/Laser2/EELT shape SM01 L2");
-      h = EEMUtilsClient::getHisto<TProfile2D*>(me);
+      h = UtilsClient::getHisto<TProfile2D*>(me);
       if ( h ) {
         c4->cd();
         h->SetOption("lego");

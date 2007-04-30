@@ -1,8 +1,8 @@
 /*
  * \file EcalEndcapMonitorCosmicClient.cpp
  *
- *  $Date: 2006/07/07 18:41:49 $
- *  $Revision: 1.23 $
+ *  $Date: 2007/04/02 16:15:34 $
+ *  $Revision: 1.1 $
  *  \author G. Della Ricca
  *
  */
@@ -12,7 +12,7 @@
 
 #include "DataFormats/EcalRawData/interface/EcalRawDataCollections.h"
 
-#include "DQM/EcalEndcapMonitorClient/interface/EEMUtilsClient.h"
+#include "DQM/EcalCommon/interface/UtilsClient.h"
 
 #include "TROOT.h"
 #include "TApplication.h"
@@ -106,7 +106,7 @@ void *pth1(void *) {
 
 //      me = mui->get("Collector/FU0/EcalEndcap/EECosmicTask/Cut/EECT energy cut SM01");
       me = mui->get("EcalEndcap/Sums/EECosmicTask/Cut/EECT energy cut SM01");
-      h = EEMUtilsClient::getHisto<TProfile2D*>(me);
+      h = UtilsClient::getHisto<TProfile2D*>(me);
       if ( h ) {
         c1->cd();
         h->SetMaximum(1000.);
@@ -117,7 +117,7 @@ void *pth1(void *) {
 
 //      me = mui->get("Collector/FU0/EcalEndcap/EECosmicTask/Sel/EECT energy sel SM01");
       me = mui->get("EcalEndcap/Sums/EECosmicTask/Sel/EECT energy sel SM01");
-      h = EEMUtilsClient::getHisto<TProfile2D*>(me);
+      h = UtilsClient::getHisto<TProfile2D*>(me);
       if ( h ) {
         c2->cd();
         h->SetMaximum(1000.);

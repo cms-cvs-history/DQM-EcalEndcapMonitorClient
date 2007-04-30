@@ -1,8 +1,8 @@
 /*
  * \file EcalEndcapMonitorIntegrityClient.cpp
  *
- *  $Date: 2006/07/07 18:41:49 $
- *  $Revision: 1.27 $
+ *  $Date: 2007/04/02 16:15:34 $
+ *  $Revision: 1.1 $
  *  \author G. Della Ricca
  *
  */
@@ -12,7 +12,7 @@
 
 #include "DataFormats/EcalRawData/interface/EcalRawDataCollections.h"
 
-#include "DQM/EcalEndcapMonitorClient/interface/EEMUtilsClient.h"
+#include "DQM/EcalCommon/interface/UtilsClient.h"
 
 #include "TROOT.h"
 #include "TApplication.h"
@@ -115,7 +115,7 @@ void *pth1(void *) {
 
       //      me = mui->get("Collector/FU0/EcalEndcap/EEIntegrityTask/EEIT DCC size error");
       me = mui->get("EcalEndcap/Sums/EEIntegrityTask/EEIT DCC size error");
-      h1 = EEMUtilsClient::getHisto<TH1F*>(me);
+      h1 = UtilsClient::getHisto<TH1F*>(me);
       if ( h1 ) {
         c1->cd();
         h1->SetOption("text");
@@ -125,7 +125,7 @@ void *pth1(void *) {
     
       //      me = mui->get("Collector/FU0/EcalEndcap/EEIntegrityTask/Gain/EEIT gain SM01");
       me = mui->get("EcalEndcap/Sums/EEIntegrityTask/Gain/EEIT gain SM01");
-      h2 = EEMUtilsClient::getHisto<TH2F*>(me);
+      h2 = UtilsClient::getHisto<TH2F*>(me);
       if ( h2 ) {
         c2->cd(1);
         h2->SetOption("text");
@@ -135,7 +135,7 @@ void *pth1(void *) {
 
       //      me = mui->get("Collector/FU0/EcalEndcap/EEIntegrityTask/ChId/EEIT ChId SM01");
       me = mui->get("EcalEndcap/Sums/EEIntegrityTask/ChId/EEIT ChId SM01");
-      h2 = EEMUtilsClient::getHisto<TH2F*>(me);
+      h2 = UtilsClient::getHisto<TH2F*>(me);
       if ( h2 ) {
         c2->cd(2);
         h2->SetOption("text");
@@ -145,7 +145,7 @@ void *pth1(void *) {
 
       //      me = mui->get("Collector/FU0/EcalEndcap/EEIntegrityTask/TTId/EEIT TTId SM01");
       me = mui->get("EcalEndcap/Sums/EEIntegrityTask/TTId/EEIT TTId SM01");
-      h2 = EEMUtilsClient::getHisto<TH2F*>(me);
+      h2 = UtilsClient::getHisto<TH2F*>(me);
       if ( h2 ) {
         c2->cd(3);
         h2->SetOption("text");
@@ -155,7 +155,7 @@ void *pth1(void *) {
 
       //      me = mui->get("Collector/FU0/EcalEndcap/EEIntegrityTask/TTBlockSize/EEIT TTBlockSize SM01");
       me = mui->get("EcalEndcap/Sums/EEIntegrityTask/TTBlockSize/EEIT TTBlockSize SM01");
-      h2 = EEMUtilsClient::getHisto<TH2F*>(me);
+      h2 = UtilsClient::getHisto<TH2F*>(me);
       if ( h2 ) {
         c2->cd(4);
         h2->SetOption("text");
@@ -169,7 +169,7 @@ void *pth1(void *) {
 
       // me = mui->get("EcalEndcap/Sums/EEIntegrityTask/TTBlockSize/EEIT TTBlockSize SM01");
       me = mui->get("EcalEndcap/Sums/EEIntegrityTask/MemChId/EEIT MemChId SM01");
-       h2 = EEMUtilsClient::getHisto<TH2F*>(me);
+       h2 = UtilsClient::getHisto<TH2F*>(me);
        if ( h2 ) {
          c3->cd(1);
          h2->SetOption("col");
@@ -182,7 +182,7 @@ void *pth1(void *) {
       c3->Update();
 
       me = mui->get("EcalEndcap/Sums/EEIntegrityTask/MemGain/EEIT MemGain SM01");
-      h2 = EEMUtilsClient::getHisto<TH2F*>(me);
+      h2 = UtilsClient::getHisto<TH2F*>(me);
       if ( h2 ) {
         c3->cd(2);
         h2->SetOption("col");

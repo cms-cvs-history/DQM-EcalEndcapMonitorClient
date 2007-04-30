@@ -1,8 +1,8 @@
 /*
  * \file EcalEndcapMonitorClient.cpp
  *
- *  $Date: 2006/07/07 18:41:49 $
- *  $Revision: 1.27 $
+ *  $Date: 2007/04/02 16:15:34 $
+ *  $Revision: 1.1 $
  *  \author G. Della Ricca
  *
  */
@@ -12,7 +12,7 @@
 
 #include "DataFormats/EcalRawData/interface/EcalRawDataCollections.h"
 
-#include "DQM/EcalEndcapMonitorClient/interface/EEMUtilsClient.h"
+#include "DQM/EcalCommon/interface/UtilsClient.h"
 
 #include "TROOT.h"
 #include "TApplication.h"
@@ -106,7 +106,7 @@ void *pth1(void *) {
 
 //      me = mui->get("Collector/FU0/EcalEndcap/EcalInfo/EVTTYPE");
       me = mui->get("EcalEndcap/Sums/EcalInfo/EVTTYPE");
-      h = EEMUtilsClient::getHisto<TH1F*>(me);
+      h = UtilsClient::getHisto<TH1F*>(me);
       if ( h ) {
         c1->cd();
         h->Draw();
@@ -117,7 +117,7 @@ void *pth1(void *) {
 
 //      me = mui->get("Collector/FU0/EcalEndcap/EcalEvent/EEMM event SM01");
       me = mui->get("EcalEndcap/Sums/EcalEvent/EEMM event SM01");
-      h2 = EEMUtilsClient::getHisto<TH2F*>(me);
+      h2 = UtilsClient::getHisto<TH2F*>(me);
       if ( h2 ) {
         c2->cd();
         h2->SetMaximum(4096.);
