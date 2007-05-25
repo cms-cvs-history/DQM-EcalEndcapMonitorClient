@@ -6,6 +6,7 @@ module ecalEndcapMonitorClient = EcalEndcapMonitorClient{
   untracked string dbUserName = ""
   untracked string dbPassword = ""
   untracked string maskFile = "maskfile.dat"
+  untracked bool mergeRuns = false
   untracked string location = ""
   untracked string baseHtmlDir = ""
   untracked bool collateSources = false
