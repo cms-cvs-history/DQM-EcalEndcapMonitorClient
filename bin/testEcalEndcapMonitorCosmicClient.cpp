@@ -1,8 +1,8 @@
 /*
  * \file EcalEndcapMonitorCosmicClient.cpp
  *
- *  $Date: 2007/04/02 16:15:34 $
- *  $Revision: 1.1 $
+ *  $Date: 2007/04/30 09:24:02 $
+ *  $Revision: 1.2 $
  *  \author G. Della Ricca
  *
  */
@@ -48,8 +48,8 @@ void *pth1(void *) {
     mui->subscribeNew("*/EcalEndcap/EcalInfo/RUN");
     mui->subscribeNew("*/EcalEndcap/EcalInfo/EVT");
     mui->subscribeNew("*/EcalEndcap/EcalInfo/RUNTYPE");
-    mui->subscribeNew("*/EcalEndcap/EECosmicTask/Cut/EECT energy cut SM01");
-    mui->subscribeNew("*/EcalEndcap/EECosmicTask/Sel/EECT energy sel SM01");
+    mui->subscribeNew("*/EcalEndcap/EECosmicTask/Cut/EECT energy cut EB+01");
+    mui->subscribeNew("*/EcalEndcap/EECosmicTask/Sel/EECT energy sel EB+01");
 
     // # of full monitoring cycles processed
     int updates = mui->getNumUpdates();
@@ -104,8 +104,8 @@ void *pth1(void *) {
 
       TProfile2D* h;
 
-//      me = mui->get("Collector/FU0/EcalEndcap/EECosmicTask/Cut/EECT energy cut SM01");
-      me = mui->get("EcalEndcap/Sums/EECosmicTask/Cut/EECT energy cut SM01");
+//      me = mui->get("Collector/FU0/EcalEndcap/EECosmicTask/Cut/EECT energy cut EB+01");
+      me = mui->get("EcalEndcap/Sums/EECosmicTask/Cut/EECT energy cut EB+01");
       h = UtilsClient::getHisto<TProfile2D*>(me);
       if ( h ) {
         c1->cd();
@@ -115,8 +115,8 @@ void *pth1(void *) {
         c1->Update();
       }
 
-//      me = mui->get("Collector/FU0/EcalEndcap/EECosmicTask/Sel/EECT energy sel SM01");
-      me = mui->get("EcalEndcap/Sums/EECosmicTask/Sel/EECT energy sel SM01");
+//      me = mui->get("Collector/FU0/EcalEndcap/EECosmicTask/Sel/EECT energy sel EB+01");
+      me = mui->get("EcalEndcap/Sums/EECosmicTask/Sel/EECT energy sel EB+01");
       h = UtilsClient::getHisto<TProfile2D*>(me);
       if ( h ) {
         c2->cd();
@@ -180,16 +180,16 @@ int main(int argc, char** argv) {
   mui->subscribe("*/EcalEndcap/EcalInfo/RUN");
   mui->subscribe("*/EcalEndcap/EcalInfo/EVT");
   mui->subscribe("*/EcalEndcap/EcalInfo/RUNTYPE");
-  mui->subscribe("*/EcalEndcap/EECosmicTask/Cut/EECT energy cut SM01");
-  mui->subscribe("*/EcalEndcap/EECosmicTask/Sel/EECT energy sel SM01");
+  mui->subscribe("*/EcalEndcap/EECosmicTask/Cut/EECT energy cut EB+01");
+  mui->subscribe("*/EcalEndcap/EECosmicTask/Sel/EECT energy sel EB+01");
 
   CollateMonitorElement* cme;
 
-  cme = mui->collateProf2D("EECT energy cut SM01", "EECT energy cut SM01", "EcalEndcap/Sums/EECosmicTask/Cut");
-  mui->add(cme, "*/EcalEndcap/EECosmicTask/Cut/EECT energy cut SM01");
+  cme = mui->collateProf2D("EECT energy cut EB+01", "EECT energy cut EB+01", "EcalEndcap/Sums/EECosmicTask/Cut");
+  mui->add(cme, "*/EcalEndcap/EECosmicTask/Cut/EECT energy cut EB+01");
 
-  cme = mui->collateProf2D("EECT energy sel SM01", "EECT energy sel SM01", "EcalEndcap/Sums/EECosmicTask/Sel");
-  mui->add(cme, "*/EcalEndcap/EECosmicTask/Sel/EECT energy sel SM01");
+  cme = mui->collateProf2D("EECT energy sel EB+01", "EECT energy sel EB+01", "EcalEndcap/Sums/EECosmicTask/Sel");
+  mui->add(cme, "*/EcalEndcap/EECosmicTask/Sel/EECT energy sel EB+01");
 
   TThread *th1 = new TThread("th1",pth1);
 

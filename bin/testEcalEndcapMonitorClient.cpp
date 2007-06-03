@@ -1,8 +1,8 @@
 /*
  * \file EcalEndcapMonitorClient.cpp
  *
- *  $Date: 2007/04/02 16:15:34 $
- *  $Revision: 1.1 $
+ *  $Date: 2007/04/30 09:24:02 $
+ *  $Revision: 1.2 $
  *  \author G. Della Ricca
  *
  */
@@ -49,7 +49,7 @@ void *pth1(void *) {
     mui->subscribeNew("*/EcalEndcap/EcalInfo/EVT");
     mui->subscribeNew("*/EcalEndcap/EcalInfo/EVTTYPE");
     mui->subscribeNew("*/EcalEndcap/EcalInfo/RUNTYPE");
-    mui->subscribeNew("*/EcalEndcap/EcalEvent/EEMM event SM01*");
+    mui->subscribeNew("*/EcalEndcap/EcalEvent/EEMM event EB+01*");
 
     // # of full monitoring cycles processed
     int updates = mui->getNumUpdates();
@@ -115,8 +115,8 @@ void *pth1(void *) {
 
       TH2F* h2;
 
-//      me = mui->get("Collector/FU0/EcalEndcap/EcalEvent/EEMM event SM01");
-      me = mui->get("EcalEndcap/Sums/EcalEvent/EEMM event SM01");
+//      me = mui->get("Collector/FU0/EcalEndcap/EcalEvent/EEMM event EB+01");
+      me = mui->get("EcalEndcap/Sums/EcalEvent/EEMM event EB+01");
       h2 = UtilsClient::getHisto<TH2F*>(me);
       if ( h2 ) {
         c2->cd();
@@ -181,15 +181,15 @@ int main(int argc, char** argv) {
   mui->subscribe("*/EcalEndcap/EcalInfo/EVT");
   mui->subscribe("*/EcalEndcap/EcalInfo/EVTTYPE");
   mui->subscribe("*/EcalEndcap/EcalInfo/RUNTYPE");
-  mui->subscribe("*/EcalEndcap/EcalEvent/EEMM event SM01");
+  mui->subscribe("*/EcalEndcap/EcalEvent/EEMM event EB+01");
 
   CollateMonitorElement* cme;
 
   cme = mui->collate1D("EVTTYPE", "EVTTYPE", "EcalEndcap/Sums/EcalInfo");
   mui->add(cme, "*/EcalEndcap/EcalInfo/EVTTYPE");
 
-  cme = mui->collate2D("EEMM event SM01", "EEMM event SM01", "EcalEndcap/Sums/EcalEvent");
-  mui->add(cme, "*/EcalEndcap/EcalEvent/EEMM event SM01");
+  cme = mui->collate2D("EEMM event EB+01", "EEMM event EB+01", "EcalEndcap/Sums/EcalEvent");
+  mui->add(cme, "*/EcalEndcap/EcalEvent/EEMM event EB+01");
 
   TThread *th1 = new TThread("th1", pth1);
 
