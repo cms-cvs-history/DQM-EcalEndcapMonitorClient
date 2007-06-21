@@ -1,8 +1,8 @@
 /*
  * \file EcalEndcapMonitorClient.cc
  *
- * $Date: 2007/06/13 22:15:40 $
- * $Revision: 1.36 $
+ * $Date: 2007/06/14 12:00:10 $
+ * $Revision: 1.37 $
  * \author G. Della Ricca
  * \author F. Cossutti
  *
@@ -59,12 +59,12 @@
 #include <DQM/EcalEndcapMonitorClient/interface/EEClusterClient.h>
 #include <DQM/EcalEndcapMonitorClient/interface/EETimingClient.h>
 
-#include "xgi/include/xgi/Method.h"
-#include "xgi/include/xgi/Utils.h"
+#include "xgi/Method.h"
+#include "xgi/Utils.h"
 
-#include "extern/cgicc/linuxx86/include/cgicc/Cgicc.h"
-#include "extern/cgicc/linuxx86/include/cgicc/FormEntry.h"
-#include "extern/cgicc/linuxx86/include/cgicc/HTMLClasses.h"
+#include "cgicc/Cgicc.h"
+#include "cgicc/FormEntry.h"
+#include "cgicc/HTMLClasses.h"
 
 #include "TStyle.h"
 #include "TGaxis.h"

@@ -4,8 +4,8 @@
 /*
  * \file EcalEndcapMonitorClient.h
  *
- * $Date: 2007/06/08 18:46:02 $
- * $Revision: 1.13 $
+ * $Date: 2007/06/10 09:40:40 $
+ * $Revision: 1.14 $
  * \author G. Della Ricca
  * \author F. Cossutti
  *
@@ -30,8 +30,8 @@
 
 #include "EventFilter/Utilities/interface/ModuleWeb.h"
 
-#include "xgi/include/xgi/Input.h"
-#include "xgi/include/xgi/Output.h"
+#include "xgi/Input.h"
+#include "xgi/Output.h"
 
 #include "TROOT.h"
 #include "TH1.h"
