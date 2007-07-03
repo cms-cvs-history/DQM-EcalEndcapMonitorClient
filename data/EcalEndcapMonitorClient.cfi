@@ -19,7 +19,7 @@ module ecalEndcapMonitorClient = EcalEndcapMonitorClient{
   untracked vstring enabledClients = { "Integrity",
                                        "PedestalOnline",
                                        "Pedestal", "TestPulse",
-                                       "Laser", "Timing",
+                                       "Laser", "Led", "Timing",
                                        "Cosmic",
                                        "BeamCalo", "BeamHodo" }
   untracked bool enableExit = false
