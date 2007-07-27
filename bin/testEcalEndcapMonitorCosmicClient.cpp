@@ -1,8 +1,8 @@
 /*
- * \file EcalEndcapMonitorCosmicClient.cpp
+ * \file testEcalEndcapMonitorCosmicClient.cpp
  *
- *  $Date: 2007/06/14 07:13:13 $
- *  $Revision: 1.4 $
+ *  $Date: 2007/06/14 07:16:16 $
+ *  $Revision: 1.5 $
  *  \author G. Della Ricca
  *
  */
