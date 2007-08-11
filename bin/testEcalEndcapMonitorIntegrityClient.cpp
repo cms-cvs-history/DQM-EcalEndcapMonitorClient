@@ -1,8 +1,8 @@
 /*
  * \file testEcalEndcapMonitorIntegrityClient.cpp
  *
- *  $Date: 2007/06/14 07:16:16 $
- *  $Revision: 1.5 $
+ *  $Date: 2007/07/27 15:05:23 $
+ *  $Revision: 1.6 $
  *  \author G. Della Ricca
  *
  */
@@ -217,7 +217,7 @@ void *pth1(void *) {
 int main(int argc, char** argv) {
 
   cout << endl;
-  cout << " *** Ecal Barrel Monitor Integrity Client ***" << endl;
+  cout << " *** Ecal Endcap Monitor Integrity Client ***" << endl;
   cout << endl;
 
   TApplication app("app", &argc, argv);
@@ -231,14 +231,14 @@ int main(int argc, char** argv) {
   // default port #
   int port_no = 9090;
 
-  c1 = new TCanvas("Ecal Barrel Integrity Monitoring 1","Ecal Barrel Integrity Monitoring 1",  0, 0,400,400);
+  c1 = new TCanvas("Ecal Endcap Integrity Monitoring 1","Ecal Endcap Integrity Monitoring 1",  0, 0,400,400);
   c1->Modified();
   c1->Update();
-  c2 = new TCanvas("Ecal Barrel Integrity Monitoring 2","Ecal Barrel Integrity Monitoring 2",430, 0,600,600);
+  c2 = new TCanvas("Ecal Endcap Integrity Monitoring 2","Ecal Endcap Integrity Monitoring 2",430, 0,600,600);
   c2->Divide(2,2);
   c2->Modified();
   c2->Update();
-  c3 = new TCanvas("Ecal Barrel Integrity Monitoring 3","Ecal Barrel Integrity Monitoring 3", 430,615,600,370);
+  c3 = new TCanvas("Ecal Endcap Integrity Monitoring 3","Ecal Endcap Integrity Monitoring 3", 430,615,600,370);
   c3->Divide(1,2);
   c3->Modified();
   c3->Update();

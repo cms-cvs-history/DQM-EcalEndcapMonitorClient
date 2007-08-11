@@ -1,8 +1,8 @@
 /*
  * \file testEcalEndcapMonitorLaserClient.cpp
  *
- *  $Date: 2007/06/14 07:16:16 $
- *  $Revision: 1.5 $
+ *  $Date: 2007/07/27 15:05:23 $
+ *  $Revision: 1.6 $
  *  \author G. Della Ricca
  *
  */
@@ -168,7 +168,7 @@ void *pth1(void *) {
 int main(int argc, char** argv) {
 
   cout << endl;
-  cout << " *** Ecal Barrel Laser Monitor Client ***" << endl;
+  cout << " *** Ecal Endcap Laser Monitor Client ***" << endl;
   cout << endl;
 
   TApplication app("app", &argc, argv);
@@ -182,16 +182,16 @@ int main(int argc, char** argv) {
   // default port #
   int port_no = 9090;
 
-  c1 = new TCanvas("Ecal Barrel Laser Monitoring Amplitude L1","Ecal Barrel Laser Monitoring Amplitude L1", 0,  0,800,250);
+  c1 = new TCanvas("Ecal Endcap Laser Monitoring Amplitude L1","Ecal Endcap Laser Monitoring Amplitude L1", 0,  0,800,250);
   c1->Modified();
   c1->Update();
-  c2 = new TCanvas("Ecal Barrel Laser Monitoring Amplitude L2","Ecal Barrel Laser Monitoring Amplitude L2", 0,310,800,250);
+  c2 = new TCanvas("Ecal Endcap Laser Monitoring Amplitude L2","Ecal Endcap Laser Monitoring Amplitude L2", 0,310,800,250);
   c2->Modified();
   c2->Update();
-  c3 = new TCanvas("Ecal Barrel Laser Monitoring Shape L1","Ecal Barrel Laser Monitoring Shape L1",820,  0,250,250);
+  c3 = new TCanvas("Ecal Endcap Laser Monitoring Shape L1","Ecal Endcap Laser Monitoring Shape L1",820,  0,250,250);
   c3->Modified();
   c3->Update();
-  c4 = new TCanvas("Ecal Barrel Laser Monitoring Shape L2","Ecal Barrel Laser Monitoring Shape L2",820,310,250,250);
+  c4 = new TCanvas("Ecal Endcap Laser Monitoring Shape L2","Ecal Endcap Laser Monitoring Shape L2",820,310,250,250);
   c4->Modified();
   c4->Update();
 

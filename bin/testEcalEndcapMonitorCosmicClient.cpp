@@ -1,8 +1,8 @@
 /*
  * \file testEcalEndcapMonitorCosmicClient.cpp
  *
- *  $Date: 2007/06/14 07:16:16 $
- *  $Revision: 1.5 $
+ *  $Date: 2007/07/27 15:05:23 $
+ *  $Revision: 1.6 $
  *  \author G. Della Ricca
  *
  */
@@ -146,7 +146,7 @@ void *pth1(void *) {
 int main(int argc, char** argv) {
 
   cout << endl;
-  cout << " *** Ecal Barrel Monitor Cosmic Client ***" << endl;
+  cout << " *** Ecal Endcap Monitor Cosmic Client ***" << endl;
   cout << endl;
 
   TApplication app("app", &argc, argv);
@@ -160,10 +160,10 @@ int main(int argc, char** argv) {
   // default port #
   int port_no = 9090;
 
-  c1 = new TCanvas("Ecal Barrel Cosmic Monitoring 1","Ecal Barrel Cosmic Monitoring 1", 0,  0,1000,400);
+  c1 = new TCanvas("Ecal Endcap Cosmic Monitoring 1","Ecal Endcap Cosmic Monitoring 1", 0,  0,1000,400);
   c1->Modified();
   c1->Update();
-  c2 = new TCanvas("Ecal Barrel Cosmic Monitoring 2","Ecal Barrel Cosmic Monitoring 2", 0,460,1000,400);
+  c2 = new TCanvas("Ecal Endcap Cosmic Monitoring 2","Ecal Endcap Cosmic Monitoring 2", 0,460,1000,400);
   c2->Modified();
   c2->Update();
 

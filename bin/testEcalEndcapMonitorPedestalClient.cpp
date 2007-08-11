@@ -1,8 +1,8 @@
 /*
  * \file testEcalEndcapMonitorPedestalClient.cpp
  *
- *  $Date: 2007/06/14 07:16:16 $
- *  $Revision: 1.5 $
+ *  $Date: 2007/07/27 15:05:24 $
+ *  $Revision: 1.6 $
  *  \author G. Della Ricca
  *
  */
@@ -156,7 +156,7 @@ void *pth1(void *) {
 int main(int argc, char** argv) {
 
   cout << endl;
-  cout << " *** Ecal Barrel Pedestal Monitor Client ***" << endl;
+  cout << " *** Ecal Endcap Pedestal Monitor Client ***" << endl;
   cout << endl;
 
   TApplication app("app", &argc, argv);
@@ -170,13 +170,13 @@ int main(int argc, char** argv) {
   // default port #
   int port_no = 9090;
 
-  c1 = new TCanvas("Ecal Barrel Pedestal Monitoring G01","Ecal Barrel Pedestal Monitoring G01", 0,  0,800,250);
+  c1 = new TCanvas("Ecal Endcap Pedestal Monitoring G01","Ecal Endcap Pedestal Monitoring G01", 0,  0,800,250);
   c1->Modified();
   c1->Update();
-  c2 = new TCanvas("Ecal Barrel Pedestal Monitoring G06","Ecal Barrel Pedestal Monitoring G06", 0,310,800,250);
+  c2 = new TCanvas("Ecal Endcap Pedestal Monitoring G06","Ecal Endcap Pedestal Monitoring G06", 0,310,800,250);
   c2->Modified();
   c2->Update();
-  c3 = new TCanvas("Ecal Barrel Pedestal Monitoring G12","Ecal Barrel Pedestal Monitoring G12", 0,620,800,250);
+  c3 = new TCanvas("Ecal Endcap Pedestal Monitoring G12","Ecal Endcap Pedestal Monitoring G12", 0,620,800,250);
   c3->Modified();
   c3->Update();
 

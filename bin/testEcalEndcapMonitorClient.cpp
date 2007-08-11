@@ -1,8 +1,8 @@
 /*
  * \file testEcalEndcapMonitorClient.cpp
  *
- *  $Date: 2007/06/14 07:16:16 $
- *  $Revision: 1.5 $
+ *  $Date: 2007/07/27 15:05:22 $
+ *  $Revision: 1.6 $
  *  \author G. Della Ricca
  *
  */
@@ -146,7 +146,7 @@ void *pth1(void *) {
 int main(int argc, char** argv) {
 
   cout << endl;
-  cout << " *** Ecal Barrel Generic Monitor Client ***" << endl;
+  cout << " *** Ecal Endcap Generic Monitor Client ***" << endl;
   cout << endl;
 
   TApplication app("app", &argc, argv);
@@ -160,10 +160,10 @@ int main(int argc, char** argv) {
   // default port #
   int port_no = 9090;
 
-  c1 = new TCanvas("Ecal Barrel Generic Monitoring - 1","Ecal Barrel Generic Monitoring - 1", 0,   0, 400,400);
+  c1 = new TCanvas("Ecal Endcap Generic Monitoring - 1","Ecal Endcap Generic Monitoring - 1", 0,   0, 400,400);
   c1->Modified();
   c1->Update();
-  c2 = new TCanvas("Ecal Barrel Generic Monitoring - 2","Ecal Barrel Generic Monitoring - 2", 0, 460,1000,400);
+  c2 = new TCanvas("Ecal Endcap Generic Monitoring - 2","Ecal Endcap Generic Monitoring - 2", 0, 460,1000,400);
   c2->Modified();
   c2->Update();
 

@@ -1,8 +1,8 @@
 /*
  * \file testEcalEndcapMonitorTestPulseClient.cpp
  *
- *  $Date: 2007/06/14 07:16:16 $
- *  $Revision: 1.5 $
+ *  $Date: 2007/07/27 15:05:24 $
+ *  $Revision: 1.6 $
  *  \author G. Della Ricca
  *
  */
@@ -192,7 +192,7 @@ void *pth1(void *) {
 int main(int argc, char** argv) {
 
   cout << endl;
-  cout << " *** Ecal Barrel Test Pulse Monitor Client ***" << endl;
+  cout << " *** Ecal Endcap Test Pulse Monitor Client ***" << endl;
   cout << endl;
 
   TApplication app("app", &argc, argv);
@@ -206,22 +206,22 @@ int main(int argc, char** argv) {
   // default port #
   int port_no = 9090;
 
-  c1 = new TCanvas("Ecal Barrel Test Pulse Monitoring amplitude G01","Ecal Barrel Test Pulse Monitoring amplitude G01", 0,  0,800,250);
+  c1 = new TCanvas("Ecal Endcap Test Pulse Monitoring amplitude G01","Ecal Endcap Test Pulse Monitoring amplitude G01", 0,  0,800,250);
   c1->Modified();
   c1->Update();
-  c2 = new TCanvas("Ecal Barrel Test Pulse Monitoring amplitude G06","Ecal Barrel Test Pulse Monitoring amplitude G06", 0,310,800,250);
+  c2 = new TCanvas("Ecal Endcap Test Pulse Monitoring amplitude G06","Ecal Endcap Test Pulse Monitoring amplitude G06", 0,310,800,250);
   c2->Modified();
   c2->Update();
-  c3 = new TCanvas("Ecal Barrel Test Pulse Monitoring amplitude G12","Ecal Barrel Test Pulse Monitoring amplitude G12", 0,620,800,250);
+  c3 = new TCanvas("Ecal Endcap Test Pulse Monitoring amplitude G12","Ecal Endcap Test Pulse Monitoring amplitude G12", 0,620,800,250);
   c3->Modified();
   c3->Update();
-  c4 = new TCanvas("Ecal Barrel Test Pulse Monitoring shape G01","Ecal Barrel Test Pulse Monitoring shape G01",820,  0,250,250);
+  c4 = new TCanvas("Ecal Endcap Test Pulse Monitoring shape G01","Ecal Endcap Test Pulse Monitoring shape G01",820,  0,250,250);
   c4->Modified();
   c4->Update();
-  c5 = new TCanvas("Ecal Barrel Test Pulse Monitoring shape G06","Ecal Barrel Test Pulse Monitoring shape G06",820,310,250,250);
+  c5 = new TCanvas("Ecal Endcap Test Pulse Monitoring shape G06","Ecal Endcap Test Pulse Monitoring shape G06",820,310,250,250);
   c5->Modified();
   c5->Update();
-  c6 = new TCanvas("Ecal Barrel Test Pulse Monitoring shape G12","Ecal Barrel Test Pulse Monitoring shape G12",820,620,250,250);
+  c6 = new TCanvas("Ecal Endcap Test Pulse Monitoring shape G12","Ecal Endcap Test Pulse Monitoring shape G12",820,620,250,250);
   c6->Modified();
   c6->Update();
 
