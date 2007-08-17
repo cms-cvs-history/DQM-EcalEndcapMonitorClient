@@ -1,8 +1,8 @@
 /*
  * \file testEcalEndcapMonitorClient.cpp
  *
- *  $Date: 2007/08/11 15:10:34 $
- *  $Revision: 1.7 $
+ *  $Date: 2007/08/14 17:44:44 $
+ *  $Revision: 1.8 $
  *  \author G. Della Ricca
  *
  */
@@ -65,7 +65,7 @@ void *pth1(void *) {
     // draw monitoring objects every monitoring cycle
     if ( updates != last_plotting ) {
 
-      me = mui->get("Collector/FU0/EcalEndcap/EcalInfo/STATUS");
+      me = mui->getBEInterface()->get("Collector/FU0/EcalEndcap/EcalInfo/STATUS");
       if ( me ) {
         s = me->valueString();
         status = "unknown";
@@ -75,21 +75,21 @@ void *pth1(void *) {
         cout << "status = " << status << endl;
       }
 
-      me = mui->get("Collector/FU0/EcalEndcap/EcalInfo/RUN");
+      me = mui->getBEInterface()->get("Collector/FU0/EcalEndcap/EcalInfo/RUN");
       if ( me ) {
         s = me->valueString();
         run = s.substr(2,s.length()-2);
         cout << "run = " << run << endl;
       }
 
-      me = mui->get("Collector/FU0/EcalEndcap/EcalInfo/EVT");
+      me = mui->getBEInterface()->get("Collector/FU0/EcalEndcap/EcalInfo/EVT");
       if ( me ) {
         s = me->valueString();
         evt = s.substr(2,s.length()-2);
         cout << "event = " << evt << endl;
       }
 
-      me = mui->get("Collector/FU0/EcalEndcap/EcalInfo/RUNTYPE");
+      me = mui->getBEInterface()->get("Collector/FU0/EcalEndcap/EcalInfo/RUNTYPE");
       if ( me ) {
         s = me->valueString();
         if ( atoi(s.substr(2,s.size()-2).c_str()) == EcalDCCHeaderBlock::COSMIC ) type = "COSMIC";
@@ -111,8 +111,8 @@ void *pth1(void *) {
 
       TH1F* h;
 
-//      me = mui->get("Collector/FU0/EcalEndcap/EcalInfo/EVTTYPE");
-      me = mui->get("EcalEndcap/Sums/EcalInfo/EVTTYPE");
+//      me = mui->getBEInterface()->get("Collector/FU0/EcalEndcap/EcalInfo/EVTTYPE");
+      me = mui->getBEInterface()->get("EcalEndcap/Sums/EcalInfo/EVTTYPE");
       h = UtilsClient::getHisto<TH1F*>(me);
       if ( h ) {
         c1->cd();
@@ -122,8 +122,8 @@ void *pth1(void *) {
 
       TH2F* h2;
 
-//      me = mui->get("Collector/FU0/EcalEndcap/EcalEvent/EEMM event EE+01");
-      me = mui->get("EcalEndcap/Sums/EcalEvent/EEMM event EE+01");
+//      me = mui->getBEInterface()->get("Collector/FU0/EcalEndcap/EcalEvent/EEMM event EE+01");
+      me = mui->getBEInterface()->get("EcalEndcap/Sums/EcalEvent/EEMM event EE+01");
       h2 = UtilsClient::getHisto<TH2F*>(me);
       if ( h2 ) {
         c2->cd();
@@ -177,7 +177,7 @@ int main(int argc, char** argv) {
   // start user interface instance
   mui = new MonitorUIRoot(hostname, port_no, cfuname);
 
-  mui->setVerbose(1);
+  mui->getBEInterface()->setVerbose(1);
 
   // will attempt to reconnect upon connection problems (w/ a 5-sec delay)
   mui->setReconnectDelay(5);

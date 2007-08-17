@@ -1,8 +1,8 @@
 /*
  * \file testEcalEndcapMonitorTestPulseClient.cpp
  *
- *  $Date: 2007/08/11 15:10:34 $
- *  $Revision: 1.7 $
+ *  $Date: 2007/08/14 17:44:44 $
+ *  $Revision: 1.8 $
  *  \author G. Della Ricca
  *
  */
@@ -73,7 +73,7 @@ void *pth1(void *) {
     // draw monitoring objects every monitoring cycle
     if ( updates != last_plotting ) {
 
-      me = mui->get("Collector/FU0/EcalEndcap/EcalInfo/STATUS");
+      me = mui->getBEInterface()->get("Collector/FU0/EcalEndcap/EcalInfo/STATUS");
       if ( me ) {
         s = me->valueString();
         status = "unknown";
@@ -83,21 +83,21 @@ void *pth1(void *) {
         cout << "status = " << status << endl;
       }
 
-      me = mui->get("Collector/FU0/EcalEndcap/EcalInfo/RUN");
+      me = mui->getBEInterface()->get("Collector/FU0/EcalEndcap/EcalInfo/RUN");
       if ( me ) {
         s = me->valueString();
         run = s.substr(2,s.length()-2);
         cout << "run = " << run << endl;
       }
 
-      me = mui->get("Collector/FU0/EcalEndcap/EcalInfo/EVT");
+      me = mui->getBEInterface()->get("Collector/FU0/EcalEndcap/EcalInfo/EVT");
       if ( me ) {
         s = me->valueString();
         evt = s.substr(2,s.length()-2);
         cout << "event = " << evt << endl;
       }
 
-      me = mui->get("Collector/FU0/EcalEndcap/EcalInfo/RUNTYPE");
+      me = mui->getBEInterface()->get("Collector/FU0/EcalEndcap/EcalInfo/RUNTYPE");
       if ( me ) {
         s = me->valueString();
         if ( atoi(s.substr(2,s.size()-2).c_str()) == EcalDCCHeaderBlock::COSMIC ) type = "COSMIC";
@@ -119,8 +119,8 @@ void *pth1(void *) {
 
       TProfile2D* h;
 
-//      me = mui->get("Collector/FU0/EcalEndcap/EETestPulseTask/Gain01/EETPT amplitude EE+01 G01");
-      me = mui->get("EcalEndcap/Sums/EETestPulseTask/Gain01/EETPT amplitude EE+01 G01");
+//      me = mui->getBEInterface()->get("Collector/FU0/EcalEndcap/EETestPulseTask/Gain01/EETPT amplitude EE+01 G01");
+      me = mui->getBEInterface()->get("EcalEndcap/Sums/EETestPulseTask/Gain01/EETPT amplitude EE+01 G01");
       h = UtilsClient::getHisto<TProfile2D*>(me);
       if ( h ) {
         c1->cd();
@@ -129,8 +129,8 @@ void *pth1(void *) {
         c1->Update();
       }
 
-//      me = mui->get("Collector/FU0/EcalEndcap/EETestPulseTask/Gain06/EETPT amplitude EE+01 G06");
-      me = mui->get("EcalEndcap/Sums/EETestPulseTask/Gain06/EETPT amplitude EE+01 G06");
+//      me = mui->getBEInterface()->get("Collector/FU0/EcalEndcap/EETestPulseTask/Gain06/EETPT amplitude EE+01 G06");
+      me = mui->getBEInterface()->get("EcalEndcap/Sums/EETestPulseTask/Gain06/EETPT amplitude EE+01 G06");
       h = UtilsClient::getHisto<TProfile2D*>(me);
       if ( h ) {
         c2->cd();
@@ -139,8 +139,8 @@ void *pth1(void *) {
         c2->Update();
       }
 
-//      me = mui->get("Collector/FU0/EcalEndcap/EETestPulseTask/Gain12/EETPT amplitude EE+01 G12");
-      me = mui->get("EcalEndcap/Sums/EETestPulseTask/Gain12/EETPT amplitude EE+01 G12");
+//      me = mui->getBEInterface()->get("Collector/FU0/EcalEndcap/EETestPulseTask/Gain12/EETPT amplitude EE+01 G12");
+      me = mui->getBEInterface()->get("EcalEndcap/Sums/EETestPulseTask/Gain12/EETPT amplitude EE+01 G12");
       h = UtilsClient::getHisto<TProfile2D*>(me);
       if ( h ) {
         c3->cd();
@@ -149,8 +149,8 @@ void *pth1(void *) {
         c3->Update();
       }
 
-//      me = mui->get("Collector/FU0/EcalEndcap/EETestPulseTask/Gain01/EETPT shape EE+01 G01");
-      me = mui->get("EcalEndcap/Sums/EETestPulseTask/Gain01/EETPT shape EE+01 G01");
+//      me = mui->getBEInterface()->get("Collector/FU0/EcalEndcap/EETestPulseTask/Gain01/EETPT shape EE+01 G01");
+      me = mui->getBEInterface()->get("EcalEndcap/Sums/EETestPulseTask/Gain01/EETPT shape EE+01 G01");
       h = UtilsClient::getHisto<TProfile2D*>(me);
       if ( h ) {
         c4->cd();
@@ -159,8 +159,8 @@ void *pth1(void *) {
         c4->Update();
       }
 
-//      me = mui->get("Collector/FU0/EcalEndcap/EETestPulseTask/Gain06/EETPT shape EE+01 G06");
-      me = mui->get("EcalEndcap/Sums/EETestPulseTask/Gain06/EETPT shape EE+01 G06");
+//      me = mui->getBEInterface()->get("Collector/FU0/EcalEndcap/EETestPulseTask/Gain06/EETPT shape EE+01 G06");
+      me = mui->getBEInterface()->get("EcalEndcap/Sums/EETestPulseTask/Gain06/EETPT shape EE+01 G06");
       h = UtilsClient::getHisto<TProfile2D*>(me);
       if ( h ) {
         c5->cd();
@@ -169,8 +169,8 @@ void *pth1(void *) {
         c5->Update();
       }
 
-//      me = mui->get("Collector/FU0/EcalEndcap/EETestPulseTask/Gain12/EETPT shape EE+01 G12");
-      me = mui->get("EcalEndcap/Sums/EETestPulseTask/Gain12/EETPT shape EE+01 G12");
+//      me = mui->getBEInterface()->get("Collector/FU0/EcalEndcap/EETestPulseTask/Gain12/EETPT shape EE+01 G12");
+      me = mui->getBEInterface()->get("EcalEndcap/Sums/EETestPulseTask/Gain12/EETPT shape EE+01 G12");
       h = UtilsClient::getHisto<TProfile2D*>(me);
       if ( h ) {
         c6->cd();
@@ -235,7 +235,7 @@ int main(int argc, char** argv) {
   // start user interface instance
   mui = new MonitorUIRoot(hostname, port_no, cfuname);
 
-  mui->setVerbose(1);
+  mui->getBEInterface()->setVerbose(1);
 
   // will attempt to reconnect upon connection problems (w/ a 5-sec delay)
   mui->setReconnectDelay(5);
