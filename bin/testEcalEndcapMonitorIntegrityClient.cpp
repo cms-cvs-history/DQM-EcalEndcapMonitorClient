@@ -1,8 +1,8 @@
 /*
  * \file testEcalEndcapMonitorIntegrityClient.cpp
  *
- *  $Date: 2007/08/14 17:44:44 $
- *  $Revision: 1.8 $
+ *  $Date: 2007/08/17 09:05:10 $
+ *  $Revision: 1.9 $
  *  \author G. Della Ricca
  *
  */
@@ -73,7 +73,7 @@ void *pth1(void *) {
     // draw monitoring objects every monitoring cycle
     if ( updates != last_plotting ) {
 
-      me = mui->getBEInterface()->get("Collector/FU0/EcalEndcap/EcalInfo/STATUS");
+      me = mui->getBEInterface()->get("Collector/Ecal/EcalEndcap/EcalInfo/STATUS");
       if ( me ) {
         s = me->valueString();
         status = "unknown";
@@ -83,21 +83,21 @@ void *pth1(void *) {
         cout << "status = " << status << endl;
       }
 
-      me = mui->getBEInterface()->get("Collector/FU0/EcalEndcap/EcalInfo/RUN");
+      me = mui->getBEInterface()->get("Collector/Ecal/EcalEndcap/EcalInfo/RUN");
       if ( me ) {
         s = me->valueString();
         run = s.substr(2,s.length()-2);
         cout << "run = " << run << endl;
       }
 
-      me = mui->getBEInterface()->get("Collector/FU0/EcalEndcap/EcalInfo/EVT");
+      me = mui->getBEInterface()->get("Collector/Ecal/EcalEndcap/EcalInfo/EVT");
       if ( me ) {
         s = me->valueString();
         evt = s.substr(2,s.length()-2);
         cout << "event = " << evt << endl;
       }
 
-      me = mui->getBEInterface()->get("Collector/FU0/EcalEndcap/EcalInfo/RUNTYPE");
+      me = mui->getBEInterface()->get("Collector/Ecal/EcalEndcap/EcalInfo/RUNTYPE");
       if ( me ) {
         s = me->valueString();
         if ( atoi(s.substr(2,s.size()-2).c_str()) == EcalDCCHeaderBlock::COSMIC ) type = "COSMIC";
@@ -120,7 +120,7 @@ void *pth1(void *) {
       TH1F* h1;
       TH2F* h2;
 
-      //      me = mui->getBEInterface()->get("Collector/FU0/EcalEndcap/EEIntegrityTask/EEIT DCC size error");
+      //      me = mui->getBEInterface()->get("Collector/Ecal/EcalEndcap/EEIntegrityTask/EEIT DCC size error");
       me = mui->getBEInterface()->get("EcalEndcap/Sums/EEIntegrityTask/EEIT DCC size error");
       h1 = UtilsClient::getHisto<TH1F*>(me);
       if ( h1 ) {
@@ -130,7 +130,7 @@ void *pth1(void *) {
         c1->Update();
       }
     
-      //      me = mui->getBEInterface()->get("Collector/FU0/EcalEndcap/EEIntegrityTask/Gain/EEIT gain EE+01");
+      //      me = mui->getBEInterface()->get("Collector/Ecal/EcalEndcap/EEIntegrityTask/Gain/EEIT gain EE+01");
       me = mui->getBEInterface()->get("EcalEndcap/Sums/EEIntegrityTask/Gain/EEIT gain EE+01");
       h2 = UtilsClient::getHisto<TH2F*>(me);
       if ( h2 ) {
@@ -140,7 +140,7 @@ void *pth1(void *) {
         c2->Update();
       }
 
-      //      me = mui->getBEInterface()->get("Collector/FU0/EcalEndcap/EEIntegrityTask/ChId/EEIT ChId EE+01");
+      //      me = mui->getBEInterface()->get("Collector/Ecal/EcalEndcap/EEIntegrityTask/ChId/EEIT ChId EE+01");
       me = mui->getBEInterface()->get("EcalEndcap/Sums/EEIntegrityTask/ChId/EEIT ChId EE+01");
       h2 = UtilsClient::getHisto<TH2F*>(me);
       if ( h2 ) {
@@ -150,7 +150,7 @@ void *pth1(void *) {
         c2->Update();
       }
 
-      //      me = mui->getBEInterface()->get("Collector/FU0/EcalEndcap/EEIntegrityTask/TTId/EEIT TTId EE+01");
+      //      me = mui->getBEInterface()->get("Collector/Ecal/EcalEndcap/EEIntegrityTask/TTId/EEIT TTId EE+01");
       me = mui->getBEInterface()->get("EcalEndcap/Sums/EEIntegrityTask/TTId/EEIT TTId EE+01");
       h2 = UtilsClient::getHisto<TH2F*>(me);
       if ( h2 ) {
@@ -160,7 +160,7 @@ void *pth1(void *) {
         c2->Update();
       }
 
-      //      me = mui->getBEInterface()->get("Collector/FU0/EcalEndcap/EEIntegrityTask/TTBlockSize/EEIT TTBlockSize EE+01");
+      //      me = mui->getBEInterface()->get("Collector/Ecal/EcalEndcap/EEIntegrityTask/TTBlockSize/EEIT TTBlockSize EE+01");
       me = mui->getBEInterface()->get("EcalEndcap/Sums/EEIntegrityTask/TTBlockSize/EEIT TTBlockSize EE+01");
       h2 = UtilsClient::getHisto<TH2F*>(me);
       if ( h2 ) {
