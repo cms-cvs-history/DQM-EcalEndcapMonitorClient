@@ -1,8 +1,8 @@
 /*
  * \file testEcalEndcapMonitorPedestalClient.cpp
  *
- *  $Date: 2007/08/17 09:05:10 $
- *  $Revision: 1.9 $
+ *  $Date: 2007/09/06 19:54:11 $
+ *  $Revision: 1.10 $
  *  \author G. Della Ricca
  *
  */
@@ -113,8 +113,7 @@ void *pth1(void *) {
 
       TProfile2D* h;
 
-//      me = mui->getBEInterface()->get("Collector/Ecal/EcalEndcap/EEPedestalTask/Gain01/EEPT pedestal EE+01 G01");
-      me = mui->getBEInterface()->get("EcalEndcap/Sums/EEPedestalTask/Gain01/EEPT pedestal EE+01 G01");
+      me = mui->getBEInterface()->get("Collector/Ecal/EcalEndcap/EEPedestalTask/Gain01/EEPT pedestal EE+01 G01");
       h = UtilsClient::getHisto<TProfile2D*>(me);
       if ( h ) {
         c1->cd();
@@ -123,8 +122,7 @@ void *pth1(void *) {
         c1->Update();
       }
 
-//      me = mui->getBEInterface()->get("Collector/Ecal/EcalEndcap/EEPedestalTask/Gain06/EEPT pedestal EE+01 G06");
-      me = mui->getBEInterface()->get("EcalEndcap/Sums/EEPedestalTask/Gain06/EEPT pedestal EE+01 G06");
+      me = mui->getBEInterface()->get("Collector/Ecal/EcalEndcap/EEPedestalTask/Gain06/EEPT pedestal EE+01 G06");
       h = UtilsClient::getHisto<TProfile2D*>(me);
       if ( h ) {
         c2->cd();
@@ -133,8 +131,7 @@ void *pth1(void *) {
         c2->Update();
       }
 
-//      me = mui->getBEInterface()->get("Collector/Ecal/EcalEndcap/EEPedestalTask/Gain12/EEPT pedestal EE+01 G12");
-      me = mui->getBEInterface()->get("EcalEndcap/Sums/EEPedestalTask/Gain12/EEPT pedestal EE+01 G12");
+      me = mui->getBEInterface()->get("Collector/Ecal/EcalEndcap/EEPedestalTask/Gain12/EEPT pedestal EE+01 G12");
       h = UtilsClient::getHisto<TProfile2D*>(me);
       if ( h ) {
         c3->cd();
@@ -203,17 +200,6 @@ int main(int argc, char** argv) {
   mui->subscribe("*/EcalEndcap/EEPedestalTask/Gain01/EEPT pedestal EE+01 G01");
   mui->subscribe("*/EcalEndcap/EEPedestalTask/Gain06/EEPT pedestal EE+01 G06");
   mui->subscribe("*/EcalEndcap/EEPedestalTask/Gain12/EEPT pedestal EE+01 G12");
-
-  CollateMonitorElement* cme;
-
-  cme = mui->collateProf2D("EEPT pedestal EE+01 G01", "EEPT pedestal EE+01 G01", "EcalEndcap/Sums/EEPedestalTask/Gain01");
-  mui->add(cme, "*/EcalEndcap/EEPedestalTask/Gain01/EEPT pedestal EE+01 G01");
-
-  cme = mui->collateProf2D("EEPT pedestal EE+01 G06", "EEPT pedestal EE+01 G06", "EcalEndcap/Sums/EEPedestalTask/Gain06");
-  mui->add(cme, "*/EcalEndcap/EEPedestalTask/Gain06/EEPT pedestal EE+01 G06");
-
-  cme = mui->collateProf2D("EEPT pedestal EE+01 G12", "EEPT pedestal EE+01 G12", "EcalEndcap/Sums/EEPedestalTask/Gain12");
-  mui->add(cme, "*/EcalEndcap/EEPedestalTask/Gain12/EEPT pedestal EE+01 G12");
 
   TThread *th1 = new TThread("th1",pth1);
 

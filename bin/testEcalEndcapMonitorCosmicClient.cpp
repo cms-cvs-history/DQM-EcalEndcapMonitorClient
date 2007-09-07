@@ -1,8 +1,8 @@
 /*
  * \file testEcalEndcapMonitorCosmicClient.cpp
  *
- *  $Date: 2007/08/17 09:05:10 $
- *  $Revision: 1.9 $
+ *  $Date: 2007/09/06 19:54:11 $
+ *  $Revision: 1.10 $
  *  \author G. Della Ricca
  *
  */
@@ -111,8 +111,7 @@ void *pth1(void *) {
 
       TProfile2D* h;
 
-//      me = mui->getBEInterface()->get("Collector/Ecal/EcalEndcap/EECosmicTask/Cut/EECT energy cut EE+01");
-      me = mui->getBEInterface()->get("EcalEndcap/Sums/EECosmicTask/Cut/EECT energy cut EE+01");
+      me = mui->getBEInterface()->get("Collector/Ecal/EcalEndcap/EECosmicTask/Cut/EECT energy cut EE+01");
       h = UtilsClient::getHisto<TProfile2D*>(me);
       if ( h ) {
         c1->cd();
@@ -122,8 +121,7 @@ void *pth1(void *) {
         c1->Update();
       }
 
-//      me = mui->getBEInterface()->get("Collector/Ecal/EcalEndcap/EECosmicTask/Sel/EECT energy sel EE+01");
-      me = mui->getBEInterface()->get("EcalEndcap/Sums/EECosmicTask/Sel/EECT energy sel EE+01");
+      me = mui->getBEInterface()->get("Collector/Ecal/EcalEndcap/EECosmicTask/Sel/EECT energy sel EE+01");
       h = UtilsClient::getHisto<TProfile2D*>(me);
       if ( h ) {
         c2->cd();
@@ -189,14 +187,6 @@ int main(int argc, char** argv) {
   mui->subscribe("*/EcalEndcap/EcalInfo/RUNTYPE");
   mui->subscribe("*/EcalEndcap/EECosmicTask/Cut/EECT energy cut EE+01");
   mui->subscribe("*/EcalEndcap/EECosmicTask/Sel/EECT energy sel EE+01");
-
-  CollateMonitorElement* cme;
-
-  cme = mui->collateProf2D("EECT energy cut EE+01", "EECT energy cut EE+01", "EcalEndcap/Sums/EECosmicTask/Cut");
-  mui->add(cme, "*/EcalEndcap/EECosmicTask/Cut/EECT energy cut EE+01");
-
-  cme = mui->collateProf2D("EECT energy sel EE+01", "EECT energy sel EE+01", "EcalEndcap/Sums/EECosmicTask/Sel");
-  mui->add(cme, "*/EcalEndcap/EECosmicTask/Sel/EECT energy sel EE+01");
 
   TThread *th1 = new TThread("th1",pth1);
 

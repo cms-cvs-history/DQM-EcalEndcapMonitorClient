@@ -1,8 +1,8 @@
 /*
  * \file testEcalEndcapMonitorClient.cpp
  *
- *  $Date: 2007/08/17 09:05:10 $
- *  $Revision: 1.9 $
+ *  $Date: 2007/09/06 19:54:11 $
+ *  $Revision: 1.10 $
  *  \author G. Della Ricca
  *
  */
@@ -111,8 +111,7 @@ void *pth1(void *) {
 
       TH1F* h;
 
-//      me = mui->getBEInterface()->get("Collector/Ecal/EcalEndcap/EcalInfo/EVTTYPE");
-      me = mui->getBEInterface()->get("EcalEndcap/Sums/EcalInfo/EVTTYPE");
+      me = mui->getBEInterface()->get("Collector/Ecal/EcalEndcap/EcalInfo/EVTTYPE");
       h = UtilsClient::getHisto<TH1F*>(me);
       if ( h ) {
         c1->cd();
@@ -122,8 +121,7 @@ void *pth1(void *) {
 
       TH2F* h2;
 
-//      me = mui->getBEInterface()->get("Collector/Ecal/EcalEndcap/EcalEvent/EEMM event EE+01");
-      me = mui->getBEInterface()->get("EcalEndcap/Sums/EcalEvent/EEMM event EE+01");
+      me = mui->getBEInterface()->get("Collector/Ecal/EcalEndcap/EcalEvent/EEMM event EE+01");
       h2 = UtilsClient::getHisto<TH2F*>(me);
       if ( h2 ) {
         c2->cd();
@@ -189,14 +187,6 @@ int main(int argc, char** argv) {
   mui->subscribe("*/EcalEndcap/EcalInfo/EVTTYPE");
   mui->subscribe("*/EcalEndcap/EcalInfo/RUNTYPE");
   mui->subscribe("*/EcalEndcap/EcalEvent/EEMM event EE+01");
-
-  CollateMonitorElement* cme;
-
-  cme = mui->collate1D("EVTTYPE", "EVTTYPE", "EcalEndcap/Sums/EcalInfo");
-  mui->add(cme, "*/EcalEndcap/EcalInfo/EVTTYPE");
-
-  cme = mui->collate2D("EEMM event EE+01", "EEMM event EE+01", "EcalEndcap/Sums/EcalEvent");
-  mui->add(cme, "*/EcalEndcap/EcalEvent/EEMM event EE+01");
 
   TThread *th1 = new TThread("th1", pth1);
 

@@ -1,8 +1,8 @@
 /*
  * \file testEcalEndcapMonitorTestPulseClient.cpp
  *
- *  $Date: 2007/08/17 09:05:10 $
- *  $Revision: 1.9 $
+ *  $Date: 2007/09/06 19:54:11 $
+ *  $Revision: 1.10 $
  *  \author G. Della Ricca
  *
  */
@@ -119,8 +119,7 @@ void *pth1(void *) {
 
       TProfile2D* h;
 
-//      me = mui->getBEInterface()->get("Collector/Ecal/EcalEndcap/EETestPulseTask/Gain01/EETPT amplitude EE+01 G01");
-      me = mui->getBEInterface()->get("EcalEndcap/Sums/EETestPulseTask/Gain01/EETPT amplitude EE+01 G01");
+      me = mui->getBEInterface()->get("Collector/Ecal/EcalEndcap/EETestPulseTask/Gain01/EETPT amplitude EE+01 G01");
       h = UtilsClient::getHisto<TProfile2D*>(me);
       if ( h ) {
         c1->cd();
@@ -129,8 +128,7 @@ void *pth1(void *) {
         c1->Update();
       }
 
-//      me = mui->getBEInterface()->get("Collector/Ecal/EcalEndcap/EETestPulseTask/Gain06/EETPT amplitude EE+01 G06");
-      me = mui->getBEInterface()->get("EcalEndcap/Sums/EETestPulseTask/Gain06/EETPT amplitude EE+01 G06");
+      me = mui->getBEInterface()->get("Collector/Ecal/EcalEndcap/EETestPulseTask/Gain06/EETPT amplitude EE+01 G06");
       h = UtilsClient::getHisto<TProfile2D*>(me);
       if ( h ) {
         c2->cd();
@@ -139,8 +137,7 @@ void *pth1(void *) {
         c2->Update();
       }
 
-//      me = mui->getBEInterface()->get("Collector/Ecal/EcalEndcap/EETestPulseTask/Gain12/EETPT amplitude EE+01 G12");
-      me = mui->getBEInterface()->get("EcalEndcap/Sums/EETestPulseTask/Gain12/EETPT amplitude EE+01 G12");
+      me = mui->getBEInterface()->get("Collector/Ecal/EcalEndcap/EETestPulseTask/Gain12/EETPT amplitude EE+01 G12");
       h = UtilsClient::getHisto<TProfile2D*>(me);
       if ( h ) {
         c3->cd();
@@ -149,8 +146,7 @@ void *pth1(void *) {
         c3->Update();
       }
 
-//      me = mui->getBEInterface()->get("Collector/Ecal/EcalEndcap/EETestPulseTask/Gain01/EETPT shape EE+01 G01");
-      me = mui->getBEInterface()->get("EcalEndcap/Sums/EETestPulseTask/Gain01/EETPT shape EE+01 G01");
+      me = mui->getBEInterface()->get("Collector/Ecal/EcalEndcap/EETestPulseTask/Gain01/EETPT shape EE+01 G01");
       h = UtilsClient::getHisto<TProfile2D*>(me);
       if ( h ) {
         c4->cd();
@@ -159,8 +155,7 @@ void *pth1(void *) {
         c4->Update();
       }
 
-//      me = mui->getBEInterface()->get("Collector/Ecal/EcalEndcap/EETestPulseTask/Gain06/EETPT shape EE+01 G06");
-      me = mui->getBEInterface()->get("EcalEndcap/Sums/EETestPulseTask/Gain06/EETPT shape EE+01 G06");
+      me = mui->getBEInterface()->get("Collector/Ecal/EcalEndcap/EETestPulseTask/Gain06/EETPT shape EE+01 G06");
       h = UtilsClient::getHisto<TProfile2D*>(me);
       if ( h ) {
         c5->cd();
@@ -169,8 +164,7 @@ void *pth1(void *) {
         c5->Update();
       }
 
-//      me = mui->getBEInterface()->get("Collector/Ecal/EcalEndcap/EETestPulseTask/Gain12/EETPT shape EE+01 G12");
-      me = mui->getBEInterface()->get("EcalEndcap/Sums/EETestPulseTask/Gain12/EETPT shape EE+01 G12");
+      me = mui->getBEInterface()->get("Collector/Ecal/EcalEndcap/EETestPulseTask/Gain12/EETPT shape EE+01 G12");
       h = UtilsClient::getHisto<TProfile2D*>(me);
       if ( h ) {
         c6->cd();
@@ -251,26 +245,6 @@ int main(int argc, char** argv) {
   mui->subscribe("*/EcalEndcap/EETestPulseTask/Gain06/EETPT amplitude EE+01 G06");
   mui->subscribe("*/EcalEndcap/EETestPulseTask/Gain12/EETPT shape EE+01 G12");
   mui->subscribe("*/EcalEndcap/EETestPulseTask/Gain12/EETPT amplitude EE+01 G12");
-
-  CollateMonitorElement* cme;
-
-  cme = mui->collateProf2D("EETPT shape EE+01 G01", "EETPT shape EE+01 G01", "EcalEndcap/Sums/EETestPulseTask/Gain01");
-  mui->add(cme, "*/EcalEndcap/EETestPulseTask/Gain01/EETPT shape EE+01 G01");
-
-  cme = mui->collateProf2D("EETPT amplitude EE+01 G01", "EETPT amplitude EE+01 G01", "EcalEndcap/Sums/EETestPulseTask/Gain01");
-  mui->add(cme, "*/EcalEndcap/EETestPulseTask/Gain01/EETPT amplitude EE+01 G01");
-
-  cme = mui->collateProf2D("EETPT shape EE+01 G06", "EETPT shape EE+01 G06", "EcalEndcap/Sums/EETestPulseTask/Gain06");
-  mui->add(cme, "*/EcalEndcap/EETestPulseTask/Gain06/EETPT shape EE+01 G06");
-
-  cme = mui->collateProf2D("EETPT amplitude EE+01 G06", "EETPT amplitude EE+01 G06", "EcalEndcap/Sums/EETestPulseTask/Gain06");
-  mui->add(cme, "*/EcalEndcap/EETestPulseTask/Gain06/EETPT amplitude EE+01 G06");
-
-  cme = mui->collateProf2D("EETPT shape EE+01 G12", "EETPT shape EE+01 G12", "EcalEndcap/Sums/EETestPulseTask/Gain12");
-  mui->add(cme, "*/EcalEndcap/EETestPulseTask/Gain12/EETPT shape EE+01 G12");
-
-  cme = mui->collateProf2D("EETPT amplitude EE+01 G12", "EETPT amplitude EE+01 G12", "EcalEndcap/Sums/EETestPulseTask/Gain12");
-  mui->add(cme, "*/EcalEndcap/EETestPulseTask/Gain12/EETPT amplitude EE+01 G12");
 
   TThread *th1 = new TThread("th1",pth1);
 

@@ -1,8 +1,8 @@
 /*
  * \file testEcalEndcapMonitorLaserClient.cpp
  *
- *  $Date: 2007/08/17 09:05:10 $
- *  $Revision: 1.9 $
+ *  $Date: 2007/09/06 19:54:11 $
+ *  $Revision: 1.10 $
  *  \author G. Della Ricca
  *
  */
@@ -115,8 +115,7 @@ void *pth1(void *) {
 
       TProfile2D* h;
 
-//      me = mui->getBEInterface()->get("Collector/Ecal/EcalEndcap/EELaserTask/Laser1/EELT amplitude EE+01 L1");
-      me = mui->getBEInterface()->get("EcalEndcap/Sums/EELaserTask/Laser1/EELT amplitude EE+01 L1");
+      me = mui->getBEInterface()->get("Collector/Ecal/EcalEndcap/EELaserTask/Laser1/EELT amplitude EE+01 L1");
       h = UtilsClient::getHisto<TProfile2D*>(me);
       if ( h ) {
         c1->cd();
@@ -125,8 +124,7 @@ void *pth1(void *) {
         c1->Update();
       }
 
-//      me = mui->getBEInterface()->get("Collector/Ecal/EcalEndcap/EELaserTask/Laser2/EELT amplitude EE+01 L2");
-      me = mui->getBEInterface()->get("EcalEndcap/Sums/EELaserTask/Laser2/EELT amplitude EE+01 L2");
+      me = mui->getBEInterface()->get("Collector/Ecal/EcalEndcap/EELaserTask/Laser2/EELT amplitude EE+01 L2");
       h = UtilsClient::getHisto<TProfile2D*>(me);
       if ( h ) {
         c2->cd();
@@ -135,8 +133,7 @@ void *pth1(void *) {
         c2->Update();
       }
 
-//      me = mui->getBEInterface()->get("Collector/Ecal/EcalEndcap/EELaserTask/Laser1/EELT shape EE+01 L1");
-      me = mui->getBEInterface()->get("EcalEndcap/Sums/EELaserTask/Laser1/EELT shape EE+01 L1");
+      me = mui->getBEInterface()->get("Collector/Ecal/EcalEndcap/EELaserTask/Laser1/EELT shape EE+01 L1");
       h = UtilsClient::getHisto<TProfile2D*>(me);
       if ( h ) {
         c3->cd();
@@ -145,8 +142,7 @@ void *pth1(void *) {
         c3->Update();
       }
 
-//      me = mui->getBEInterface()->get("Collector/Ecal/EcalEndcap/EELaserTask/Laser2/EELT shape EE+01 L2");
-      me = mui->getBEInterface()->get("EcalEndcap/Sums/EELaserTask/Laser2/EELT shape EE+01 L2");
+      me = mui->getBEInterface()->get("Collector/Ecal/EcalEndcap/EELaserTask/Laser2/EELT shape EE+01 L2");
       h = UtilsClient::getHisto<TProfile2D*>(me);
       if ( h ) {
         c4->cd();
@@ -219,20 +215,6 @@ int main(int argc, char** argv) {
   mui->subscribe("*/EcalEndcap/EELaserTask/Laser1/EELT amplitude EE+01 L1");
   mui->subscribe("*/EcalEndcap/EELaserTask/Laser2/EELT shape EE+01 L2");
   mui->subscribe("*/EcalEndcap/EELaserTask/Laser2/EELT amplitude EE+01 L2");
-
-  CollateMonitorElement* cme;
-
-  cme = mui->collateProf2D("EELT shape EE+01 L1", "EELT shape EE+01 L1", "EcalEndcap/Sums/EELaserTask/Laser1");
-  mui->add(cme, "*/EcalEndcap/EELaserTask/Laser1/EELT shape EE+01 L1");
-
-  cme = mui->collateProf2D("EELT amplitude EE+01 L1", "EELT amplitude EE+01 L1", "EcalEndcap/Sums/EELaserTask/Laser1");
-  mui->add(cme, "*/EcalEndcap/EELaserTask/Laser1/EELT amplitude EE+01 L1");
-
-  cme = mui->collateProf2D("EELT shape EE+01 L2", "EELT shape EE+01 L2", "EcalEndcap/Sums/EELaserTask/Laser2");
-  mui->add(cme, "*/EcalEndcap/EELaserTask/Laser2/EELT shape EE+01 L2");
-
-  cme = mui->collateProf2D("EELT amplitude EE+01 L2", "EELT amplitude EE+01 L2", "EcalEndcap/Sums/EELaserTask/Laser2");
-  mui->add(cme, "*/EcalEndcap/EELaserTask/Laser2/EELT amplitude EE+01 L2");
 
   TThread *th1 = new TThread("th1",pth1);
 

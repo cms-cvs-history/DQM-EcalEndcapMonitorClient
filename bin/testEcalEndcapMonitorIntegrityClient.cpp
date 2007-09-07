@@ -1,8 +1,8 @@
 /*
  * \file testEcalEndcapMonitorIntegrityClient.cpp
  *
- *  $Date: 2007/08/17 09:05:10 $
- *  $Revision: 1.9 $
+ *  $Date: 2007/09/06 19:54:11 $
+ *  $Revision: 1.10 $
  *  \author G. Della Ricca
  *
  */
@@ -120,8 +120,7 @@ void *pth1(void *) {
       TH1F* h1;
       TH2F* h2;
 
-      //      me = mui->getBEInterface()->get("Collector/Ecal/EcalEndcap/EEIntegrityTask/EEIT DCC size error");
-      me = mui->getBEInterface()->get("EcalEndcap/Sums/EEIntegrityTask/EEIT DCC size error");
+      me = mui->getBEInterface()->get("Collector/Ecal/EcalEndcap/EEIntegrityTask/EEIT DCC size error");
       h1 = UtilsClient::getHisto<TH1F*>(me);
       if ( h1 ) {
         c1->cd();
@@ -130,8 +129,7 @@ void *pth1(void *) {
         c1->Update();
       }
     
-      //      me = mui->getBEInterface()->get("Collector/Ecal/EcalEndcap/EEIntegrityTask/Gain/EEIT gain EE+01");
-      me = mui->getBEInterface()->get("EcalEndcap/Sums/EEIntegrityTask/Gain/EEIT gain EE+01");
+      me = mui->getBEInterface()->get("Collector/Ecal/EcalEndcap/EEIntegrityTask/Gain/EEIT gain EE+01");
       h2 = UtilsClient::getHisto<TH2F*>(me);
       if ( h2 ) {
         c2->cd(1);
@@ -140,8 +138,7 @@ void *pth1(void *) {
         c2->Update();
       }
 
-      //      me = mui->getBEInterface()->get("Collector/Ecal/EcalEndcap/EEIntegrityTask/ChId/EEIT ChId EE+01");
-      me = mui->getBEInterface()->get("EcalEndcap/Sums/EEIntegrityTask/ChId/EEIT ChId EE+01");
+      me = mui->getBEInterface()->get("Collector/Ecal/EcalEndcap/EEIntegrityTask/ChId/EEIT ChId EE+01");
       h2 = UtilsClient::getHisto<TH2F*>(me);
       if ( h2 ) {
         c2->cd(2);
@@ -150,8 +147,7 @@ void *pth1(void *) {
         c2->Update();
       }
 
-      //      me = mui->getBEInterface()->get("Collector/Ecal/EcalEndcap/EEIntegrityTask/TTId/EEIT TTId EE+01");
-      me = mui->getBEInterface()->get("EcalEndcap/Sums/EEIntegrityTask/TTId/EEIT TTId EE+01");
+      me = mui->getBEInterface()->get("Collector/Ecal/EcalEndcap/EEIntegrityTask/TTId/EEIT TTId EE+01");
       h2 = UtilsClient::getHisto<TH2F*>(me);
       if ( h2 ) {
         c2->cd(3);
@@ -160,8 +156,7 @@ void *pth1(void *) {
         c2->Update();
       }
 
-      //      me = mui->getBEInterface()->get("Collector/Ecal/EcalEndcap/EEIntegrityTask/TTBlockSize/EEIT TTBlockSize EE+01");
-      me = mui->getBEInterface()->get("EcalEndcap/Sums/EEIntegrityTask/TTBlockSize/EEIT TTBlockSize EE+01");
+      me = mui->getBEInterface()->get("Collector/Ecal/EcalEndcap/EEIntegrityTask/TTBlockSize/EEIT TTBlockSize EE+01");
       h2 = UtilsClient::getHisto<TH2F*>(me);
       if ( h2 ) {
         c2->cd(4);
@@ -174,8 +169,7 @@ void *pth1(void *) {
       c2->Modified();
       c2->Update();
 
-      // me = mui->getBEInterface()->get("EcalEndcap/Sums/EEIntegrityTask/TTBlockSize/EEIT TTBlockSize EE+01");
-      me = mui->getBEInterface()->get("EcalEndcap/Sums/EEIntegrityTask/MemChId/EEIT MemChId EE+01");
+      me = mui->getBEInterface()->get("Collector/Ecal/EcalEndcap/EEIntegrityTask/TTBlockSize/EEIT TTBlockSize EE+01");
        h2 = UtilsClient::getHisto<TH2F*>(me);
        if ( h2 ) {
          c3->cd(1);
@@ -188,7 +182,7 @@ void *pth1(void *) {
       c3->Modified();
       c3->Update();
 
-      me = mui->getBEInterface()->get("EcalEndcap/Sums/EEIntegrityTask/MemGain/EEIT MemGain EE+01");
+      me = mui->getBEInterface()->get("Collector/Ecal/EcalEndcap/EEIntegrityTask/MemGain/EEIT MemGain EE+01");
       h2 = UtilsClient::getHisto<TH2F*>(me);
       if ( h2 ) {
         c3->cd(2);
@@ -272,36 +266,6 @@ int main(int argc, char** argv) {
   mui->subscribeNew("*/EcalEndcap/EEIntegrityTask/MemGain/EEIT MemGain EE+01");
   mui->subscribeNew("*/EcalEndcap/EEIntegrityTask/MemTTId/EEIT MemTTId EE+01");
   mui->subscribeNew("*/EcalEndcap/EEIntegrityTask/MemSize/EEIT MemSize EE+01");
-
-  CollateMonitorElement* cme;
-  
-  cme = mui->collate2D("EEIT gain EE+01", "EEIT gain EE+01", "EcalEndcap/Sums/EEIntegrityTask/Gain");
-  mui->add(cme, "*/EcalEndcap/EEIntegrityTask/Gain/EEIT gain EE+01");
-
-  cme = mui->collate2D("EEIT ChId EE+01", "EEIT ChId EE+01", "EcalEndcap/Sums/EEIntegrityTask/ChId");
-  mui->add(cme, "*/EcalEndcap/EEIntegrityTask/ChId/EEIT ChId EE+01");
-
-  cme = mui->collate2D("EEIT TTId EE+01", "EEIT TTId EE+01", "EcalEndcap/Sums/EEIntegrityTask/TTId");
-  mui->add(cme, "*/EcalEndcap/EEIntegrityTask/TTId/EEIT TTId EE+01");
-
-  cme = mui->collate2D("EEIT TTBlockSize EE+01", "EEIT TTBlockSize EE+01", "EcalEndcap/Sums/EEIntegrityTask/TTBlockSize");
-  mui->add(cme, "*/EcalEndcap/EEIntegrityTask/TTBlockSize/EEIT TTBlockSize EE+01");
-
-  cme = mui->collate1D("EEIT DCC size error", "DCC size error", "EcalEndcap/Sums/EEIntegrityTask");
-  mui->add(cme, "*/EcalEndcap/EEIntegrityTask/EEIT DCC size error");
-
-  cme = mui->collate2D("EEIT MemChId EE+01", "EEIT MemChId EE+01", "EcalEndcap/Sums/EEIntegrityTask/MemChId");
-  mui->add(cme, "*/EcalEndcap/EEIntegrityTask/MemChId/EEIT MemChId EE+01");
-
-  cme = mui->collate2D("EEIT MemGain EE+01", "EEIT MemGain EE+01", "EcalEndcap/Sums/EEIntegrityTask/MemGain");
-  mui->add(cme, "*/EcalEndcap/EEIntegrityTask/MemGain/EEIT MemGain EE+01");
-
-  cme = mui->collate2D("EEIT MemTTId EE+01", "EEIT MemTTId EE+01", "EcalEndcap/Sums/EEIntegrityTask/MemTTId");
-  mui->add(cme, "*/EcalEndcap/EEIntegrityTask/MemTTId/EEIT MemTTId EE+01");
-
-  cme = mui->collate2D("EEIT MemSize EE+01", "EEIT MemSize EE+01", "EcalEndcap/Sums/EEIntegrityTask/MemSize");
-  mui->add(cme, "*/EcalEndcap/EEIntegrityTask/MemSize/EEIT MemSize EE+01");
-
 
   TThread *th1 = new TThread("th1",pth1);
 
