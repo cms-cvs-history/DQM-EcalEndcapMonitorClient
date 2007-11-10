@@ -1,8 +1,8 @@
 /*
  * \file testEcalEndcapMonitorClient.cpp
  *
- *  $Date: 2007/09/06 19:54:11 $
- *  $Revision: 1.10 $
+ *  $Date: 2007/09/07 22:30:05 $
+ *  $Revision: 1.11 $
  *  \author G. Della Ricca
  *
  */
@@ -158,10 +158,10 @@ int main(int argc, char** argv) {
   // default port #
   int port_no = 9090;
 
-  c1 = new TCanvas("Ecal Endcap Generic Monitoring - 1","Ecal Endcap Generic Monitoring - 1", 0,   0, 400,400);
+  c1 = new TCanvas("Ecal Endcap Generic Monitoring - 1","Ecal Endcap Generic Monitoring - 1",   0, 0, 200, 200);
   c1->Modified();
   c1->Update();
-  c2 = new TCanvas("Ecal Endcap Generic Monitoring - 2","Ecal Endcap Generic Monitoring - 2", 0, 460,1000,400);
+  c2 = new TCanvas("Ecal Endcap Generic Monitoring - 2","Ecal Endcap Generic Monitoring - 2", 250, 0, 500, 500);
   c2->Modified();
   c2->Update();
 
