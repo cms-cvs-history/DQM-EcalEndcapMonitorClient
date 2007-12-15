@@ -1,8 +1,8 @@
 /*
  * \file testEcalEndcapMonitorClient.cpp
  *
- *  $Date: 2007/11/26 22:32:48 $
- *  $Revision: 1.13 $
+ *  $Date: 2007/11/28 09:47:41 $
+ *  $Revision: 1.14 $
  *  \author G. Della Ricca
  *
  */
@@ -44,12 +44,7 @@ void *pth1(void *) {
     stay_in_loop = mui->update();
 
     // subscribe to new monitorable matching pattern
-    mui->subscribeNew("*/EcalEndcap/EcalInfo/STATUS");
-    mui->subscribeNew("*/EcalEndcap/EcalInfo/RUN");
-    mui->subscribeNew("*/EcalEndcap/EcalInfo/EVT");
-    mui->subscribeNew("*/EcalEndcap/EcalInfo/EVTTYPE");
-    mui->subscribeNew("*/EcalEndcap/EcalInfo/RUNTYPE");
-    mui->subscribeNew("*/EcalEndcap/EcalEvent/EEMM event EE+01*");
+    mui->subscribeNew("*/EcalEndcap/*");
 
     // # of full monitoring cycles processed
     int updates = mui->getNumUpdates();
@@ -181,12 +176,7 @@ int main(int argc, char** argv) {
   mui->setReconnectDelay(5);
 
   // subscribe to all monitorable matching pattern
-  mui->subscribe("*/EcalEndcap/EcalInfo/STATUS");
-  mui->subscribe("*/EcalEndcap/EcalInfo/RUN");
-  mui->subscribe("*/EcalEndcap/EcalInfo/EVT");
-  mui->subscribe("*/EcalEndcap/EcalInfo/EVTTYPE");
-  mui->subscribe("*/EcalEndcap/EcalInfo/RUNTYPE");
-  mui->subscribe("*/EcalEndcap/EcalEvent/EEMM event EE+01");
+  mui->subscribe("*/EcalEndcap/*");
 
   TThread *th1 = new TThread("th1", pth1);
 
@@ -194,7 +184,7 @@ int main(int argc, char** argv) {
 
   try { app.Run(kTRUE); } catch (...) { throw; }
 
-  mui->unsubscribe("*");
+  mui->unsubscribe("*/EcalEndcap/*");
 
   exit_now = true;
 
