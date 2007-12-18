@@ -1,8 +1,8 @@
 /*
  * \file testEcalEndcapMonitorClient.cpp
  *
- *  $Date: 2007/12/15 21:03:53 $
- *  $Revision: 1.16 $
+ *  $Date: 2007/12/16 09:09:36 $
+ *  $Revision: 1.17 $
  *  \author G. Della Ricca
  *
  */
@@ -182,7 +182,7 @@ int main(int argc, char** argv) {
 
   th1->Run();
 
-  try { app.Run(kTRUE); } catch (...) { throw; }
+  app.Run(kTRUE);
 
   mui->unsubscribe("*/EcalEndcap/*");
 
