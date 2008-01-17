@@ -1,8 +1,8 @@
 /*
  * \file testEcalEndcapMonitorClient.cpp
  *
- *  $Date: 2007/12/16 09:09:36 $
- *  $Revision: 1.17 $
+ *  $Date: 2007/12/18 09:57:55 $
+ *  $Revision: 1.18 $
  *  \author G. Della Ricca
  *
  */
@@ -17,6 +17,8 @@
 #include "TROOT.h"
 #include "TApplication.h"
 #include "TThread.h"
+
+#include "TCanvas.h"
 
 #include <iostream>
 #include <math.h>
