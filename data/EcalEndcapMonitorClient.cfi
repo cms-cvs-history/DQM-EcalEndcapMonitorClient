@@ -15,6 +15,7 @@ module ecalEndcapMonitorClient = EcalEndcapMonitorClient{
   untracked bool enableSubRunHtml = false
   untracked int32 htmlRefreshTime = 5
   untracked vstring enabledClients = { "Integrity",
+                                       "Occupancy",
                                        "StatusFlags",
                                        "PedestalOnline",
                                        "Pedestal", "TestPulse",
