@@ -1,8 +1,8 @@
 /*
  * \file EELedClient.cc
  *
- * $Date: 2008/01/18 18:06:49 $
- * $Revision: 1.51 $
+ * $Date: 2008/01/22 19:47:13 $
+ * $Revision: 1.53 $
  * \author G. Della Ricca
  * \author G. Franzoni
  *
@@ -21,14 +21,10 @@
 
 #include "DQMServices/UI/interface/MonitorUIRoot.h"
 
-#include "OnlineDB/EcalCondDB/interface/MonLed1Dat.h"
-#include "OnlineDB/EcalCondDB/interface/MonLed2Dat.h"
-#include "OnlineDB/EcalCondDB/interface/MonPNLed1Dat.h"
-#include "OnlineDB/EcalCondDB/interface/MonPNLed2Dat.h"
+#include "OnlineDB/EcalCondDB/interface/MonLaserBlueDat.h"
+#include "OnlineDB/EcalCondDB/interface/MonPNBlueDat.h"
 #include "OnlineDB/EcalCondDB/interface/RunCrystalErrorsDat.h"
 #include "OnlineDB/EcalCondDB/interface/RunPNErrorsDat.h"
-
-#include "OnlineDB/EcalCondDB/interface/EcalCondDBInterface.h"
 
 #include "CondTools/Ecal/interface/EcalErrorDictionary.h"
 
@@ -489,8 +485,8 @@ bool EELedClient::writeDb(EcalCondDBInterface* econn, RunIOV* runiov, MonRunIOV*
 
   EcalLogicID ecid;
 
-  MonLed1Dat vpt_l1;
-  map<EcalLogicID, MonLed1Dat> dataset1_l1;
+  MonLaserBlueDat apd_bl;
+  map<EcalLogicID, MonLaserBlueDat> dataset1_bl;
 
   for ( unsigned int i=0; i<superModules_.size(); i++ ) {
 
@@ -544,16 +540,16 @@ bool EELedClient::writeDb(EcalCondDBInterface* econn, RunIOV* runiov, MonRunIOV*
 
           }
 
-          vpt_l1.setVPTMean(mean01);
-          vpt_l1.setVPTRMS(rms01);
+          apd_bl.setAPDMean(mean01);
+          apd_bl.setAPDRMS(rms01);
 
-          vpt_l1.setVPTOverPNMean(mean02);
-          vpt_l1.setVPTOverPNRMS(rms02);
+          apd_bl.setAPDOverPNMean(mean02);
+          apd_bl.setAPDOverPNRMS(rms02);
 
           if ( meg01_[ism-1] && int(meg01_[ism-1]->getBinContent( ix, iy )) % 3 == 1. ) {
-            vpt_l1.setTaskStatus(true);
+            apd_bl.setTaskStatus(true);
           } else {
-            vpt_l1.setTaskStatus(false);
+            apd_bl.setTaskStatus(false);
           }
 
           status = status && UtilsClient::getBinQual(meg01_[ism-1], ix, iy);
@@ -565,7 +561,7 @@ bool EELedClient::writeDb(EcalCondDBInterface* econn, RunIOV* runiov, MonRunIOV*
           if ( econn ) {
             try {
               ecid = LogicID::getEcalLogicID("EE_crystal_number", Numbers::iSM(ism, EcalEndcap), ic);
-              dataset1_l1[ecid] = vpt_l1;
+              dataset1_bl[ecid] = apd_bl;
             } catch (runtime_error &e) {
               cerr << e.what() << endl;
             }
@@ -585,16 +581,16 @@ bool EELedClient::writeDb(EcalCondDBInterface* econn, RunIOV* runiov, MonRunIOV*
 
           }
 
-          vpt_l1.setVPTMean(mean09);
-          vpt_l1.setVPTRMS(rms09);
+          apd_bl.setAPDMean(mean09);
+          apd_bl.setAPDRMS(rms09);
 
-          vpt_l1.setVPTOverPNMean(mean10);
-          vpt_l1.setVPTOverPNRMS(rms10);
+          apd_bl.setAPDOverPNMean(mean10);
+          apd_bl.setAPDOverPNRMS(rms10);
 
           if ( meg01_[ism-1] && int(meg01_[ism-1]->getBinContent( ix, iy )) % 3 == 1. ) {
-            vpt_l1.setTaskStatus(true);
+            apd_bl.setTaskStatus(true);
           } else {
-            vpt_l1.setTaskStatus(false);
+            apd_bl.setTaskStatus(false);
           }
 
           status = status && UtilsClient::getBinQual(meg01_[ism-1], ix, iy);
@@ -606,7 +602,7 @@ bool EELedClient::writeDb(EcalCondDBInterface* econn, RunIOV* runiov, MonRunIOV*
           if ( econn ) {
             try {
               ecid = LogicID::getEcalLogicID("EE_crystal_number", Numbers::iSM(ism, EcalEndcap), ic);
-              dataset1_l1[ecid] = vpt_l1;
+              dataset1_bl[ecid] = apd_bl;
             } catch (runtime_error &e) {
               cerr << e.what() << endl;
             }
@@ -622,7 +618,8 @@ bool EELedClient::writeDb(EcalCondDBInterface* econn, RunIOV* runiov, MonRunIOV*
   if ( econn ) {
     try {
       cout << "Inserting MonLedDat ... " << flush;
-      if ( dataset1_l1.size() != 0 ) econn->insertDataArraySet(&dataset1_l1, moniov);
+/// FIXME
+///      if ( dataset1_bl.size() != 0 ) econn->insertDataSet(&dataset1_bl, moniov);
       cout << "done." << endl;
     } catch (runtime_error &e) {
       cerr << e.what() << endl;
@@ -631,8 +628,8 @@ bool EELedClient::writeDb(EcalCondDBInterface* econn, RunIOV* runiov, MonRunIOV*
 
   cout << endl;
 
-  MonPNLed1Dat pn_l1;
-  map<EcalLogicID, MonPNLed1Dat> dataset2_l1;
+  MonPNBlueDat pn_bl;
+  map<EcalLogicID, MonPNBlueDat> dataset2_bl;
 
   for ( unsigned int i=0; i<superModules_.size(); i++ ) {
 
@@ -685,23 +682,23 @@ bool EELedClient::writeDb(EcalCondDBInterface* econn, RunIOV* runiov, MonRunIOV*
 
         }
 
-        pn_l1.setADCMeanG1(mean01);
-        pn_l1.setADCRMSG1(rms01);
+        pn_bl.setADCMeanG1(mean01);
+        pn_bl.setADCRMSG1(rms01);
 
-        pn_l1.setPedMeanG1(mean05);
-        pn_l1.setPedRMSG1(rms05);
+        pn_bl.setPedMeanG1(mean05);
+        pn_bl.setPedRMSG1(rms05);
 
-        pn_l1.setADCMeanG16(mean09);
-        pn_l1.setADCRMSG16(rms09);
+        pn_bl.setADCMeanG16(mean09);
+        pn_bl.setADCRMSG16(rms09);
 
-        pn_l1.setPedMeanG16(mean13);
-        pn_l1.setPedRMSG16(rms13);
+        pn_bl.setPedMeanG16(mean13);
+        pn_bl.setPedRMSG16(rms13);
 
         if ( meg05_[ism-1] && int(meg05_[ism-1]->getBinContent( i, 1 )) % 3 == 1. ||
              meg09_[ism-1] && int(meg09_[ism-1]->getBinContent( i, 1 )) % 3 == 1. ) {
-          pn_l1.setTaskStatus(true);
+          pn_bl.setTaskStatus(true);
         } else {
-          pn_l1.setTaskStatus(false);
+          pn_bl.setTaskStatus(false);
         }
 
         status = status && ( UtilsClient::getBinQual(meg05_[ism-1], i, 1) ||
@@ -710,7 +707,7 @@ bool EELedClient::writeDb(EcalCondDBInterface* econn, RunIOV* runiov, MonRunIOV*
         if ( econn ) {
           try {
             ecid = LogicID::getEcalLogicID("EE_LM_PN", Numbers::iSM(ism, EcalEndcap), i-1);
-            dataset2_l1[ecid] = pn_l1;
+            dataset2_bl[ecid] = pn_bl;
           } catch (runtime_error &e) {
             cerr << e.what() << endl;
           }
@@ -725,7 +722,8 @@ bool EELedClient::writeDb(EcalCondDBInterface* econn, RunIOV* runiov, MonRunIOV*
   if ( econn ) {
     try {
       cout << "Inserting MonPnDat ... " << flush;
-      if ( dataset2_l1.size() != 0 ) econn->insertDataArraySet(&dataset2_l1, moniov);
+/// FIXME
+///      if ( dataset2_bl.size() != 0 ) econn->insertDataSet(&dataset2_bl, moniov);
       cout << "done." << endl;
     } catch (runtime_error &e) {
       cerr << e.what() << endl;
