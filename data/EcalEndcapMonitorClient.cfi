@@ -24,6 +24,7 @@ module ecalEndcapMonitorClient = EcalEndcapMonitorClient{
                                        "BeamCalo", "BeamHodo",
                                        "Summary" }
   untracked bool enableMonitorDaemon = false
+  untracked string prefixME = "EcalEndcap"
   untracked bool enableCleanup = false
   untracked bool enableUpdate = false
   untracked string clientName = "EcalEndcapMonitorClient"
