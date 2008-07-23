@@ -34,5 +34,6 @@ module ecalEndcapMonitorClient = EcalEndcapMonitorClient{
                                     11, 12, 13, 14, 15, 16 ,17, 18 }
   untracked bool verbose = true
   untracked bool debug = false
+  untracked int32 prescaleFactor = 1
 }
 
