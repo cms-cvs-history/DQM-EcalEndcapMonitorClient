@@ -2,6 +2,7 @@
 <flags   CPPDEFINES="WITH_ECAL_COND_DB"/>
 
 <use   name="DQM/EcalCommon"/>
+<use   name="DQM/EcalBarrelMonitorClient"/>
 <use   name="DQMServices/Core"/>
 <use   name="DataFormats/EcalDetId"/>
 <use   name="FWCore/Framework"/>
