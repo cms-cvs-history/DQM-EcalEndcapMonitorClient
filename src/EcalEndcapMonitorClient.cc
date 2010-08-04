@@ -1,8 +1,8 @@
 /*
  * \file EcalEndcapMonitorClient.cc
  *
- * $Date: 2010/06/02 07:27:57 $
- * $Revision: 1.248 $
+ * $Date: 2010/06/29 15:53:29 $
+ * $Revision: 1.246.2.1 $
  * \author G. Della Ricca
  * \author F. Cossutti
  *
@@ -34,29 +34,29 @@
 #include "OnlineDB/EcalCondDB/interface/RunTag.h"
 #include "OnlineDB/EcalCondDB/interface/RunDat.h"
 #include "OnlineDB/EcalCondDB/interface/MonRunDat.h"
+#include "DQM/EcalCommon/interface/EcalErrorMask.h"
+#include "DQM/EcalCommon/interface/LogicID.h"
 #endif
 
-#include "DQM/EcalCommon/interface/EcalErrorMask.h"
-#include <DQM/EcalCommon/interface/UtilsClient.h>
-#include <DQM/EcalCommon/interface/Numbers.h>
-#include <DQM/EcalCommon/interface/LogicID.h>
+#include "DQM/EcalCommon/interface/UtilsClient.h"
+#include "DQM/EcalCommon/interface/Numbers.h"
 
-#include <DQM/EcalEndcapMonitorClient/interface/EcalEndcapMonitorClient.h>
+#include "DQM/EcalEndcapMonitorClient/interface/EcalEndcapMonitorClient.h"
 
-#include <DQM/EcalEndcapMonitorClient/interface/EEIntegrityClient.h>
-#include <DQM/EcalEndcapMonitorClient/interface/EEStatusFlagsClient.h>
-#include <DQM/EcalEndcapMonitorClient/interface/EEOccupancyClient.h>
-#include <DQM/EcalEndcapMonitorClient/interface/EECosmicClient.h>
-#include <DQM/EcalEndcapMonitorClient/interface/EELaserClient.h>
-#include <DQM/EcalEndcapMonitorClient/interface/EEPedestalClient.h>
-#include <DQM/EcalEndcapMonitorClient/interface/EEPedestalOnlineClient.h>
-#include <DQM/EcalEndcapMonitorClient/interface/EETestPulseClient.h>
-#include <DQM/EcalEndcapMonitorClient/interface/EEBeamCaloClient.h>
-#include <DQM/EcalEndcapMonitorClient/interface/EEBeamHodoClient.h>
-#include <DQM/EcalEndcapMonitorClient/interface/EETriggerTowerClient.h>
-#include <DQM/EcalEndcapMonitorClient/interface/EEClusterClient.h>
-#include <DQM/EcalEndcapMonitorClient/interface/EETimingClient.h>
-#include <DQM/EcalEndcapMonitorClient/interface/EELedClient.h>
+#include "DQM/EcalEndcapMonitorClient/interface/EEIntegrityClient.h"
+#include "DQM/EcalEndcapMonitorClient/interface/EEStatusFlagsClient.h"
+#include "DQM/EcalEndcapMonitorClient/interface/EEOccupancyClient.h"
+#include "DQM/EcalEndcapMonitorClient/interface/EECosmicClient.h"
+#include "DQM/EcalEndcapMonitorClient/interface/EELaserClient.h"
+#include "DQM/EcalEndcapMonitorClient/interface/EEPedestalClient.h"
+#include "DQM/EcalEndcapMonitorClient/interface/EEPedestalOnlineClient.h"
+#include "DQM/EcalEndcapMonitorClient/interface/EETestPulseClient.h"
+#include "DQM/EcalEndcapMonitorClient/interface/EEBeamCaloClient.h"
+#include "DQM/EcalEndcapMonitorClient/interface/EEBeamHodoClient.h"
+#include "DQM/EcalEndcapMonitorClient/interface/EETriggerTowerClient.h"
+#include "DQM/EcalEndcapMonitorClient/interface/EEClusterClient.h"
+#include "DQM/EcalEndcapMonitorClient/interface/EETimingClient.h"
+#include "DQM/EcalEndcapMonitorClient/interface/EELedClient.h"
 
 EcalEndcapMonitorClient::EcalEndcapMonitorClient(const edm::ParameterSet& ps) {
 
@@ -922,7 +922,7 @@ void EcalEndcapMonitorClient::endRun(const edm::Run& r, const edm::EventSetup& c
 
 }
 
-void EcalEndcapMonitorClient::beginLuminosityBlock(const edm::LuminosityBlock &l, const edm::EventSetup &c) {
+void EcalEndcapMonitorClient::beginLuminosityBlock(const edm::LuminosityBlock& l, const edm::EventSetup& c) {
 
   if ( verbose_ ) {
     std::cout << std::endl;
@@ -932,7 +932,7 @@ void EcalEndcapMonitorClient::beginLuminosityBlock(const edm::LuminosityBlock &l
 
 }
 
-void EcalEndcapMonitorClient::endLuminosityBlock(const edm::LuminosityBlock &l, const edm::EventSetup &c) {
+void EcalEndcapMonitorClient::endLuminosityBlock(const edm::LuminosityBlock& l, const edm::EventSetup& c) {
 
   current_time_ = time(NULL);
 
@@ -1151,7 +1151,7 @@ void EcalEndcapMonitorClient::beginRunDb(void) {
 
 }
 
-void EcalEndcapMonitorClient::writeDb() {
+void EcalEndcapMonitorClient::writeDb(void) {
 
   subrun_++;
 
@@ -1750,7 +1750,7 @@ void EcalEndcapMonitorClient::analyze(void) {
 
 }
 
-void EcalEndcapMonitorClient::analyze(const edm::Event &e, const edm::EventSetup &c) {
+void EcalEndcapMonitorClient::analyze(const edm::Event& e, const edm::EventSetup& c) {
 
   run_ = e.id().run();
   evt_ = e.id().event();
