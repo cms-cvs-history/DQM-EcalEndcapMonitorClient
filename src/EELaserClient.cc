@@ -1,8 +1,8 @@
 /*
  * \file EELaserClient.cc
  *
- * $Date: 2010/05/31 12:06:46 $
- * $Revision: 1.131 $
+ * $Date: 2010/08/04 08:20:13 $
+ * $Revision: 1.132 $
  * \author G. Della Ricca
  * \author G. Franzoni
  *
@@ -2023,7 +2023,7 @@ void EELaserClient::analyze(void) {
           float val;
 
           val = 1.;
-          if ( fabs(mean01 - meanAmplL1) > fabs(percentVariation_ * meanAmplL1) || mean01 < amplitudeThreshold_ || rms01 > rmsThresholdRelative_ * mean01 )
+          if ( std::abs(mean01 - meanAmplL1) > std::abs(percentVariation_ * meanAmplL1) || mean01 < amplitudeThreshold_ || rms01 > rmsThresholdRelative_ * mean01 )
             val = 0.;
           if ( meg01_[ism-1] ) meg01_[ism-1]->setBinContent( ix, iy, val );
 
@@ -2047,7 +2047,7 @@ void EELaserClient::analyze(void) {
           float val;
 
           val = 1.;
-          if ( fabs(mean03 - meanAmplL2) > fabs(percentVariation_ * meanAmplL2) || mean03 < amplitudeThreshold_ || rms03 > rmsThresholdRelative_ * mean03 )
+          if ( std::abs(mean03 - meanAmplL2) > std::abs(percentVariation_ * meanAmplL2) || mean03 < amplitudeThreshold_ || rms03 > rmsThresholdRelative_ * mean03 )
             val = 0.;
           if ( meg02_[ism-1] ) meg02_[ism-1]->setBinContent( ix, iy, val );
 
@@ -2071,7 +2071,7 @@ void EELaserClient::analyze(void) {
           float val;
 
           val = 1.;
-          if ( fabs(mean05 - meanAmplL3) > fabs(percentVariation_ * meanAmplL3) || mean05 < amplitudeThreshold_ || rms05 > rmsThresholdRelative_ * mean05 )
+          if ( std::abs(mean05 - meanAmplL3) > std::abs(percentVariation_ * meanAmplL3) || mean05 < amplitudeThreshold_ || rms05 > rmsThresholdRelative_ * mean05 )
             val = 0.;
           if ( meg03_[ism-1] ) meg03_[ism-1]->setBinContent( ix, iy, val );
 
@@ -2095,7 +2095,7 @@ void EELaserClient::analyze(void) {
           float val;
 
           val = 1.;
-          if ( fabs(mean07 - meanAmplL4) > fabs(percentVariation_ * meanAmplL4) || mean07 < amplitudeThreshold_ || rms07 > rmsThresholdRelative_ * mean07 )
+          if ( std::abs(mean07 - meanAmplL4) > std::abs(percentVariation_ * meanAmplL4) || mean07 < amplitudeThreshold_ || rms07 > rmsThresholdRelative_ * mean07 )
             val = 0.;
           if ( meg04_[ism-1] ) meg04_[ism-1]->setBinContent( ix, iy, val );
 

@@ -1,8 +1,8 @@
 /*
  * \file EEPedestalOnlineClient.cc
  *
- * $Date: 2010/04/14 16:24:42 $
- * $Revision: 1.102 $
+ * $Date: 2010/08/04 08:20:14 $
+ * $Revision: 1.103 $
  * \author G. Della Ricca
  * \author F. Cossutti
  *
@@ -368,7 +368,7 @@ void EEPedestalOnlineClient::analyze(void) {
           float val;
 
           val = 1.;
-          if ( fabs(mean03 - expectedMean_) > discrepancyMean_ )
+          if ( std::abs(mean03 - expectedMean_) > discrepancyMean_ )
             val = 0.;
           if ( rms03 > RMSThreshold_ )
             val = 0.;
