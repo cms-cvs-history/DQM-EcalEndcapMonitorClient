@@ -1,8 +1,8 @@
 /*
  * \file EEPedestalOnlineClient.cc
  *
- * $Date: 2010/08/04 19:05:30 $
- * $Revision: 1.102.4.1 $
+ * $Date: 2010/08/30 13:41:11 $
+ * $Revision: 1.102.4.2 $
  * \author G. Della Ricca
  * \author F. Cossutti
  *
@@ -33,7 +33,7 @@
 
 #include "DataFormats/EcalDetId/interface/EEDetId.h"
 
-#include <DQM/EcalEndcapMonitorClient/interface/EEPedestalOnlineClient.h>
+#include "DQM/EcalEndcapMonitorClient/interface/EEPedestalOnlineClient.h"
 
 EEPedestalOnlineClient::EEPedestalOnlineClient(const edm::ParameterSet& ps) {
 
@@ -137,8 +137,9 @@ void EEPedestalOnlineClient::setup(void) {
     if ( meg03_[ism-1] ) dqmStore_->removeElement( meg03_[ism-1]->getName() );
     sprintf(histo, "EEPOT pedestal quality G12 %s", Numbers::sEE(ism).c_str());
     meg03_[ism-1] = dqmStore_->book2D(histo, histo, 50, Numbers::ix0EE(ism)+0., Numbers::ix0EE(ism)+50., 50, Numbers::iy0EE(ism)+0., Numbers::iy0EE(ism)+50.);
-    meg03_[ism-1]->setAxisTitle("jx", 1);
-    meg03_[ism-1]->setAxisTitle("jy", 2);
+    meg03_[ism-1]->setAxisTitle("ix", 1);
+    if ( ism >= 1 && ism <= 9 ) meg03_[ism-1]->setAxisTitle("101-ix", 1);
+    meg03_[ism-1]->setAxisTitle("iy", 2);
 
     if ( mep03_[ism-1] ) dqmStore_->removeElement( mep03_[ism-1]->getName() );
     sprintf(histo, "EEPOT pedestal mean G12 %s", Numbers::sEE(ism).c_str());

@@ -1,8 +1,8 @@
 /*
  * \file EEStatusFlagsClient.cc
  *
- * $Date: 2010/08/04 08:20:14 $
- * $Revision: 1.41 $
+ * $Date: 2010/08/04 19:05:30 $
+ * $Revision: 1.40.4.1 $
  * \author G. Della Ricca
  *
 */
@@ -28,7 +28,7 @@
 
 #include "DataFormats/EcalDetId/interface/EEDetId.h"
 
-#include <DQM/EcalEndcapMonitorClient/interface/EEStatusFlagsClient.h>
+#include "DQM/EcalEndcapMonitorClient/interface/EEStatusFlagsClient.h"
 
 EEStatusFlagsClient::EEStatusFlagsClient(const edm::ParameterSet& ps) {
 

@@ -2,8 +2,8 @@
 /*
  * \file EEIntegrityClient.cc
  *
- * $Date: 2010/08/04 08:20:13 $
- * $Revision: 1.107 $
+ * $Date: 2010/08/04 19:05:29 $
+ * $Revision: 1.106.4.1 $
  * \author G. Della Ricca
  * \author G. Franzoni
  *
@@ -41,7 +41,7 @@
 
 #include "DataFormats/EcalDetId/interface/EEDetId.h"
 
-#include <DQM/EcalEndcapMonitorClient/interface/EEIntegrityClient.h>
+#include "DQM/EcalEndcapMonitorClient/interface/EEIntegrityClient.h"
 
 EEIntegrityClient::EEIntegrityClient(const edm::ParameterSet& ps) {
 
@@ -154,8 +154,9 @@ void EEIntegrityClient::setup(void) {
     if ( meg01_[ism-1] ) dqmStore_->removeElement( meg01_[ism-1]->getName() );
     sprintf(histo, "EEIT data integrity quality %s", Numbers::sEE(ism).c_str());
     meg01_[ism-1] = dqmStore_->book2D(histo, histo, 50, Numbers::ix0EE(ism)+0., Numbers::ix0EE(ism)+50., 50, Numbers::iy0EE(ism)+0., Numbers::iy0EE(ism)+50.);
-    meg01_[ism-1]->setAxisTitle("jx", 1);
-    meg01_[ism-1]->setAxisTitle("jy", 2);
+    meg01_[ism-1]->setAxisTitle("ix", 1);
+    if ( ism >= 1 && ism <= 9 ) meg01_[ism-1]->setAxisTitle("101-ix", 1);
+    meg01_[ism-1]->setAxisTitle("iy", 2);
 
     if ( meg02_[ism-1] ) dqmStore_->removeElement( meg02_[ism-1]->getName() );
     sprintf(histo, "EEIT data integrity quality MEM %s", Numbers::sEE(ism).c_str());

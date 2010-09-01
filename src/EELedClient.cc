@@ -1,8 +1,8 @@
 /*
  * \file EELedClient.cc
  *
- * $Date: 2010/08/04 08:20:13 $
- * $Revision: 1.120 $
+ * $Date: 2010/08/04 19:05:29 $
+ * $Revision: 1.119.2.1 $
  * \author G. Della Ricca
  * \author G. Franzoni
  *
@@ -39,7 +39,7 @@
 
 #include "DataFormats/EcalDetId/interface/EEDetId.h"
 
-#include <DQM/EcalEndcapMonitorClient/interface/EELedClient.h>
+#include "DQM/EcalEndcapMonitorClient/interface/EELedClient.h"
 
 EELedClient::EELedClient(const edm::ParameterSet& ps) {
 
@@ -221,15 +221,17 @@ void EELedClient::setup(void) {
       if ( meg01_[ism-1] ) dqmStore_->removeElement( meg01_[ism-1]->getName() );
       sprintf(histo, "EELDT led quality L1 %s", Numbers::sEE(ism).c_str());
       meg01_[ism-1] = dqmStore_->book2D(histo, histo, 50, Numbers::ix0EE(ism)+0., Numbers::ix0EE(ism)+50., 50, Numbers::iy0EE(ism)+0., Numbers::iy0EE(ism)+50.);
-      meg01_[ism-1]->setAxisTitle("jx", 1);
-      meg01_[ism-1]->setAxisTitle("jy", 2);
+      meg01_[ism-1]->setAxisTitle("ix", 1);
+      if ( ism >= 1 && ism <= 9 ) meg01_[ism-1]->setAxisTitle("101-ix", 1);
+      meg01_[ism-1]->setAxisTitle("iy", 2);
     }
     if ( find(ledWavelengths_.begin(), ledWavelengths_.end(), 2) != ledWavelengths_.end() ) {
       if ( meg02_[ism-1] ) dqmStore_->removeElement( meg02_[ism-1]->getName() );
       sprintf(histo, "EELDT led quality L2 %s", Numbers::sEE(ism).c_str());
       meg02_[ism-1] = dqmStore_->book2D(histo, histo, 50, Numbers::ix0EE(ism)+0., Numbers::ix0EE(ism)+50., 50, Numbers::iy0EE(ism)+0., Numbers::iy0EE(ism)+50.);
-      meg02_[ism-1]->setAxisTitle("jx", 1);
-      meg02_[ism-1]->setAxisTitle("jy", 2);
+      meg02_[ism-1]->setAxisTitle("ix", 1);
+      if ( ism >= 1 && ism <= 9 ) meg02_[ism-1]->setAxisTitle("101-ix", 1);
+      meg02_[ism-1]->setAxisTitle("iy", 2);
     }
 
     if ( find(ledWavelengths_.begin(), ledWavelengths_.end(), 1) != ledWavelengths_.end() ) {

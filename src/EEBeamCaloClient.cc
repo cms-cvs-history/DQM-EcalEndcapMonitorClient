@@ -1,8 +1,8 @@
 /*
  * \file EEBeamCaloClient.cc
  *
- * $Date: 2010/08/04 19:05:29 $
- * $Revision: 1.60.4.1 $
+ * $Date: 2010/08/30 13:41:11 $
+ * $Revision: 1.60.4.2 $
  * \author G. Della Ricca
  * \author A. Ghezzi
  *
@@ -27,7 +27,7 @@
 #include "DQM/EcalCommon/interface/UtilsClient.h"
 #include "DQM/EcalCommon/interface/Numbers.h"
 
-#include <DQM/EcalEndcapMonitorClient/interface/EEBeamCaloClient.h>
+#include "DQM/EcalEndcapMonitorClient/interface/EEBeamCaloClient.h"
 
 EEBeamCaloClient::EEBeamCaloClient(const edm::ParameterSet& ps) {
 
