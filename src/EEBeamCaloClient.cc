@@ -1,8 +1,8 @@
 /*
  * \file EEBeamCaloClient.cc
  *
- * $Date: 2010/08/30 13:41:11 $
- * $Revision: 1.60.4.2 $
+ * $Date: 2010/09/01 09:33:01 $
+ * $Revision: 1.60.4.3 $
  * \author G. Della Ricca
  * \author A. Ghezzi
  *
@@ -12,6 +12,7 @@
 #include <iostream>
 #include <fstream>
 #include <algorithm>
+#include <cmath>
 #include <math.h>
 
 #include "FWCore/ServiceRegistry/interface/Service.h"
