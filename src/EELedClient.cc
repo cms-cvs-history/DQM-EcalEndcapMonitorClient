@@ -1,8 +1,8 @@
 /*
  * \file EELedClient.cc
  *
- * $Date: 2010/08/04 19:05:29 $
- * $Revision: 1.119.2.1 $
+ * $Date: 2010/09/01 09:33:03 $
+ * $Revision: 1.119.2.2 $
  * \author G. Della Ricca
  * \author G. Franzoni
  *
@@ -589,9 +589,9 @@ bool EELedClient::writeDb(EcalCondDBInterface* econn, RunIOV* runiov, MonRunIOV*
   EcalLogicID ecid;
 
   MonLed1Dat vpt_l1;
-  map<EcalLogicID, MonLed1Dat> dataset1_l1;
+  std::map<EcalLogicID, MonLed1Dat> dataset1_l1;
   MonLed2Dat vpt_l2;
-  map<EcalLogicID, MonLed2Dat> dataset1_l2;
+  std::map<EcalLogicID, MonLed2Dat> dataset1_l2;
 
   for ( unsigned int i=0; i<superModules_.size(); i++ ) {
 
@@ -720,17 +720,17 @@ bool EELedClient::writeDb(EcalCondDBInterface* econn, RunIOV* runiov, MonRunIOV*
       if ( dataset1_l1.size() != 0 ) econn->insertDataArraySet(&dataset1_l1, moniov);
       if ( dataset1_l2.size() != 0 ) econn->insertDataArraySet(&dataset1_l2, moniov);
       if ( verbose_ ) std::cout << "done." << std::endl;
-    } catch (runtime_error &e) {
-      cerr << e.what() << std::endl;
+    } catch (std::runtime_error &e) {
+      std::cerr << e.what() << std::endl;
     }
   }
 
   if ( verbose_ ) std::cout << std::endl;
 
   MonPNLed1Dat pn_l1;
-  map<EcalLogicID, MonPNLed1Dat> dataset2_l1;
+  std::map<EcalLogicID, MonPNLed1Dat> dataset2_l1;
   MonPNLed2Dat pn_l2;
-  map<EcalLogicID, MonPNLed2Dat> dataset2_l2;
+  std::map<EcalLogicID, MonPNLed2Dat> dataset2_l2;
 
   for ( unsigned int i=0; i<superModules_.size(); i++ ) {
 
@@ -888,17 +888,17 @@ bool EELedClient::writeDb(EcalCondDBInterface* econn, RunIOV* runiov, MonRunIOV*
       if ( dataset2_l1.size() != 0 ) econn->insertDataArraySet(&dataset2_l1, moniov);
       if ( dataset2_l2.size() != 0 ) econn->insertDataArraySet(&dataset2_l2, moniov);
       if ( verbose_ ) std::cout << "done." << std::endl;
-    } catch (runtime_error &e) {
-      cerr << e.what() << std::endl;
+    } catch (std::runtime_error &e) {
+      std::cerr << e.what() << std::endl;
     }
   }
 
   if ( verbose_ ) std::cout << std::endl;
 
   MonTimingLed1CrystalDat t_l1;
-  map<EcalLogicID, MonTimingLed1CrystalDat> dataset3_l1;
+  std::map<EcalLogicID, MonTimingLed1CrystalDat> dataset3_l1;
   MonTimingLed2CrystalDat t_l2;
-  map<EcalLogicID, MonTimingLed2CrystalDat> dataset3_l2;
+  std::map<EcalLogicID, MonTimingLed2CrystalDat> dataset3_l2;
 
   for ( unsigned int i=0; i<superModules_.size(); i++ ) {
 
@@ -1008,8 +1008,8 @@ bool EELedClient::writeDb(EcalCondDBInterface* econn, RunIOV* runiov, MonRunIOV*
       if ( dataset3_l1.size() != 0 ) econn->insertDataArraySet(&dataset3_l1, moniov);
       if ( dataset3_l2.size() != 0 ) econn->insertDataArraySet(&dataset3_l2, moniov);
       if ( verbose_ ) std::cout << "done." << std::endl;
-    } catch (runtime_error &e) {
-      cerr << e.what() << std::endl;
+    } catch (std::runtime_error &e) {
+      std::cerr << e.what() << std::endl;
     }
   }
 
@@ -1557,7 +1557,7 @@ void EELedClient::analyze(void) {
 
 #ifdef WITH_ECAL_COND_DB
   if ( EcalErrorMask::mapCrystalErrors_.size() != 0 ) {
-    map<EcalLogicID, RunCrystalErrorsDat>::const_iterator m;
+    std::map<EcalLogicID, RunCrystalErrorsDat>::const_iterator m;
     for (m = EcalErrorMask::mapCrystalErrors_.begin(); m != EcalErrorMask::mapCrystalErrors_.end(); m++) {
 
       if ( (m->second).getErrorBits() & bits01 ) {
@@ -1597,7 +1597,7 @@ void EELedClient::analyze(void) {
   }
 
   if ( EcalErrorMask::mapTTErrors_.size() != 0 ) {
-    map<EcalLogicID, RunTTErrorsDat>::const_iterator m;
+    std::map<EcalLogicID, RunTTErrorsDat>::const_iterator m;
     for (m = EcalErrorMask::mapTTErrors_.begin(); m != EcalErrorMask::mapTTErrors_.end(); m++) {
 
       if ( (m->second).getErrorBits() & bits01 ) {
@@ -1642,7 +1642,7 @@ void EELedClient::analyze(void) {
   }
 
   if ( EcalErrorMask::mapPNErrors_.size() != 0 ) {
-    map<EcalLogicID, RunPNErrorsDat>::const_iterator m;
+    std::map<EcalLogicID, RunPNErrorsDat>::const_iterator m;
     for (m = EcalErrorMask::mapPNErrors_.begin(); m != EcalErrorMask::mapPNErrors_.end(); m++) {
 
       if ( (m->second).getErrorBits() & (bits01|bits02) ) {

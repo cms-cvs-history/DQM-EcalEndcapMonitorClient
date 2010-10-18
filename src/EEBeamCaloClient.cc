@@ -1,8 +1,8 @@
 /*
  * \file EEBeamCaloClient.cc
  *
- * $Date: 2010/09/01 09:33:01 $
- * $Revision: 1.60.4.3 $
+ * $Date: 2010/09/07 21:10:36 $
+ * $Revision: 1.60.4.4 $
  * \author G. Della Ricca
  * \author A. Ghezzi
  *
@@ -240,7 +240,7 @@ bool EEBeamCaloClient::writeDb(EcalCondDBInterface* econn, RunIOV* runiov, MonRu
   EcalLogicID ecid;
 
   MonOccupancyDat o;
-  map<EcalLogicID, MonOccupancyDat> dataset;
+  std::map<EcalLogicID, MonOccupancyDat> dataset;
 
   for ( unsigned int i=0; i<superModules_.size(); i++ ) {
 
@@ -320,8 +320,8 @@ bool EEBeamCaloClient::writeDb(EcalCondDBInterface* econn, RunIOV* runiov, MonRu
       if ( verbose_ ) std::cout << "Inserting MonOccupancyDat ..." << std::endl;
       if ( dataset.size() != 0 ) econn->insertDataArraySet(&dataset, moniov);
       if ( verbose_ ) std::cout << "done." << std::endl;
-    } catch (runtime_error &e) {
-      cerr << e.what() << std::endl;
+    } catch (std::runtime_error &e) {
+      std::cerr << e.what() << std::endl;
     }
   }
 

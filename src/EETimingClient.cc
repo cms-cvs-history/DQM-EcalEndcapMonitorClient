@@ -1,8 +1,8 @@
 /*
  * \file EETimingClient.cc
  *
- * $Date: 2010/08/30 13:41:11 $
- * $Revision: 1.100.4.2 $
+ * $Date: 2010/09/01 09:33:04 $
+ * $Revision: 1.100.4.3 $
  * \author G. Della Ricca
  *
 */
@@ -246,7 +246,7 @@ bool EETimingClient::writeDb(EcalCondDBInterface* econn, RunIOV* runiov, MonRunI
   EcalLogicID ecid;
 
   MonTimingCrystalDat t;
-  map<EcalLogicID, MonTimingCrystalDat> dataset;
+  std::map<EcalLogicID, MonTimingCrystalDat> dataset;
 
   for ( unsigned int i=0; i<superModules_.size(); i++ ) {
 
@@ -322,8 +322,8 @@ bool EETimingClient::writeDb(EcalCondDBInterface* econn, RunIOV* runiov, MonRunI
       if ( verbose_ ) std::cout << "Inserting MonTimingCrystalDat ..." <<  std::endl;
       if ( dataset.size() != 0 ) econn->insertDataArraySet(&dataset, moniov);
       if ( verbose_ ) std::cout << "done." <<  std::endl;
-    } catch (runtime_error &e) {
-      cerr << e.what() <<  std::endl;
+    } catch (std::runtime_error &e) {
+      std::cerr << e.what() <<  std::endl;
     }
   }
 
@@ -425,7 +425,7 @@ void EETimingClient::analyze(void) {
 
 #ifdef WITH_ECAL_COND_DB
   if ( EcalErrorMask::mapCrystalErrors_.size() != 0 ) {
-    map<EcalLogicID, RunCrystalErrorsDat>::const_iterator m;
+    std::map<EcalLogicID, RunCrystalErrorsDat>::const_iterator m;
     for (m = EcalErrorMask::mapCrystalErrors_.begin(); m != EcalErrorMask::mapCrystalErrors_.end(); m++) {
 
       if ( (m->second).getErrorBits() & bits01 ) {
@@ -459,7 +459,7 @@ void EETimingClient::analyze(void) {
   }
 
   if ( EcalErrorMask::mapTTErrors_.size() != 0 ) {
-    map<EcalLogicID, RunTTErrorsDat>::const_iterator m;
+    std::map<EcalLogicID, RunTTErrorsDat>::const_iterator m;
     for (m = EcalErrorMask::mapTTErrors_.begin(); m != EcalErrorMask::mapTTErrors_.end(); m++) {
 
       if ( (m->second).getErrorBits() & bits01 ) {

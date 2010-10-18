@@ -1,8 +1,8 @@
 /*
  * \file EEOccupancyClient.cc
  *
- * $Date: 2010/08/04 19:05:30 $
- * $Revision: 1.38.4.1 $
+ * $Date: 2010/09/01 09:33:04 $
+ * $Revision: 1.38.4.2 $
  * \author G. Della Ricca
  * \author F. Cossutti
  *
@@ -184,7 +184,7 @@ bool EEOccupancyClient::writeDb(EcalCondDBInterface* econn, RunIOV* runiov, MonR
   EcalLogicID ecid;
 
   MonOccupancyDat o;
-  map<EcalLogicID, MonOccupancyDat> dataset;
+  std::map<EcalLogicID, MonOccupancyDat> dataset;
 
   for ( unsigned int i=0; i<superModules_.size(); i++ ) {
 
@@ -270,8 +270,8 @@ bool EEOccupancyClient::writeDb(EcalCondDBInterface* econn, RunIOV* runiov, MonR
       if ( verbose_ ) std::cout << "Inserting MonOccupancyDat ..." << std::endl;
       if ( dataset.size() != 0 ) econn->insertDataArraySet(&dataset, moniov);
       if ( verbose_ ) std::cout << "done." << std::endl;
-    } catch (runtime_error &e) {
-      cerr << e.what() << std::endl;
+    } catch (std::runtime_error &e) {
+      std::cerr << e.what() << std::endl;
     }
   }
 

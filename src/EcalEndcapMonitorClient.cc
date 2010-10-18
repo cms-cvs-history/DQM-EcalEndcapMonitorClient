@@ -1,8 +1,8 @@
 /*
  * \file EcalEndcapMonitorClient.cc
  *
- * $Date: 2010/08/04 19:05:30 $
- * $Revision: 1.246.2.2 $
+ * $Date: 2010/09/01 09:33:06 $
+ * $Revision: 1.246.2.3 $
  * \author G. Della Ricca
  * \author F. Cossutti
  *
@@ -992,15 +992,15 @@ void EcalEndcapMonitorClient::beginRunDb(void) {
       if ( verbose_ ) std::cout << "Opening DB connection with TNS_ADMIN ..." << std::endl;
       econn = new EcalCondDBInterface(dbName_, dbUserName_, dbPassword_);
       if ( verbose_ ) std::cout << "done." << std::endl;
-    } catch (runtime_error &e) {
-      cerr << e.what() << std::endl;
+    } catch (std::runtime_error &e) {
+      std::cerr << e.what() << std::endl;
       if ( dbHostName_.size() != 0 ) {
         try {
           if ( verbose_ ) std::cout << "Opening DB connection without TNS_ADMIN ..." << std::endl;
           econn = new EcalCondDBInterface(dbHostName_, dbName_, dbUserName_, dbPassword_, dbHostPort_);
           if ( verbose_ ) std::cout << "done." << std::endl;
-        } catch (runtime_error &e) {
-          cerr << e.what() << std::endl;
+        } catch (std::runtime_error &e) {
+          std::cerr << e.what() << std::endl;
         }
       }
     }
@@ -1034,8 +1034,8 @@ void EcalEndcapMonitorClient::beginRunDb(void) {
       runiov_ = econn->fetchRunIOV(location_, run_);
       if ( verbose_ ) std::cout << "done." << std::endl;
       foundRunIOV = true;
-    } catch (runtime_error &e) {
-      cerr << e.what() << std::endl;
+    } catch (std::runtime_error &e) {
+      std::cerr << e.what() << std::endl;
       foundRunIOV = false;
     }
   }
@@ -1059,16 +1059,16 @@ void EcalEndcapMonitorClient::beginRunDb(void) {
 //        runiov_ = econn->fetchRunIOV(&runtag, run_);
         runiov_ = econn->fetchRunIOV(location_, run_);
         if ( verbose_ ) std::cout << "done." << std::endl;
-      } catch (runtime_error &e) {
-        cerr << e.what() << std::endl;
+      } catch (std::runtime_error &e) {
+        std::cerr << e.what() << std::endl;
         try {
           if ( verbose_ ) std::cout << "Fetching RunIOV (again) ..." << std::endl;
 //          runiov_ = econn->fetchRunIOV(&runtag, run_);
           runiov_ = econn->fetchRunIOV(location_, run_);
           if ( verbose_ ) std::cout << "done." << std::endl;
           foundRunIOV = true;
-        } catch (runtime_error &e) {
-          cerr << e.what() << std::endl;
+        } catch (std::runtime_error &e) {
+          std::cerr << e.what() << std::endl;
           foundRunIOV = false;
         }
       }
@@ -1094,7 +1094,7 @@ void EcalEndcapMonitorClient::beginRunDb(void) {
     std::cout << std::endl;
   }
 
-  string rt = runiov_.getRunTag().getRunTypeDef().getRunType();
+  std::string rt = runiov_.getRunTag().getRunTypeDef().getRunType();
   if ( strcmp(rt.c_str(), "UNKNOWN") == 0 ) {
     runType_ = -1;
   } else {
@@ -1118,8 +1118,8 @@ void EcalEndcapMonitorClient::beginRunDb(void) {
       if ( verbose_ ) std::cout << "Fetching masked channels from file ..." << std::endl;
       EcalErrorMask::readFile(maskFile_, debug_);
       if ( verbose_ ) std::cout << "done." << std::endl;
-    } catch (runtime_error &e) {
-      cerr << e.what() << std::endl;
+    } catch (std::runtime_error &e) {
+      std::cerr << e.what() << std::endl;
     }
   } else {
     if ( econn ) {
@@ -1127,8 +1127,8 @@ void EcalEndcapMonitorClient::beginRunDb(void) {
         if ( verbose_ ) std::cout << "Fetching masked channels from DB ..." << std::endl;
         EcalErrorMask::readDB(econn, &runiov_);
         if ( verbose_ ) std::cout << "done." << std::endl;
-      } catch (runtime_error &e) {
-        cerr << e.what() << std::endl;
+      } catch (std::runtime_error &e) {
+        std::cerr << e.what() << std::endl;
       }
     }
   }
@@ -1141,8 +1141,8 @@ void EcalEndcapMonitorClient::beginRunDb(void) {
       delete econn;
       econn = 0;
       if ( verbose_ ) std::cout << "done." << std::endl;
-    } catch (runtime_error &e) {
-      cerr << e.what() << std::endl;
+    } catch (std::runtime_error &e) {
+      std::cerr << e.what() << std::endl;
     }
   }
 #endif
@@ -1165,15 +1165,15 @@ void EcalEndcapMonitorClient::writeDb(void) {
       if ( verbose_ ) std::cout << "Opening DB connection with TNS_ADMIN ..." << std::endl;
       econn = new EcalCondDBInterface(dbName_, dbUserName_, dbPassword_);
       if ( verbose_ ) std::cout << "done." << std::endl;
-    } catch (runtime_error &e) {
-      cerr << e.what() << std::endl;
+    } catch (std::runtime_error &e) {
+      std::cerr << e.what() << std::endl;
       if ( dbHostName_.size() != 0 ) {
         try {
           if ( verbose_ ) std::cout << "Opening DB connection without TNS_ADMIN ..." << std::endl;
           econn = new EcalCondDBInterface(dbHostName_, dbName_, dbUserName_, dbPassword_, dbHostPort_);
           if ( verbose_ ) std::cout << "done." << std::endl;
-        } catch (runtime_error &e) {
-          cerr << e.what() << std::endl;
+        } catch (std::runtime_error &e) {
+          std::cerr << e.what() << std::endl;
         }
       }
     }
@@ -1203,8 +1203,8 @@ void EcalEndcapMonitorClient::writeDb(void) {
       moniov_ = econn->fetchMonRunIOV(&runtag, &montag, run_, subrun_);
       if ( verbose_ ) std::cout << "done." << std::endl;
       foundMonIOV = true;
-    } catch (runtime_error &e) {
-      cerr << e.what() << std::endl;
+    } catch (std::runtime_error &e) {
+      std::cerr << e.what() << std::endl;
       foundMonIOV = false;
     }
   }
@@ -1231,16 +1231,16 @@ void EcalEndcapMonitorClient::writeDb(void) {
         RunTag runtag = runiov_.getRunTag();
         moniov_ = econn->fetchMonRunIOV(&runtag, &montag, run_, subrun_);
         if ( verbose_ ) std::cout << "done." << std::endl;
-      } catch (runtime_error &e) {
-        cerr << e.what() << std::endl;
+      } catch (std::runtime_error &e) {
+        std::cerr << e.what() << std::endl;
         try {
           if ( verbose_ ) std::cout << "Fetching MonIOV (again) ..." << std::endl;
           RunTag runtag = runiov_.getRunTag();
           moniov_ = econn->fetchMonRunIOV(&runtag, &montag, run_, subrun_);
           if ( verbose_ ) std::cout << "done." << std::endl;
           foundMonIOV = true;
-        } catch (runtime_error &e) {
-          cerr << e.what() << std::endl;
+        } catch (std::runtime_error &e) {
+          std::cerr << e.what() << std::endl;
           foundMonIOV = false;
         }
       }
@@ -1309,7 +1309,7 @@ void EcalEndcapMonitorClient::writeDb(void) {
 
   EcalLogicID ecid;
   MonRunDat md;
-  map<EcalLogicID, MonRunDat> dataset;
+  std::map<EcalLogicID, MonRunDat> dataset;
 
   MonRunOutcomeDef monRunOutcomeDef;
 
@@ -1332,8 +1332,8 @@ void EcalEndcapMonitorClient::writeDb(void) {
     try {
       ecid = LogicID::getEcalLogicID("EE");
       dataset[ecid] = md;
-    } catch (runtime_error &e) {
-      cerr << e.what() << std::endl;
+    } catch (std::runtime_error &e) {
+      std::cerr << e.what() << std::endl;
     }
   }
 
@@ -1342,8 +1342,8 @@ void EcalEndcapMonitorClient::writeDb(void) {
       if ( verbose_ ) std::cout << "Inserting MonRunDat ..." << std::endl;
       econn->insertDataSet(&dataset, &moniov_);
       if ( verbose_ ) std::cout << "done." << std::endl;
-    } catch (runtime_error &e) {
-      cerr << e.what() << std::endl;
+    } catch (std::runtime_error &e) {
+      std::cerr << e.what() << std::endl;
     }
   }
 
@@ -1353,8 +1353,8 @@ void EcalEndcapMonitorClient::writeDb(void) {
       delete econn;
       econn = 0;
       if ( verbose_ ) std::cout << "done." << std::endl;
-    } catch (runtime_error &e) {
-      cerr << e.what() << std::endl;
+    } catch (std::runtime_error &e) {
+      std::cerr << e.what() << std::endl;
     }
   }
 #endif
@@ -1375,15 +1375,15 @@ void EcalEndcapMonitorClient::endRunDb(void) {
       if ( verbose_ ) std::cout << "Opening DB connection with TNS_ADMIN ..." << std::endl;
       econn = new EcalCondDBInterface(dbName_, dbUserName_, dbPassword_);
       if ( verbose_ ) std::cout << "done." << std::endl;
-    } catch (runtime_error &e) {
-      cerr << e.what() << std::endl;
+    } catch (std::runtime_error &e) {
+      std::cerr << e.what() << std::endl;
       if ( dbHostName_.size() != 0 ) {
         try {
           if ( verbose_ ) std::cout << "Opening DB connection without TNS_ADMIN ..." << std::endl;
           econn = new EcalCondDBInterface(dbHostName_, dbName_, dbUserName_, dbPassword_, dbHostPort_);
           if ( verbose_ ) std::cout << "done." << std::endl;
-        } catch (runtime_error &e) {
-          cerr << e.what() << std::endl;
+        } catch (std::runtime_error &e) {
+          std::cerr << e.what() << std::endl;
         }
       }
     }
@@ -1391,7 +1391,7 @@ void EcalEndcapMonitorClient::endRunDb(void) {
 
   EcalLogicID ecid;
   RunDat rd;
-  map<EcalLogicID, RunDat> dataset;
+  std::map<EcalLogicID, RunDat> dataset;
 
   float nevt = -1.;
 
@@ -1409,8 +1409,8 @@ void EcalEndcapMonitorClient::endRunDb(void) {
       econn->fetchDataSet(&dataset, &runiov_);
       if ( verbose_ ) std::cout << "done." << std::endl;
       foundRunDat = true;
-    } catch (runtime_error &e) {
-      cerr << e.what() << std::endl;
+    } catch (std::runtime_error &e) {
+      std::cerr << e.what() << std::endl;
       foundRunDat = false;
     }
   }
@@ -1423,8 +1423,8 @@ void EcalEndcapMonitorClient::endRunDb(void) {
       try {
         ecid = LogicID::getEcalLogicID("EE");
         dataset[ecid] = rd;
-      } catch (runtime_error &e) {
-        cerr << e.what() << std::endl;
+      } catch (std::runtime_error &e) {
+        std::cerr << e.what() << std::endl;
       }
     }
 
@@ -1433,8 +1433,8 @@ void EcalEndcapMonitorClient::endRunDb(void) {
         if ( verbose_ ) std::cout << "Inserting RunDat ..." << std::endl;
         econn->insertDataSet(&dataset, &runiov_);
         if ( verbose_ ) std::cout << "done." << std::endl;
-      } catch (runtime_error &e) {
-        cerr << e.what() << std::endl;
+      } catch (std::runtime_error &e) {
+        std::cerr << e.what() << std::endl;
       }
     }
 
@@ -1448,8 +1448,8 @@ void EcalEndcapMonitorClient::endRunDb(void) {
       delete econn;
       econn = 0;
       if ( verbose_ ) std::cout << "done." << std::endl;
-    } catch (runtime_error &e) {
-      cerr << e.what() << std::endl;
+    } catch (std::runtime_error &e) {
+      std::cerr << e.what() << std::endl;
     }
   }
 #endif

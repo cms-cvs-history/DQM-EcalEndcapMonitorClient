@@ -2,8 +2,8 @@
 /*
  * \file EEIntegrityClient.cc
  *
- * $Date: 2010/08/04 19:05:29 $
- * $Revision: 1.106.4.1 $
+ * $Date: 2010/09/01 09:33:02 $
+ * $Revision: 1.106.4.2 $
  * \author G. Della Ricca
  * \author G. Franzoni
  *
@@ -276,22 +276,22 @@ bool EEIntegrityClient::writeDb(EcalCondDBInterface* econn, RunIOV* runiov, MonR
   EcalLogicID ecid;
 
   MonCrystalConsistencyDat c1;
-  map<EcalLogicID, MonCrystalConsistencyDat> dataset1;
+  std::map<EcalLogicID, MonCrystalConsistencyDat> dataset1;
   MonTTConsistencyDat c2;
-  map<EcalLogicID, MonTTConsistencyDat> dataset2;
+  std::map<EcalLogicID, MonTTConsistencyDat> dataset2;
   MonMemChConsistencyDat c3;
-  map<EcalLogicID, MonMemChConsistencyDat> dataset3;
+  std::map<EcalLogicID, MonMemChConsistencyDat> dataset3;
   MonMemTTConsistencyDat c4;
-  map<EcalLogicID, MonMemTTConsistencyDat> dataset4;
+  std::map<EcalLogicID, MonMemTTConsistencyDat> dataset4;
 
   for ( unsigned int i=0; i<superModules_.size(); i++ ) {
 
     int ism = superModules_[i];
 
     if ( h00_ && h00_->GetBinContent(ism) != 0 ) {
-      cerr << std::endl;
-      cerr << " DCC failed " << h00_->GetBinContent(ism) << " times" << std::endl;
-      cerr << std::endl;
+      std::cerr << std::endl;
+      std::cerr << " DCC failed " << h00_->GetBinContent(ism) << " times" << std::endl;
+      std::cerr << std::endl;
     }
 
     if ( verbose_ ) {
@@ -677,8 +677,8 @@ bool EEIntegrityClient::writeDb(EcalCondDBInterface* econn, RunIOV* runiov, MonR
       if ( dataset3.size() != 0 ) econn->insertDataArraySet(&dataset3, moniov);
       if ( dataset4.size() != 0 ) econn->insertDataArraySet(&dataset4, moniov);
       if ( verbose_ ) std::cout << "done." << std::endl;
-    } catch (runtime_error &e) {
-      cerr << e.what() << std::endl;
+    } catch (std::runtime_error &e) {
+      std::cerr << e.what() << std::endl;
     }
   }
 
@@ -949,7 +949,7 @@ void EEIntegrityClient::analyze(void) {
 
 #ifdef WITH_ECAL_COND_DB
   if ( EcalErrorMask::mapCrystalErrors_.size() != 0 ) {
-    map<EcalLogicID, RunCrystalErrorsDat>::const_iterator m;
+    std::map<EcalLogicID, RunCrystalErrorsDat>::const_iterator m;
     for (m = EcalErrorMask::mapCrystalErrors_.begin(); m != EcalErrorMask::mapCrystalErrors_.end(); m++) {
 
       if ( (m->second).getErrorBits() & bits01 ) {
@@ -983,7 +983,7 @@ void EEIntegrityClient::analyze(void) {
   }
 
   if ( EcalErrorMask::mapTTErrors_.size() != 0 ) {
-    map<EcalLogicID, RunTTErrorsDat>::const_iterator m;
+    std::map<EcalLogicID, RunTTErrorsDat>::const_iterator m;
     for (m = EcalErrorMask::mapTTErrors_.begin(); m != EcalErrorMask::mapTTErrors_.end(); m++) {
 
       if ( (m->second).getErrorBits() & bits02 ) {
@@ -1026,7 +1026,7 @@ void EEIntegrityClient::analyze(void) {
   }
 
   if ( EcalErrorMask::mapMemChErrors_.size() != 0 ) {
-    map<EcalLogicID, RunMemChErrorsDat>::const_iterator m;
+    std::map<EcalLogicID, RunMemChErrorsDat>::const_iterator m;
     for (m = EcalErrorMask::mapMemChErrors_.begin(); m != EcalErrorMask::mapMemChErrors_.end(); m++) {
 
       if ( (m->second).getErrorBits() & bits01 ) {
@@ -1054,7 +1054,7 @@ void EEIntegrityClient::analyze(void) {
   }
 
   if ( EcalErrorMask::mapMemTTErrors_.size() != 0 ) {
-    map<EcalLogicID, RunMemTTErrorsDat>::const_iterator m;
+    std::map<EcalLogicID, RunMemTTErrorsDat>::const_iterator m;
     for (m = EcalErrorMask::mapMemTTErrors_.begin(); m != EcalErrorMask::mapMemTTErrors_.end(); m++) {
 
       if ( (m->second).getErrorBits() & bits02 ) {
