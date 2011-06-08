@@ -1,8 +1,8 @@
 /*
  * \file EEPedestalOnlineClient.cc
  *
- * $Date: 2011/05/23 14:41:09 $
- * $Revision: 1.110.2.2 $
+ * $Date: 2011/05/23 14:42:59 $
+ * $Revision: 1.110.2.3 $
  * \author G. Della Ricca
  * \author F. Cossutti
  *
@@ -354,7 +354,7 @@ void EEPedestalOnlineClient::analyze(void) {
         }
 
         // OOT pileup affects the region near beam pipe mostly. Use higher threshold for these crystals
-        float radius = sqrt((jx-50.)*(jx-50.)+(jy-50.)*(jy-50.));
+        float radius = std::sqrt((jx-50.)*(jx-50.)+(jy-50.)*(jy-50.));
 
         bool update03;
 
