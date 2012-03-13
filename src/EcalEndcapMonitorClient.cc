@@ -1,8 +1,8 @@
 /*
  * \file EcalEndcapMonitorClient.cc
  *
- * $Date: 2011/09/02 13:55:03 $
- * $Revision: 1.266 $
+ * $Date: 2011/09/15 21:02:09 $
+ * $Revision: 1.267 $
  * \author G. Della Ricca
  * \author F. Cossutti
  *
@@ -684,45 +684,6 @@ void EcalEndcapMonitorClient::beginJob(void) {
 
   if ( summaryClient_ ) summaryClient_->beginJob();
 
-  // summary for DQM GUI
-
-  MonitorElement* me;
-
-  dqmStore_->setCurrentFolder( prefixME_ + "/EventInfo" );
-
-  me = dqmStore_->get(prefixME_ + "/EventInfo/reportSummary");
-  if ( me ) {
-    dqmStore_->removeElement(me->getName());
-  }
-  me = dqmStore_->bookFloat("reportSummary");
-  me->Fill(-1.0);
-
-  dqmStore_->setCurrentFolder( prefixME_ + "/EventInfo/reportSummaryContents" );
-
-  for (int i = 0; i < 18; i++) {
-    me = dqmStore_->get(prefixME_ + "/EventInfo/reportSummaryContents/EcalEndcap_" + Numbers::sEE(i+1) );
-    if ( me ) {
-      dqmStore_->removeElement(me->getName());
-    }
-    me = dqmStore_->bookFloat("EcalEndcap_" + Numbers::sEE(i+1));
-    me->Fill(-1.0);
-  }
-
-  dqmStore_->setCurrentFolder( prefixME_ + "/EventInfo" );
-
-  me = dqmStore_->get(prefixME_ + "/EventInfo/reportSummaryMap");
-  if ( me ) {
-    dqmStore_->removeElement(me->getName());
-  }
-  me = dqmStore_->book2D("reportSummaryMap", "reportSummaryMap", 40, 0., 200., 20, 0., 100);
-  for ( int jx = 1; jx <= 40; jx++ ) {
-    for ( int jy = 1; jy <= 20; jy++ ) {
-      me->setBinContent( jx, jy, -1.0 );
-    }
-  }
-  me->setAxisTitle("ix / ix+100", 1);
-  me->setAxisTitle("iy", 2);
-
 }
 
 void EcalEndcapMonitorClient::beginRun(void) {
@@ -773,6 +734,45 @@ void EcalEndcapMonitorClient::beginRun(const edm::Run& r, const edm::EventSetup&
     std::cout << std::endl;
   }
 
+  // summary for DQM GUI
+
+  MonitorElement* me;
+
+  dqmStore_->setCurrentFolder( prefixME_ + "/EventInfo" );
+
+  me = dqmStore_->get(prefixME_ + "/EventInfo/reportSummary");
+  if ( me ) {
+    dqmStore_->removeElement(me->getName());
+  }
+  me = dqmStore_->bookFloat("reportSummary");
+  me->Fill(-1.0);
+
+  dqmStore_->setCurrentFolder( prefixME_ + "/EventInfo/reportSummaryContents" );
+
+  for (int i = 0; i < 18; i++) {
+    me = dqmStore_->get(prefixME_ + "/EventInfo/reportSummaryContents/EcalEndcap_" + Numbers::sEE(i+1) );
+    if ( me ) {
+      dqmStore_->removeElement(me->getName());
+    }
+    me = dqmStore_->bookFloat("EcalEndcap_" + Numbers::sEE(i+1));
+    me->Fill(-1.0);
+  }
+
+  dqmStore_->setCurrentFolder( prefixME_ + "/EventInfo" );
+
+  me = dqmStore_->get(prefixME_ + "/EventInfo/reportSummaryMap");
+  if ( me ) {
+    dqmStore_->removeElement(me->getName());
+  }
+  me = dqmStore_->book2D("reportSummaryMap", "reportSummaryMap", 40, 0., 200., 20, 0., 100);
+  for ( int jx = 1; jx <= 40; jx++ ) {
+    for ( int jy = 1; jy <= 20; jy++ ) {
+      me->setBinContent( jx, jy, -1.0 );
+    }
+  }
+  me->setAxisTitle("ix / ix+100", 1);
+  me->setAxisTitle("iy", 2);
+
   run_ = r.id().run();
   evt_ = 0;
 
@@ -791,6 +791,7 @@ void EcalEndcapMonitorClient::endJob(void) {
     }
 
     forced_update_ = true;
+
     this->analyze();
 
     if ( begin_run_ && ! end_run_ ) {
@@ -802,6 +803,7 @@ void EcalEndcapMonitorClient::endJob(void) {
       }
 
       forced_status_ = true;
+
       this->analyze();
       this->endRun();
 
@@ -888,11 +890,13 @@ void EcalEndcapMonitorClient::endRun(const edm::Run& r, const edm::EventSetup& c
     std::cout << std::endl;
   }
 
+
   this->analyze();
 
   if ( run_ != -1 && evt_ != -1 && runType_ != -1 ) {
 
     forced_update_ = true;
+
     this->analyze();
 
     if ( ! mergeRuns_ ) {
@@ -963,6 +967,7 @@ void EcalEndcapMonitorClient::endLuminosityBlock(const edm::LuminosityBlock& l, 
   if ( run_ != -1 && evt_ != -1 && runType_ != -1 ) {
 
     forced_update_ = true;
+
     this->analyze();
 
   }
@@ -1757,7 +1762,9 @@ void EcalEndcapMonitorClient::analyze(const edm::Event& e, const edm::EventSetup
   evt_ = e.id().event();
 
   if ( prescaleFactor_ > 0 ) {
-    if ( jevt_ % prescaleFactor_ == 0 ) this->analyze();
+    if ( jevt_ % prescaleFactor_ == 0 ){
+      this->analyze();
+    }
   }
 
 }
