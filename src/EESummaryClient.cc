@@ -1,8 +1,8 @@
 /*
  * \file EESummaryClient.cc
  *
- * $Date: 2011/09/15 21:02:09 $
- * $Revision: 1.214 $
+ * $Date: 2011/09/19 18:56:04 $
+ * $Revision: 1.215 $
  * \author G. Della Ricca
  *
 */
@@ -62,6 +62,8 @@ EESummaryClient::EESummaryClient(const edm::ParameterSet& ps) {
 
   // prefixME path
   prefixME_ = ps.getUntrackedParameter<std::string>("prefixME", "");
+
+  eventInfoFolder_ = ps.getUntrackedParameter<std::string>("eventInfoFolder", "EventInfo");
 
   // enableCleanup_ switch
   enableCleanup_ = ps.getUntrackedParameter<bool>("enableCleanup", false);
@@ -2945,18 +2947,19 @@ void EESummaryClient::analyze(void) {
   float reportSummary = -1.0;
   if ( nValidChannels != 0 )
     reportSummary = 1.0 - float(nGlobalErrors)/float(nValidChannels);
-  me = dqmStore_->get(prefixME_ + "/EventInfo/reportSummary");
+  me = dqmStore_->get(eventInfoFolder_ + "/reportSummary_EE");
   if ( me ) me->Fill(reportSummary);
 
   for (int i = 0; i < 18; i++) {
     float reportSummaryEE = -1.0;
     if ( nValidChannelsEE[i] != 0 )
       reportSummaryEE = 1.0 - float(nGlobalErrorsEE[i])/float(nValidChannelsEE[i]);
-    me = dqmStore_->get( prefixME_ + "/EventInfo/reportSummaryContents/EcalEndcap_" + Numbers::sEE(i+1) );
+    me = dqmStore_->get( eventInfoFolder_ + "/reportSummaryContents/EcalEndcap_" + Numbers::sEE(i+1) );
     if ( me ) me->Fill(reportSummaryEE);
   }
 
-  me = dqmStore_->get(prefixME_ + "/EventInfo/reportSummaryMap");
+  me = dqmStore_->get(eventInfoFolder_ + "/reportSummaryMap_EE");
+  MonitorElement* mecomb(dqmStore_->get(eventInfoFolder_ + "/reportSummaryMap"));
   if ( me ) {
 
     int nValidChannelsSC[2][20][20];
@@ -2998,6 +3001,8 @@ void EESummaryClient::analyze(void) {
 	    scval = 1.0 - float(nGlobalErrorsSC[iside][jxsc][jysc])/float(nValidChannelsSC[iside][jxsc][jysc]);
 
 	  me->setBinContent( jxsc+iside*20+1, jysc+1, scval );
+	  if(mecomb)
+	    mecomb->setBinContent( jxsc+iside*20+1, jysc+1, scval );
 
 	}
       }
