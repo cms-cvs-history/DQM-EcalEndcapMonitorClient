@@ -4,8 +4,8 @@
 /*
  * \file EESummaryClient.h
  *
- * $Date: 2011/09/15 21:02:09 $
- * $Revision: 1.50 $
+ * $Date: 2012/03/15 13:13:55 $
+ * $Revision: 1.50.2.1 $
  * \author G. Della Ricca
  *
 */
@@ -84,8 +84,6 @@ bool verbose_;
 bool debug_;
 
 std::string prefixME_;
-
- std::string eventInfoFolder_;
 
 bool enableCleanup_;
 
