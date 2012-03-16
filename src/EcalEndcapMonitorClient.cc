@@ -1,8 +1,8 @@
 /*
  * \file EcalEndcapMonitorClient.cc
  *
- * $Date: 2012/03/13 14:25:25 $
- * $Revision: 1.267.2.1 $
+ * $Date: 2012/03/15 13:14:10 $
+ * $Revision: 1.267.2.2 $
  * \author G. Della Ricca
  * \author F. Cossutti
  *
@@ -738,42 +738,46 @@ void EcalEndcapMonitorClient::beginRun(const edm::Run& r, const edm::EventSetup&
 
   // summary for DQM GUI
 
-  MonitorElement* me;
+  if(eventInfoFolder_.find("Calibration") == std::string::npos){
 
-  dqmStore_->setCurrentFolder( eventInfoFolder_ );
+    MonitorElement* me;
 
-  me = dqmStore_->get(eventInfoFolder_ + "/reportSummary_EE");
-  if ( me ) {
-    dqmStore_->removeElement(me->getName());
-  }
-  me = dqmStore_->bookFloat("reportSummary_EE");
-  me->Fill(-1.0);
+    dqmStore_->setCurrentFolder( eventInfoFolder_ );
 
-  dqmStore_->setCurrentFolder( eventInfoFolder_ + "/reportSummaryContents" );
-
-  for (int i = 0; i < 18; i++) {
-    me = dqmStore_->get(eventInfoFolder_ + "/reportSummaryContents/EcalEndcap_" + Numbers::sEE(i+1) );
+    me = dqmStore_->get(eventInfoFolder_ + "/reportSummary_EE");
     if ( me ) {
       dqmStore_->removeElement(me->getName());
     }
-    me = dqmStore_->bookFloat("EcalEndcap_" + Numbers::sEE(i+1));
+    me = dqmStore_->bookFloat("reportSummary_EE");
     me->Fill(-1.0);
-  }
 
-  dqmStore_->setCurrentFolder( eventInfoFolder_ );
+    dqmStore_->setCurrentFolder( eventInfoFolder_ + "/reportSummaryContents" );
 
-  me = dqmStore_->get(eventInfoFolder_ + "/reportSummaryMap_EE");
-  if ( me ) {
-    dqmStore_->removeElement(me->getName());
-  }
-  me = dqmStore_->book2D("reportSummaryMap_EE", "reportSummaryMap_EE", 40, 0., 200., 20, 0., 100);
-  for ( int jx = 1; jx <= 40; jx++ ) {
-    for ( int jy = 1; jy <= 20; jy++ ) {
-      me->setBinContent( jx, jy, -1.0 );
+    for (int i = 0; i < 18; i++) {
+      me = dqmStore_->get(eventInfoFolder_ + "/reportSummaryContents/EcalEndcap_" + Numbers::sEE(i+1) );
+      if ( me ) {
+	dqmStore_->removeElement(me->getName());
+      }
+      me = dqmStore_->bookFloat("EcalEndcap_" + Numbers::sEE(i+1));
+      me->Fill(-1.0);
     }
+
+    dqmStore_->setCurrentFolder( eventInfoFolder_ );
+
+    me = dqmStore_->get(eventInfoFolder_ + "/reportSummaryMap_EE");
+    if ( me ) {
+      dqmStore_->removeElement(me->getName());
+    }
+
+    me = dqmStore_->book2D("reportSummaryMap_EE", "EcalEndcap Report Summary Map", 40, 0., 200., 20, 0., 100);
+    for ( int jx = 1; jx <= 40; jx++ ) {
+      for ( int jy = 1; jy <= 20; jy++ ) {
+	me->setBinContent( jx, jy, -1.0 );
+      }
+    }
+    me->setAxisTitle("ix / ix+100", 1);
+    me->setAxisTitle("iy", 2);
   }
-  me->setAxisTitle("ix / ix+100", 1);
-  me->setAxisTitle("iy", 2);
 
   run_ = r.id().run();
   evt_ = 0;
