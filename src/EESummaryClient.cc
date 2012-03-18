@@ -1,8 +1,8 @@
 /*
  * \file EESummaryClient.cc
  *
- * $Date: 2012/03/16 14:46:40 $
- * $Revision: 1.215.2.3 $
+ * $Date: 2012/03/18 15:59:31 $
+ * $Revision: 1.215.2.4 $
  * \author G. Della Ricca
  *
 */
@@ -66,6 +66,8 @@ EESummaryClient::EESummaryClient(const edm::ParameterSet& ps) {
 
   // enableCleanup_ switch
   enableCleanup_ = ps.getUntrackedParameter<bool>("enableCleanup", false);
+
+  produceReports_ = ps.getUntrackedParameter<bool>("produceReports", true);
 
   // vector of selected Super Modules (Defaults to all 18).
   superModules_.reserve(18);
@@ -293,69 +295,75 @@ void EESummaryClient::setup(void) {
   dqmStore_->setCurrentFolder( prefixME_ + "/EESummaryClient" );
 
   if(integrityClient){
-    if ( meIntegrity_[0] ) dqmStore_->removeElement( meIntegrity_[0]->getName() );
-    name = "EEIT EE - integrity quality summary";
-    meIntegrity_[0] = dqmStore_->book2D(name, name, 100, 0., 100., 100, 0., 100.);
-    meIntegrity_[0]->setAxisTitle("ix", 1);
-    meIntegrity_[0]->setAxisTitle("iy", 2);
+    if(produceReports_){
+      if ( meIntegrity_[0] ) dqmStore_->removeElement( meIntegrity_[0]->getName() );
+      name = "EEIT EE - integrity quality summary";
+      meIntegrity_[0] = dqmStore_->book2D(name, name, 100, 0., 100., 100, 0., 100.);
+      meIntegrity_[0]->setAxisTitle("ix", 1);
+      meIntegrity_[0]->setAxisTitle("iy", 2);
 
-    if ( meIntegrity_[1] ) dqmStore_->removeElement( meIntegrity_[1]->getName() );
-    name = "EEIT EE + integrity quality summary";
-    meIntegrity_[1] = dqmStore_->book2D(name, name, 100, 0., 100., 100, 0., 100.);
-    meIntegrity_[1]->setAxisTitle("ix", 1);
-    meIntegrity_[1]->setAxisTitle("iy", 2);
+      if ( meIntegrity_[1] ) dqmStore_->removeElement( meIntegrity_[1]->getName() );
+      name = "EEIT EE + integrity quality summary";
+      meIntegrity_[1] = dqmStore_->book2D(name, name, 100, 0., 100., 100, 0., 100.);
+      meIntegrity_[1]->setAxisTitle("ix", 1);
+      meIntegrity_[1]->setAxisTitle("iy", 2);
 
-    if ( meIntegrityErr_ ) dqmStore_->removeElement( meIntegrityErr_->getName() );
-    name = "EEIT integrity quality errors summary";
-    meIntegrityErr_ = dqmStore_->book1D(name, name, 18, 1, 19);
-    for (int i = 0; i < 18; i++) {
-      meIntegrityErr_->setBinLabel(i+1, Numbers::sEE(i+1), 1);
+      if ( meIntegrityErr_ ) dqmStore_->removeElement( meIntegrityErr_->getName() );
+      name = "EEIT integrity quality errors summary";
+      meIntegrityErr_ = dqmStore_->book1D(name, name, 18, 1, 19);
+      for (int i = 0; i < 18; i++) {
+	meIntegrityErr_->setBinLabel(i+1, Numbers::sEE(i+1), 1);
+      }
     }
-
-    if ( meIntegrityPN_ ) dqmStore_->removeElement( meIntegrityPN_->getName() );
-    name = "EEIT PN integrity quality summary";
-    meIntegrityPN_ = dqmStore_->book2D(name, name, 45, 0., 45., 20, -10., 10.);
-    meIntegrityPN_->setAxisTitle("jchannel", 1);
-    meIntegrityPN_->setAxisTitle("jpseudo-strip", 2);
+    else{
+      if ( meIntegrityPN_ ) dqmStore_->removeElement( meIntegrityPN_->getName() );
+      name = "EEIT PN integrity quality summary";
+      meIntegrityPN_ = dqmStore_->book2D(name, name, 45, 0., 45., 20, -10., 10.);
+      meIntegrityPN_->setAxisTitle("jchannel", 1);
+      meIntegrityPN_->setAxisTitle("jpseudo-strip", 2);
+    }
   }
 
   if(occupancyClient){
-    if ( meOccupancy_[0] ) dqmStore_->removeElement( meOccupancy_[0]->getName() );
-    name = "EEOT EE - digi occupancy summary";
-    meOccupancy_[0] = dqmStore_->book2D(name, name, 100, 0., 100., 100, 0., 100.);
-    meOccupancy_[0]->setAxisTitle("ix", 1);
-    meOccupancy_[0]->setAxisTitle("iy", 2);
+    if(produceReports_){
+      if ( meOccupancy_[0] ) dqmStore_->removeElement( meOccupancy_[0]->getName() );
+      name = "EEOT EE - digi occupancy summary";
+      meOccupancy_[0] = dqmStore_->book2D(name, name, 100, 0., 100., 100, 0., 100.);
+      meOccupancy_[0]->setAxisTitle("ix", 1);
+      meOccupancy_[0]->setAxisTitle("iy", 2);
 
-    if ( meOccupancy_[1] ) dqmStore_->removeElement( meOccupancy_[1]->getName() );
-    name = "EEOT EE + digi occupancy summary";
-    meOccupancy_[1] = dqmStore_->book2D(name, name, 100, 0., 100., 100, 0., 100.);
-    meOccupancy_[1]->setAxisTitle("ix", 1);
-    meOccupancy_[1]->setAxisTitle("iy", 2);
+      if ( meOccupancy_[1] ) dqmStore_->removeElement( meOccupancy_[1]->getName() );
+      name = "EEOT EE + digi occupancy summary";
+      meOccupancy_[1] = dqmStore_->book2D(name, name, 100, 0., 100., 100, 0., 100.);
+      meOccupancy_[1]->setAxisTitle("ix", 1);
+      meOccupancy_[1]->setAxisTitle("iy", 2);
 
-    if ( meOccupancy1D_ ) dqmStore_->removeElement( meOccupancy1D_->getName() );
-    name = "EEIT digi occupancy summary 1D";
-    meOccupancy1D_ = dqmStore_->book1D(name, name, 18, 1, 19);
-    for (int i = 0; i < 18; i++) {
-      meOccupancy1D_->setBinLabel(i+1, Numbers::sEE(i+1), 1);
+      if ( meOccupancy1D_ ) dqmStore_->removeElement( meOccupancy1D_->getName() );
+      name = "EEIT digi occupancy summary 1D";
+      meOccupancy1D_ = dqmStore_->book1D(name, name, 18, 1, 19);
+      for (int i = 0; i < 18; i++) {
+	meOccupancy1D_->setBinLabel(i+1, Numbers::sEE(i+1), 1);
+      }
+
+      if( meRecHitEnergy_[0] ) dqmStore_->removeElement( meRecHitEnergy_[0]->getName() );
+      name = "EEOT EE - energy summary";
+      meRecHitEnergy_[0] = dqmStore_->book2D(name, name, 100, 0., 100., 100, 0., 100.);
+      meRecHitEnergy_[0]->setAxisTitle("ix", 1);
+      meRecHitEnergy_[0]->setAxisTitle("iy", 2);
+
+      if( meRecHitEnergy_[1] ) dqmStore_->removeElement( meRecHitEnergy_[1]->getName() );
+      name = "EEOT EE + energy summary";
+      meRecHitEnergy_[1] = dqmStore_->book2D(name, name, 100, 0., 100., 100, 0., 100.);
+      meRecHitEnergy_[1]->setAxisTitle("ix", 1);
+      meRecHitEnergy_[1]->setAxisTitle("iy", 2);
     }
-
-    if ( meOccupancyPN_ ) dqmStore_->removeElement( meOccupancyPN_->getName() );
-    name = "EEOT PN digi occupancy summary";
-    meOccupancyPN_ = dqmStore_->book2D(name, name, 45, 0., 45., 20, -10., 10.);
-    meOccupancyPN_->setAxisTitle("channel", 1);
-    meOccupancyPN_->setAxisTitle("pseudo-strip", 2);
-
-    if( meRecHitEnergy_[0] ) dqmStore_->removeElement( meRecHitEnergy_[0]->getName() );
-    name = "EEOT EE - energy summary";
-    meRecHitEnergy_[0] = dqmStore_->book2D(name, name, 100, 0., 100., 100, 0., 100.);
-    meRecHitEnergy_[0]->setAxisTitle("ix", 1);
-    meRecHitEnergy_[0]->setAxisTitle("iy", 2);
-
-    if( meRecHitEnergy_[1] ) dqmStore_->removeElement( meRecHitEnergy_[1]->getName() );
-    name = "EEOT EE + energy summary";
-    meRecHitEnergy_[1] = dqmStore_->book2D(name, name, 100, 0., 100., 100, 0., 100.);
-    meRecHitEnergy_[1]->setAxisTitle("ix", 1);
-    meRecHitEnergy_[1]->setAxisTitle("iy", 2);
+    else{
+      if ( meOccupancyPN_ ) dqmStore_->removeElement( meOccupancyPN_->getName() );
+      name = "EEOT PN digi occupancy summary";
+      meOccupancyPN_ = dqmStore_->book2D(name, name, 45, 0., 45., 20, -10., 10.);
+      meOccupancyPN_->setAxisTitle("channel", 1);
+      meOccupancyPN_->setAxisTitle("pseudo-strip", 2);
+    }
   }
 
   if(statusFlagsClient){

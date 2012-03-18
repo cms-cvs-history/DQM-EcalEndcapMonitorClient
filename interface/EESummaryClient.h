@@ -4,8 +4,8 @@
 /*
  * \file EESummaryClient.h
  *
- * $Date: 2012/03/15 13:13:55 $
- * $Revision: 1.50.2.1 $
+ * $Date: 2012/03/16 14:46:38 $
+ * $Revision: 1.50.2.2 $
  * \author G. Della Ricca
  *
 */
@@ -86,6 +86,8 @@ bool debug_;
 std::string prefixME_;
 
 bool enableCleanup_;
+
+ bool produceReports_;
 
 std::vector<int> superModules_;
 std::vector<int> laserWavelengths_;

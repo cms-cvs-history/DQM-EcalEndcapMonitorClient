@@ -2,8 +2,8 @@
 /*
  * \file EEIntegrityClient.cc
  *
- * $Date: 2011/09/02 13:55:02 $
- * $Revision: 1.114 $
+ * $Date: 2012/03/18 15:59:30 $
+ * $Revision: 1.114.2.1 $
  * \author G. Della Ricca
  * \author G. Franzoni
  *
@@ -259,6 +259,9 @@ void EEIntegrityClient::cleanup(void) {
   }
 
   dqmStore_->setCurrentFolder( prefixME_ + "/EEIntegrityClient" );
+
+  if(subfolder_.size())
+    dqmStore_->setCurrentFolder(prefixME_ + "/EEIntegrityClient/" + subfolder_);
 
   for ( unsigned int i=0; i<superModules_.size(); i++ ) {
 
@@ -708,46 +711,48 @@ void EEIntegrityClient::analyze(void) {
   bits01 |= 1 << EcalDQMStatusHelper::TT_ID_ERROR;
   bits01 |= 1 << EcalDQMStatusHelper::TT_SIZE_ERROR;
 
+  std::string subdir(subfolder_.size() ? subfolder_ + "/" : "");
+
   MonitorElement* me;
 
-  me = dqmStore_->get( prefixME_ + "/EEIntegrityTask/EEIT DCC size error" );
+  me = dqmStore_->get( prefixME_ + "/EEIntegrityTask/" + subdir + "EEIT DCC size error" );
   h00_ = UtilsClient::getHisto( me, cloneME_, h00_ );
 
   for ( unsigned int i=0; i<superModules_.size(); i++ ) {
 
     int ism = superModules_[i];
 
-    me = dqmStore_->get( prefixME_ + "/EEOccupancyTask/EEOT digi occupancy " + Numbers::sEE(ism) );
+    me = dqmStore_->get( prefixME_ + "/EEOccupancyTask/" + subdir + "EEOT digi occupancy " + Numbers::sEE(ism) );
     h_[ism-1] = UtilsClient::getHisto( me, cloneME_, h_[ism-1] );
 
-    me = dqmStore_->get( prefixME_ + "/EEOccupancyTask/EEOT MEM digi occupancy " + Numbers::sEE(ism) );
+    me = dqmStore_->get( prefixME_ + "/EEOccupancyTask/" + subdir + "EEOT MEM digi occupancy " + Numbers::sEE(ism) );
     hmem_[ism-1] = UtilsClient::getHisto( me, cloneME_, hmem_[ism-1] );
 
-    me = dqmStore_->get( prefixME_ + "/EEIntegrityTask/Gain/EEIT gain " + Numbers::sEE(ism) );
+    me = dqmStore_->get( prefixME_ + "/EEIntegrityTask/" + subdir + "Gain/EEIT gain " + Numbers::sEE(ism) );
     h01_[ism-1] = UtilsClient::getHisto( me, cloneME_, h01_[ism-1] );
 
-    me = dqmStore_->get( prefixME_ + "/EEIntegrityTask/ChId/EEIT ChId " + Numbers::sEE(ism) );
+    me = dqmStore_->get( prefixME_ + "/EEIntegrityTask/" + subdir + "ChId/EEIT ChId " + Numbers::sEE(ism) );
     h02_[ism-1] = UtilsClient::getHisto( me, cloneME_, h02_[ism-1] );
 
-    me = dqmStore_->get( prefixME_ + "/EEIntegrityTask/GainSwitch/EEIT gain switch " + Numbers::sEE(ism) );
+    me = dqmStore_->get( prefixME_ + "/EEIntegrityTask/" + subdir + "GainSwitch/EEIT gain switch " + Numbers::sEE(ism) );
     h03_[ism-1] = UtilsClient::getHisto( me, cloneME_, h03_[ism-1] );
 
-    me = dqmStore_->get( prefixME_ + "/EEIntegrityTask/TTId/EEIT TTId " + Numbers::sEE(ism) );
+    me = dqmStore_->get( prefixME_ + "/EEIntegrityTask/" + subdir + "TTId/EEIT TTId " + Numbers::sEE(ism) );
     h04_[ism-1] = UtilsClient::getHisto( me, cloneME_, h04_[ism-1] );
 
-    me = dqmStore_->get( prefixME_ + "/EEIntegrityTask/TTBlockSize/EEIT TTBlockSize " + Numbers::sEE(ism) );
+    me = dqmStore_->get( prefixME_ + "/EEIntegrityTask/" + subdir + "TTBlockSize/EEIT TTBlockSize " + Numbers::sEE(ism) );
     h05_[ism-1] = UtilsClient::getHisto( me, cloneME_, h05_[ism-1] );
 
-    me = dqmStore_->get( prefixME_ + "/EEIntegrityTask/MemChId/EEIT MemChId " + Numbers::sEE(ism) );
+    me = dqmStore_->get( prefixME_ + "/EEIntegrityTask/" + subdir + "MemChId/EEIT MemChId " + Numbers::sEE(ism) );
     h06_[ism-1] = UtilsClient::getHisto( me, cloneME_, h06_[ism-1] );
 
-    me = dqmStore_->get( prefixME_ + "/EEIntegrityTask/MemGain/EEIT MemGain " + Numbers::sEE(ism) );
+    me = dqmStore_->get( prefixME_ + "/EEIntegrityTask/" + subdir + "MemGain/EEIT MemGain " + Numbers::sEE(ism) );
     h07_[ism-1] = UtilsClient::getHisto( me, cloneME_, h07_[ism-1] );
 
-    me = dqmStore_->get( prefixME_ + "/EEIntegrityTask/MemTTId/EEIT MemTTId " + Numbers::sEE(ism) );
+    me = dqmStore_->get( prefixME_ + "/EEIntegrityTask/" + subdir + "MemTTId/EEIT MemTTId " + Numbers::sEE(ism) );
     h08_[ism-1] = UtilsClient::getHisto( me, cloneME_, h08_[ism-1] );
 
-    me = dqmStore_->get( prefixME_ + "/EEIntegrityTask/MemSize/EEIT MemSize " + Numbers::sEE(ism) );
+    me = dqmStore_->get( prefixME_ + "/EEIntegrityTask/" + subdir + "MemSize/EEIT MemSize " + Numbers::sEE(ism) );
     h09_[ism-1] = UtilsClient::getHisto( me, cloneME_, h09_[ism-1] );
 
     float num00;

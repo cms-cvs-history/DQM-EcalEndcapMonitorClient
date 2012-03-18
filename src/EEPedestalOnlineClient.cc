@@ -1,8 +1,8 @@
 /*
  * \file EEPedestalOnlineClient.cc
  *
- * $Date: 2011/09/02 13:55:02 $
- * $Revision: 1.114 $
+ * $Date: 2012/03/18 15:59:31 $
+ * $Revision: 1.114.2.1 $
  * \author G. Della Ricca
  * \author F. Cossutti
  *
@@ -49,8 +49,6 @@ EEPedestalOnlineClient::EEPedestalOnlineClient(const edm::ParameterSet& ps) {
 
   // prefixME path
   prefixME_ = ps.getUntrackedParameter<std::string>("prefixME", "");
-
-  subfolder_ = ps.getUntrackedParameter<std::string>("subfolder", "");
 
   // enableCleanup_ switch
   enableCleanup_ = ps.getUntrackedParameter<bool>("enableCleanup", false);
@@ -133,9 +131,6 @@ void EEPedestalOnlineClient::setup(void) {
   std::string name;
 
   dqmStore_->setCurrentFolder( prefixME_ + "/EEPedestalOnlineClient" );
-
-  if(subfolder_.size())
-    dqmStore_->setCurrentFolder( prefixME_ + "/EEPedestalOnlineClient/" + subfolder_);
 
   for ( unsigned int i=0; i<superModules_.size(); i++ ) {
 
