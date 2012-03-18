@@ -1,8 +1,8 @@
 /*
  * \file EESummaryClient.cc
  *
- * $Date: 2012/03/18 15:59:31 $
- * $Revision: 1.215.2.4 $
+ * $Date: 2012/03/18 17:20:57 $
+ * $Revision: 1.215.2.5 $
  * \author G. Della Ricca
  *
 */
@@ -1710,12 +1710,12 @@ void EESummaryClient::analyze(void) {
               float xval = me->getBinContent( ix, iy );
 
               if ( ism >= 1 && ism <= 9 ) {
-                meIntegrity_[0]->setBinContent( 101 - jx, jy, xval );
+                if(meIntegrity_[0]) meIntegrity_[0]->setBinContent( 101 - jx, jy, xval );
               } else {
-                meIntegrity_[1]->setBinContent( jx, jy, xval );
+                if(meIntegrity_[1]) meIntegrity_[1]->setBinContent( jx, jy, xval );
               }
 
-              if ( xval == 0 ) meIntegrityErr_->Fill( ism );
+              if ( xval == 0 && meIntegrityErr_) meIntegrityErr_->Fill( ism );
 
             }
 
@@ -1726,12 +1726,12 @@ void EESummaryClient::analyze(void) {
               float xval = h2->GetBinContent( ix, iy );
 
               if ( ism >= 1 && ism <= 9 ) {
-                if ( xval != 0 ) meOccupancy_[0]->setBinContent( 101 - jx, jy, xval );
+                if ( xval != 0 && meOccupancy_[0]) meOccupancy_[0]->setBinContent( 101 - jx, jy, xval );
               } else {
-                if ( xval != 0 ) meOccupancy_[1]->setBinContent( jx, jy, xval );
+                if ( xval != 0 && meOccupancy_[1]) meOccupancy_[1]->setBinContent( jx, jy, xval );
               }
 
-              meOccupancy1D_->Fill( ism, xval );
+              if(meOccupancy1D_) meOccupancy1D_->Fill( ism, xval );
 
             }
 
@@ -1996,9 +1996,9 @@ void EESummaryClient::analyze(void) {
             float xval = hot01_[ism-1]->GetBinContent( ix, iy );
 
             if ( ism >= 1 && ism <= 9 ) {
-              meRecHitEnergy_[0]->setBinContent( 101 - jx, jy, xval );
+              if(meRecHitEnergy_[0]) meRecHitEnergy_[0]->setBinContent( 101 - jx, jy, xval );
             } else {
-              meRecHitEnergy_[1]->setBinContent( jx, jy, xval );
+              if(meRecHitEnergy_[1]) meRecHitEnergy_[1]->setBinContent( jx, jy, xval );
             }
 
           }
@@ -2272,41 +2272,41 @@ void EESummaryClient::analyze(void) {
       }
       // PN's summaries
       for( int i = 1; i <= 10; i++ ) {
-        for( int j = 1; j <= 5; j++ ) {
+	for( int j = 1; j <= 5; j++ ) {
 
-          int ichanx;
-          int ipseudostripx;
+	  int ichanx;
+	  int ipseudostripx;
 
-          if(ism<=9) {
-            ichanx = i;
-            ipseudostripx = (ism<=3) ? j+5*(ism-1+6) : j+5*(ism-1-3);
-          } else {
-            ichanx = i+10;
-            ipseudostripx = (ism<=12) ? j+5*(ism-10+6) : j+5*(ism-10-3);
-          }
+	  if(ism<=9) {
+	    ichanx = i;
+	    ipseudostripx = (ism<=3) ? j+5*(ism-1+6) : j+5*(ism-1-3);
+	  } else {
+	    ichanx = i+10;
+	    ipseudostripx = (ism<=12) ? j+5*(ism-10+6) : j+5*(ism-10-3);
+	  }
 
-          if ( eeic ) {
+	  if ( eeic ) {
 
-            me_04 = eeic->meg02_[ism-1];
-            h2 = eeic->hmem_[ism-1];
+	    me_04 = eeic->meg02_[ism-1];
+	    h2 = eeic->hmem_[ism-1];
 
 
-            if( me_04 ) {
+	    if( me_04 ) {
 
-              float xval = me_04->getBinContent(i,j);
-              meIntegrityPN_->setBinContent( ipseudostripx, ichanx, xval );
+	      float xval = me_04->getBinContent(i,j);
+	      if(meIntegrityPN_) meIntegrityPN_->setBinContent( ipseudostripx, ichanx, xval );
 
-            }
+	    }
 
-            if ( h2 ) {
+	    if ( h2 ) {
 
-              float xval = h2->GetBinContent(i,1);
-              meOccupancyPN_->setBinContent( ipseudostripx, ichanx, xval );
+	      float xval = h2->GetBinContent(i,1);
+	      if(meOccupancyPN_) meOccupancyPN_->setBinContent( ipseudostripx, ichanx, xval );
 
-            }
+	    }
 
-          }
-
+	  }
+	
           if ( eepc ) {
 
             me_04 = eepc->meg04_[ism-1];
