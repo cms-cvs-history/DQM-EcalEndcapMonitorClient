@@ -1,8 +1,8 @@
 /*
  * \file EESummaryClient.cc
  *
- * $Date: 2012/03/16 13:16:44 $
- * $Revision: 1.215.2.2 $
+ * $Date: 2012/03/16 14:46:40 $
+ * $Revision: 1.215.2.3 $
  * \author G. Della Ricca
  *
 */
@@ -2722,7 +2722,7 @@ void EESummaryClient::analyze(void) {
   for ( int jx = 1; jx <= 100; jx++ ) {
     for ( int jy = 1; jy <= 100; jy++ ) {
 
-      if(meIntegrity_[0] && mePedestalOnline_[0] && meTiming_[0] && meStatusFlags_[0] && meTriggerTowerEmulError_[0]) {
+      if(meIntegrity_[0] && mePedestalOnline_[0] && meTiming_[0] && meStatusFlags_[0] && meTriggerTowerEmulError_[0] && meGlobalSummary_[0]) {
 
         float xval = 6;
         float val_in = meIntegrity_[0]->getBinContent(jx,jy);
@@ -2854,7 +2854,7 @@ void EESummaryClient::analyze(void) {
 
       }
 
-      if(meIntegrity_[1] && mePedestalOnline_[1] && meTiming_[1] && meStatusFlags_[1] && meTriggerTowerEmulError_[1]) {
+      if(meIntegrity_[1] && mePedestalOnline_[1] && meTiming_[1] && meStatusFlags_[1] && meTriggerTowerEmulError_[1] && meGlobalSummary_[1]) {
 
         float xval = 6;
         float val_in = meIntegrity_[1]->getBinContent(jx,jy);
@@ -3007,49 +3007,52 @@ void EESummaryClient::analyze(void) {
     if ( me ) me->Fill(reportSummaryEE);
   }
 
-  me = dqmStore_->get(prefixME_ + "/EventInfo/reportSummaryMap");
-  if ( me ) {
+  if(meGlobalSummary_[0] && meGlobalSummary_[1]){
 
-    int nValidChannelsSC[2][20][20];
-    int nGlobalErrorsSC[2][20][20];
-    for ( int iside = 0; iside < 2; iside++ ) {
-      for ( int jxdcc = 0; jxdcc < 20; jxdcc++ ) {
-	for ( int jydcc = 0; jydcc < 20; jydcc++ ) {
-          nValidChannelsSC[iside][jxdcc][jydcc] = 0;
-          nGlobalErrorsSC[iside][jxdcc][jydcc] = 0;
-        }
+    me = dqmStore_->get(prefixME_ + "/EventInfo/reportSummaryMap");
+    if ( me ) {
+
+      int nValidChannelsSC[2][20][20];
+      int nGlobalErrorsSC[2][20][20];
+      for ( int iside = 0; iside < 2; iside++ ) {
+	for ( int jxdcc = 0; jxdcc < 20; jxdcc++ ) {
+	  for ( int jydcc = 0; jydcc < 20; jydcc++ ) {
+	    nValidChannelsSC[iside][jxdcc][jydcc] = 0;
+	    nGlobalErrorsSC[iside][jxdcc][jydcc] = 0;
+	  }
+	}
       }
-    }
 
-    for (int iside = 0; iside < 2; iside++ ) {
-      for ( int ix = 1; ix <= 100; ix++ ) {
-        for ( int iy = 1; iy <= 100; iy++ ) {
+      for (int iside = 0; iside < 2; iside++ ) {
+	for ( int ix = 1; ix <= 100; ix++ ) {
+	  for ( int iy = 1; iy <= 100; iy++ ) {
 
-          int jxsc = (ix-1)/5;
-          int jysc = (iy-1)/5;
+	    int jxsc = (ix-1)/5;
+	    int jysc = (iy-1)/5;
 
-          float xval = meGlobalSummary_[iside]->getBinContent( ix, iy );
+	    float xval = meGlobalSummary_[iside]->getBinContent( ix, iy );
 
-          if ( xval >= 0 && xval <= 5 ) {
-            if ( xval != 2 && xval != 5 ) ++nValidChannelsSC[iside][jxsc][jysc];
-            if ( xval == 0 ) ++nGlobalErrorsSC[iside][jxsc][jysc];
-          }
+	    if ( xval >= 0 && xval <= 5 ) {
+	      if ( xval != 2 && xval != 5 ) ++nValidChannelsSC[iside][jxsc][jysc];
+	      if ( xval == 0 ) ++nGlobalErrorsSC[iside][jxsc][jysc];
+	    }
 
-        }
+	  }
+	}
       }
-    }
 
-    for (int iside = 0; iside < 2; iside++ ) {
-      for ( int jxsc = 0; jxsc < 20; jxsc++ ) {
-	for ( int jysc = 0; jysc < 20; jysc++ ) {
+      for (int iside = 0; iside < 2; iside++ ) {
+	for ( int jxsc = 0; jxsc < 20; jxsc++ ) {
+	  for ( int jysc = 0; jysc < 20; jysc++ ) {
 
-	  float scval = -1;
+	    float scval = -1;
 
-	  if( nValidChannelsSC[iside][jxsc][jysc] != 0 )
-	    scval = 1.0 - float(nGlobalErrorsSC[iside][jxsc][jysc])/float(nValidChannelsSC[iside][jxsc][jysc]);
+	    if( nValidChannelsSC[iside][jxsc][jysc] != 0 )
+	      scval = 1.0 - float(nGlobalErrorsSC[iside][jxsc][jysc])/float(nValidChannelsSC[iside][jxsc][jysc]);
 
-	  me->setBinContent( jxsc+iside*20+1, jysc+1, scval );
+	    me->setBinContent( jxsc+iside*20+1, jysc+1, scval );
 
+	  }
 	}
       }
     }

@@ -2,8 +2,8 @@
 /*
  * \file EEIntegrityClient.cc
  *
- * $Date: 2011/08/30 09:29:44 $
- * $Revision: 1.113 $
+ * $Date: 2011/09/02 13:55:02 $
+ * $Revision: 1.114 $
  * \author G. Della Ricca
  * \author G. Franzoni
  *
@@ -57,6 +57,8 @@ EEIntegrityClient::EEIntegrityClient(const edm::ParameterSet& ps) {
 
   // prefixME path
   prefixME_ = ps.getUntrackedParameter<std::string>("prefixME", "");
+
+  subfolder_ = ps.getUntrackedParameter<std::string>("subfolder", "");
 
   // enableCleanup_ switch
   enableCleanup_ = ps.getUntrackedParameter<bool>("enableCleanup", false);
@@ -147,6 +149,9 @@ void EEIntegrityClient::setup(void) {
   std::string name;
 
   dqmStore_->setCurrentFolder( prefixME_ + "/EEIntegrityClient" );
+
+  if(subfolder_.size())
+    dqmStore_->setCurrentFolder(prefixME_ + "/EEIntegrityClient/" + subfolder_);
 
   for ( unsigned int i=0; i<superModules_.size(); i++ ) {
 
