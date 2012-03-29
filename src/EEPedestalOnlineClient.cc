@@ -1,8 +1,8 @@
 /*
  * \file EEPedestalOnlineClient.cc
  *
- * $Date: 2012/03/18 17:20:57 $
- * $Revision: 1.114.2.2 $
+ * $Date: 2012/03/29 13:49:31 $
+ * $Revision: 1.114.2.3 $
  * \author G. Della Ricca
  * \author F. Cossutti
  *
@@ -135,7 +135,7 @@ void EEPedestalOnlineClient::setup(void) {
   dqmStore_->setCurrentFolder( prefixME_ + "/EEPedestalOnlineClient" );
 
   if(subfolder_.size())
-    dqmStore_->setCurrentFolder(prefixME_ + "/EEIntegrityClient/" + subfolder_);
+    dqmStore_->setCurrentFolder(prefixME_ + "/EEPedestalOnlineClient/" + subfolder_);
 
   for ( unsigned int i=0; i<superModules_.size(); i++ ) {
 
@@ -209,7 +209,7 @@ void EEPedestalOnlineClient::cleanup(void) {
   dqmStore_->setCurrentFolder( prefixME_ + "/EEPedestalOnlineClient" );
 
   if(subfolder_.size())
-    dqmStore_->setCurrentFolder(prefixME_ + "/EEIntegrityClient/" + subfolder_);
+    dqmStore_->setCurrentFolder(prefixME_ + "/EEPedestalOnlineClient/" + subfolder_);
 
   for ( unsigned int i=0; i<superModules_.size(); i++ ) {
 
