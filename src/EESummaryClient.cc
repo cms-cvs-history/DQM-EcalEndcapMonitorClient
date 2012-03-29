@@ -1,8 +1,8 @@
 /*
  * \file EESummaryClient.cc
  *
- * $Date: 2012/03/18 17:20:57 $
- * $Revision: 1.215.2.5 $
+ * $Date: 2012/03/18 17:46:04 $
+ * $Revision: 1.215.2.6 $
  * \author G. Della Ricca
  *
 */
@@ -64,10 +64,14 @@ EESummaryClient::EESummaryClient(const edm::ParameterSet& ps) {
   // prefixME path
   prefixME_ = ps.getUntrackedParameter<std::string>("prefixME", "");
 
+  subfolder_ = ps.getUntrackedParameter<std::string>("subfolder", "");
+
   // enableCleanup_ switch
   enableCleanup_ = ps.getUntrackedParameter<bool>("enableCleanup", false);
 
   produceReports_ = ps.getUntrackedParameter<bool>("produceReports", true);
+
+  reducedReports_ = ps.getUntrackedParameter<bool>("reducedReports", false);
 
   // vector of selected Super Modules (Defaults to all 18).
   superModules_.reserve(18);
@@ -315,7 +319,7 @@ void EESummaryClient::setup(void) {
 	meIntegrityErr_->setBinLabel(i+1, Numbers::sEE(i+1), 1);
       }
     }
-    else{
+    if(laserClient){
       if ( meIntegrityPN_ ) dqmStore_->removeElement( meIntegrityPN_->getName() );
       name = "EEIT PN integrity quality summary";
       meIntegrityPN_ = dqmStore_->book2D(name, name, 45, 0., 45., 20, -10., 10.);
@@ -357,7 +361,7 @@ void EESummaryClient::setup(void) {
       meRecHitEnergy_[1]->setAxisTitle("ix", 1);
       meRecHitEnergy_[1]->setAxisTitle("iy", 2);
     }
-    else{
+    if(laserClient){
       if ( meOccupancyPN_ ) dqmStore_->removeElement( meOccupancyPN_->getName() );
       name = "EEOT PN digi occupancy summary";
       meOccupancyPN_ = dqmStore_->book2D(name, name, 45, 0., 45., 20, -10., 10.);
@@ -387,7 +391,7 @@ void EESummaryClient::setup(void) {
     }
   }
 
-  if(pedestalOnlineClient){
+  if(pedestalOnlineClient && subfolder_ == ""){
     if ( mePedestalOnline_[0] ) dqmStore_->removeElement( mePedestalOnline_[0]->getName() );
     name = "EEPOT EE - pedestal quality summary G12";
     mePedestalOnline_[0] = dqmStore_->book2D(name, name, 100, 0., 100., 100, 0., 100.);
@@ -1085,7 +1089,7 @@ void EESummaryClient::setup(void) {
     meTriggerTowerNonSingleTiming_[1]->setAxisTitle("fraction", 3);
   }
 
-  if(meIntegrity_[0] && mePedestalOnline_[0] && meTiming_[0] && meStatusFlags_[0] && meTriggerTowerEmulError_[0]) {
+  if(meIntegrity_[0] && mePedestalOnline_[0] && meStatusFlags_[0] && (reducedReports_ || (meTiming_[0] && meTriggerTowerEmulError_[0]))) {
     if( meGlobalSummary_[0] ) dqmStore_->removeElement( meGlobalSummary_[0]->getName() );
     name = "EE global summary EE -";
     meGlobalSummary_[0] = dqmStore_->book2D(name, name, 100, 0., 100., 100, 0., 100.);
@@ -1093,7 +1097,7 @@ void EESummaryClient::setup(void) {
     meGlobalSummary_[0]->setAxisTitle("iy", 2);
   }
 
-  if(meIntegrity_[1] && mePedestalOnline_[1] && meTiming_[1] && meStatusFlags_[1] && meTriggerTowerEmulError_[1]) {
+  if(meIntegrity_[1] && mePedestalOnline_[1] && meStatusFlags_[1] && (reducedReports_ || (meTiming_[1] && meTriggerTowerEmulError_[1]))) {
     if( meGlobalSummary_[1] ) dqmStore_->removeElement( meGlobalSummary_[1]->getName() );
     name = "EE global summary EE +";
     meGlobalSummary_[1] = dqmStore_->book2D(name, name, 100, 0., 100., 100, 0., 100.);
@@ -1494,8 +1498,8 @@ void EESummaryClient::analyze(void) {
       if ( meRecHitEnergy_[0] ) meRecHitEnergy_[0]->setBinContent( ix, iy, 0. );
       if ( meRecHitEnergy_[1] ) meRecHitEnergy_[1]->setBinContent( ix, iy, 0. );
 
-      if(meIntegrity_[0] && mePedestalOnline_[0] && meTiming_[0] && meStatusFlags_[0] && meTriggerTowerEmulError_[0] && meGlobalSummary_[0] ) meGlobalSummary_[0]->setBinContent( ix, iy, 6. );
-      if(meIntegrity_[1] && mePedestalOnline_[1] && meTiming_[1] && meStatusFlags_[1] && meTriggerTowerEmulError_[1] && meGlobalSummary_[1] ) meGlobalSummary_[1]->setBinContent( ix, iy, 6. );
+      if( meGlobalSummary_[0] ) meGlobalSummary_[0]->setBinContent( ix, iy, 6. );
+      if( meGlobalSummary_[1] ) meGlobalSummary_[1]->setBinContent( ix, iy, 6. );
 
     }
   }
@@ -1643,14 +1647,17 @@ void EESummaryClient::analyze(void) {
   if ( meTriggerTowerNonSingleTiming_[0] ) meTriggerTowerNonSingleTiming_[0]->setEntries( 0 );
   if ( meTriggerTowerNonSingleTiming_[1] ) meTriggerTowerNonSingleTiming_[1]->setEntries( 0 );
 
-  if(meIntegrity_[0] && mePedestalOnline_[0] && meTiming_[0] && meStatusFlags_[0] && meTriggerTowerEmulError_[0] && meGlobalSummary_[0] ) meGlobalSummary_[0]->setEntries( 0 );
-  if(meIntegrity_[1] && mePedestalOnline_[1] && meTiming_[1] && meStatusFlags_[1] && meTriggerTowerEmulError_[1] && meGlobalSummary_[1] ) meGlobalSummary_[1]->setEntries(0);
+  if( meGlobalSummary_[0] ) meGlobalSummary_[0]->setEntries( 0 );
+  if( meGlobalSummary_[1] ) meGlobalSummary_[1]->setEntries(0);
+
+  std::string subdir(subfolder_ == "" ? "" : subfolder_ + "/");
 
   for ( unsigned int i=0; i<clients_.size(); i++ ) {
 
     EEIntegrityClient* eeic = dynamic_cast<EEIntegrityClient*>(clients_[i]);
     EEStatusFlagsClient* eesfc = dynamic_cast<EEStatusFlagsClient*>(clients_[i]);
     EEPedestalOnlineClient* eepoc = dynamic_cast<EEPedestalOnlineClient*>(clients_[i]);
+    if(subfolder_ != "") eepoc = 0;
 
     EELaserClient* eelc = dynamic_cast<EELaserClient*>(clients_[i]);
     EELedClient* eeldc = dynamic_cast<EELedClient*>(clients_[i]);
@@ -1671,10 +1678,10 @@ void EESummaryClient::analyze(void) {
 
       int ism = superModules_[i];
 
-      me = dqmStore_->get( prefixME_ + "/EEOccupancyTask/EEOT rec hit energy " + Numbers::sEE(ism) );
+      me = dqmStore_->get( prefixME_ + "/EEOccupancyTask/" + subdir + "EEOT rec hit energy " + Numbers::sEE(ism) );
       hot01_[ism-1] = UtilsClient::getHisto( me, cloneME_, hot01_[ism-1] );
 
-      me = dqmStore_->get( prefixME_ + "/EEPedestalOnlineTask/Gain12/EEPOT pedestal " + Numbers::sEE(ism) + " G12" );
+      me = dqmStore_->get( prefixME_ + "/EEPedestalOnlineTask/" + subdir + "Gain12/EEPOT pedestal " + Numbers::sEE(ism) + " G12" );
       hpot01_[ism-1] = UtilsClient::getHisto( me, cloneME_, hpot01_[ism-1] );
 
       me = dqmStore_->get( prefixME_ + "/EETriggerTowerTask/EETTT Et map Real Digis " + Numbers::sEE(ism) );
@@ -1686,7 +1693,7 @@ void EESummaryClient::analyze(void) {
       me = dqmStore_->get( prefixME_ + "/EcalInfo/EEMM DCC" );
       norm01_ = UtilsClient::getHisto( me, cloneME_, norm01_ );
 
-      me = dqmStore_->get( prefixME_ + "/EERawDataTask/EERDT L1A FE errors" );
+      me = dqmStore_->get( prefixME_ + "/EERawDataTask/" + subdir + "EERDT L1A FE errors" );
       synch01_ = UtilsClient::getHisto( me, cloneME_, synch01_ );
 
       for ( int ix = 1; ix <= 50; ix++ ) {
@@ -2730,12 +2737,12 @@ void EESummaryClient::analyze(void) {
   for ( int jx = 1; jx <= 100; jx++ ) {
     for ( int jy = 1; jy <= 100; jy++ ) {
 
-      if(meIntegrity_[0] && mePedestalOnline_[0] && meTiming_[0] && meStatusFlags_[0] && meTriggerTowerEmulError_[0] && meGlobalSummary_[0]) {
+      if(meGlobalSummary_[0]) {
 
         float xval = 6;
         float val_in = meIntegrity_[0]->getBinContent(jx,jy);
         float val_po = mePedestalOnline_[0]->getBinContent(jx,jy);
-        float val_tm = meTiming_[0]->getBinContent((jx-1)/5+1,(jy-1)/5+1);
+        float val_tm = reducedReports_ ? 1. : meTiming_[0]->getBinContent((jx-1)/5+1,(jy-1)/5+1);
         float val_sf = meStatusFlags_[0]->getBinContent(jx,jy);
         // float val_ee = meTriggerTowerEmulError_[0]->getBinContent(jx,jy); // removed temporarily from the global summary
         float val_ee = 1;
@@ -2862,12 +2869,12 @@ void EESummaryClient::analyze(void) {
 
       }
 
-      if(meIntegrity_[1] && mePedestalOnline_[1] && meTiming_[1] && meStatusFlags_[1] && meTriggerTowerEmulError_[1] && meGlobalSummary_[1]) {
+      if(meGlobalSummary_[1]) {
 
         float xval = 6;
         float val_in = meIntegrity_[1]->getBinContent(jx,jy);
         float val_po = mePedestalOnline_[1]->getBinContent(jx,jy);
-        float val_tm = meTiming_[1]->getBinContent((jx-1)/5+1,(jy-1)/5+1);
+        float val_tm = reducedReports_ ? 1. : meTiming_[1]->getBinContent((jx-1)/5+1,(jy-1)/5+1);
         float val_sf = meStatusFlags_[1]->getBinContent(jx,jy);
         // float val_ee = meTriggerTowerEmulError_[1]->getBinContent(jx,jy); // removed temporarily from the global summary
         float val_ee = 1;
