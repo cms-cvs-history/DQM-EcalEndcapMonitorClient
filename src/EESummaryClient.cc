@@ -1,8 +1,8 @@
 /*
  * \file EESummaryClient.cc
  *
- * $Date: 2012/03/18 17:46:04 $
- * $Revision: 1.215.2.6 $
+ * $Date: 2012/03/29 13:49:32 $
+ * $Revision: 1.215.2.7 $
  * \author G. Della Ricca
  *
 */
@@ -370,7 +370,7 @@ void EESummaryClient::setup(void) {
     }
   }
 
-  if(statusFlagsClient){
+  if(statusFlagsClient && produceReports_){
     if ( meStatusFlags_[0] ) dqmStore_->removeElement( meStatusFlags_[0]->getName() );
     name = "EESFT EE - front-end status summary";
     meStatusFlags_[0] = dqmStore_->book2D(name, name, 100, 0., 100., 100, 0., 100.);
@@ -391,7 +391,7 @@ void EESummaryClient::setup(void) {
     }
   }
 
-  if(pedestalOnlineClient && subfolder_ == ""){
+  if(pedestalOnlineClient && produceReports_){
     if ( mePedestalOnline_[0] ) dqmStore_->removeElement( mePedestalOnline_[0]->getName() );
     name = "EEPOT EE - pedestal quality summary G12";
     mePedestalOnline_[0] = dqmStore_->book2D(name, name, 100, 0., 100., 100, 0., 100.);
