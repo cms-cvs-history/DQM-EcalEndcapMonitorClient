@@ -1,8 +1,8 @@
 /*
  * \file EESummaryClient.cc
  *
- * $Date: 2012/03/29 13:49:32 $
- * $Revision: 1.215.2.7 $
+ * $Date: 2012/03/29 22:18:16 $
+ * $Revision: 1.215.2.8 $
  * \author G. Della Ricca
  *
 */
@@ -1656,8 +1656,9 @@ void EESummaryClient::analyze(void) {
 
     EEIntegrityClient* eeic = dynamic_cast<EEIntegrityClient*>(clients_[i]);
     EEStatusFlagsClient* eesfc = dynamic_cast<EEStatusFlagsClient*>(clients_[i]);
+    if(!produceReports_) eesfc = 0;
     EEPedestalOnlineClient* eepoc = dynamic_cast<EEPedestalOnlineClient*>(clients_[i]);
-    if(subfolder_ != "") eepoc = 0;
+    if(!produceReports_) eepoc = 0;
 
     EELaserClient* eelc = dynamic_cast<EELaserClient*>(clients_[i]);
     EELedClient* eeldc = dynamic_cast<EELedClient*>(clients_[i]);
@@ -1753,12 +1754,12 @@ void EESummaryClient::analyze(void) {
               float xval = me->getBinContent( ix, iy );
 
               if ( ism >= 1 && ism <= 9 ) {
-                mePedestalOnline_[0]->setBinContent( 101 - jx, jy, xval );
+                if(mePedestalOnline_[0]) mePedestalOnline_[0]->setBinContent( 101 - jx, jy, xval );
               } else {
-                mePedestalOnline_[1]->setBinContent( jx, jy, xval );
+                if(mePedestalOnline_[1]) mePedestalOnline_[1]->setBinContent( jx, jy, xval );
               }
 
-              if ( xval == 0 ) mePedestalOnlineErr_->Fill( ism );
+              if ( xval == 0 && mePedestalOnlineErr_) mePedestalOnlineErr_->Fill( ism );
 
             }
 
@@ -1767,13 +1768,13 @@ void EESummaryClient::analyze(void) {
 
             if ( update01 ) {
 
-              mePedestalOnlineRMS_->Fill( ism, rms01 );
-              mePedestalOnlineMean_->Fill( ism, mean01 );
+              if(mePedestalOnlineRMS_) mePedestalOnlineRMS_->Fill( ism, rms01 );
+              if(mePedestalOnlineMean_) mePedestalOnlineMean_->Fill( ism, mean01 );
 
               if ( ism >= 1 && ism <= 9 ) {
-                mePedestalOnlineRMSMap_[0]->setBinContent( 101 - jx, jy, rms01 );
+                if(mePedestalOnlineRMSMap_[0]) mePedestalOnlineRMSMap_[0]->setBinContent( 101 - jx, jy, rms01 );
               } else {
-                mePedestalOnlineRMSMap_[1]->setBinContent( jx, jy, rms01 );
+                if(mePedestalOnlineRMSMap_[1]) mePedestalOnlineRMSMap_[1]->setBinContent( jx, jy, rms01 );
               }
 
             }
