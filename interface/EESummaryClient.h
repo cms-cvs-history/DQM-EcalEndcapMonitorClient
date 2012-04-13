@@ -4,8 +4,8 @@
 /*
  * \file EESummaryClient.h
  *
- * $Date: 2012/03/18 17:20:56 $
- * $Revision: 1.50.2.3 $
+ * $Date: 2012/03/29 13:49:30 $
+ * $Revision: 1.50.2.4 $
  * \author G. Della Ricca
  *
 */
@@ -191,6 +191,8 @@ TProfile2D* hpot01_[18];
 TProfile2D* httt01_[18];
 TProfile2D* htmt01_[18];
 TH1F* norm01_, *synch01_;
+
+ float timingNHitThreshold_;
 
 };
 
