@@ -1,8 +1,8 @@
 /*
  * \file EESummaryClient.cc
  *
- * $Date: 2012/03/30 09:35:31 $
- * $Revision: 1.215.2.9 $
+ * $Date: 2012/04/13 17:59:45 $
+ * $Revision: 1.215.2.10 $
  * \author G. Della Ricca
  *
 */
@@ -2148,7 +2148,7 @@ void EESummaryClient::analyze(void) {
                 // float emulErrorVal = h2->GetBinContent( ix, iy ) + h3->GetBinContent( ix, iy );
                 float emulErrorVal = h2->GetBinContent( ix, iy );
 
-                if( emulErrorVal!=0 && hadNonZeroInterest ) xval = 0;
+                if( emulErrorVal > 0.01 * ievt_ && hadNonZeroInterest ) xval = 0;
 
               }
 
@@ -2750,8 +2750,8 @@ void EESummaryClient::analyze(void) {
         float val_po = mePedestalOnline_[0]->getBinContent(jx,jy);
         float val_tm = reducedReports_ ? 1. : meTiming_[0]->getBinContent((jx-1)/5+1,(jy-1)/5+1);
         float val_sf = meStatusFlags_[0]->getBinContent(jx,jy);
-        // float val_ee = meTriggerTowerEmulError_[0]->getBinContent(jx,jy); // removed temporarily from the global summary
-        float val_ee = 1;
+	float val_ee = reducedReports_ ? 1. : meTriggerTowerEmulError_[0]->getBinContent(jx,jy); // removed temporarily from the global summary
+        // float val_ee = 1;
 
         // combine all the available wavelenghts in unique laser status
         // for each laser turn dark color and yellow into bright green
@@ -2879,8 +2879,8 @@ void EESummaryClient::analyze(void) {
         float val_po = mePedestalOnline_[1]->getBinContent(jx,jy);
         float val_tm = reducedReports_ ? 1. : meTiming_[1]->getBinContent((jx-1)/5+1,(jy-1)/5+1);
         float val_sf = meStatusFlags_[1]->getBinContent(jx,jy);
-        // float val_ee = meTriggerTowerEmulError_[1]->getBinContent(jx,jy); // removed temporarily from the global summary
-        float val_ee = 1;
+	float val_ee = reducedReports_ ? 1. : meTriggerTowerEmulError_[1]->getBinContent(jx,jy); // removed temporarily from the global summary
+        // float val_ee = 1;
 
         // combine all the available wavelenghts in unique laser status
         // for each laser turn dark color and yellow into bright green
